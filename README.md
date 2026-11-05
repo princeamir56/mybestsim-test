@@ -290,7 +290,9 @@ pas reproductible.
 
 ## Méthode
 
-Six étapes, **un commit par étape**, chacune relue avant la suivante :
+Six étapes, chacune relue avant la suivante. L'historique détaillé a été regroupé en un
+seul commit à la publication du dépôt ; le déroulé est consigné dans
+[AI-USAGE.md](AI-USAGE.md).
 
 | | Étape | État |
 |---|---|---|

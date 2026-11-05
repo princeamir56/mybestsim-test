@@ -13,8 +13,9 @@ tenu **au fil de l'eau**, pas reconstitué à la fin.
 
 ## La boucle de travail
 
-Je travaille en **6 étapes, un commit par étape**, et l'agent s'arrête à chaque fin
-d'étape pour que je relise avant de continuer. Trois règles que j'ai posées dès le
+Je travaille en **6 étapes**, et l'agent s'arrête à chaque fin d'étape pour que je relise
+avant de continuer. J'ai commité étape par étape, puis regroupé l'historique en un seul
+commit à la publication du dépôt : ce fichier en garde le déroulé. Trois règles que j'ai posées dès le
 premier message :
 
 1. **Git est à moi.** L'agent n'a le droit de lancer ni `git add`, ni `commit`, ni
@@ -655,7 +656,8 @@ Les deux sorties sont maintenant stables, ce que l'agent a vérifié avec un bui
 LF, comme sur la CI, comparé à la version commitée.
 
 **Exception à ma règle « Git est à moi »** : pour ce correctif, je lui ai explicitement demandé de
-résoudre le conflit et de pousser. La fusion et le push sont donc de lui, sans `--force`.
+résoudre le conflit et de pousser. La fusion et le push sont donc de lui, sans `--force`. Depuis, je commite et je pousse de
+nouveau moi-même, et les commits automatiques du workflow sont à mon nom.
 
 ### Ce que Lighthouse a mesuré (local, brotli, téléphone simulé)
 
