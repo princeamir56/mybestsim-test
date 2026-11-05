@@ -1,0 +1,1582 @@
+{
+ "meta": {
+  "genere_le": "2026-11-04",
+  "lignes": 5056,
+  "fichiers": 18,
+  "devise": "EUR",
+  "destinations": 54,
+  "pays": 50,
+  "zones": 4
+ },
+ "faits": {
+  "lignes": 5056,
+  "fournisseurs": 18,
+  "fichiers": 18,
+  "limites": 4403,
+  "illimites": 653,
+  "illimites_fournisseurs": 18,
+  "illimites_tous_fournisseurs": true,
+  "references": 4325,
+  "sku_uniques": true,
+  "doublons_exacts": 0,
+  "doublons_hors_sku": 0,
+  "multi_prix_couples": 618,
+  "multi_prix_lignes": 1347,
+  "multi_prix_expliques": 457,
+  "multi_prix_ecart_median": 6.831393977142972,
+  "multi_prix_ecart_max": 56.06580540976987,
+  "na_lignes": 192,
+  "chers": 56,
+  "chers_illimites": 56,
+  "chers_30j": 56,
+  "chers_zone": 56,
+  "chers_tous_illimites": true,
+  "chers_tous_30j": true,
+  "chers_tous_zone": true,
+  "chers_si_illimites_exclus": 0,
+  "prix_pile_100": 0,
+  "max_limite": 99.39,
+  "paliers": [
+   1,
+   3,
+   5,
+   10,
+   20,
+   50
+  ],
+  "nb_paliers": 6,
+  "palier_max": 50,
+  "go_moyen": 14.491483079718375,
+  "go_median": 5.0,
+  "data_display_exceptions": 0,
+  "product_name_exceptions": 0,
+  "destinations": 54,
+  "pays": 50,
+  "zones": 4,
+  "noms_zones": [
+   "Europe",
+   "Asie",
+   "Amérique du Nord",
+   "Monde"
+  ],
+  "zones_lignes": 778,
+  "zones_part": 15.3876582278481,
+  "zones_en_tete": true,
+  "prix_moyen_zone": 42.50562982005142,
+  "prix_moyen_mono": 26.89990182328191
+ },
+ "kpi": {
+  "total": 5056,
+  "fournisseurs": 18,
+  "plus_100": 56,
+  "prix_min": 5.36,
+  "prix_max": 154.63,
+  "produit_min": "aloSIM · eSIM Irlande 1 Go 7 jours",
+  "produit_max": "aloSIM · eSIM Europe Illimité 30 jours",
+  "amplitude": 28.8,
+  "go_moyen": 14.49,
+  "go_median": 5.0,
+  "go_base": 4403,
+  "prix_moyen": 29.3,
+  "prix_median": 20.7,
+  "prix_moyen_limite": 24.63,
+  "prix_median_limite": 17.57,
+  "prix_moyen_illimite": 60.81,
+  "prix_median_illimite": 51.28,
+  "illimites": 653,
+  "part_illimites": 12.9,
+  "max_limite": 99.39,
+  "plus_100_illimites": 56,
+  "plus_100_30j": 56,
+  "plus_100_zone": 56,
+  "plus_100_tous_illimites": true,
+  "part_5g": 34.7,
+  "part_topup": 54.2
+ },
+ "fournisseurs": [
+  {
+   "nom": "Airalo",
+   "produits": 722,
+   "part": 14.3,
+   "prix_moyen": 27.05,
+   "prix_median": 18.48,
+   "prix_min": 5.38,
+   "prix_max": 136.98,
+   "illimites": 91,
+   "eur_go_median": 2.764,
+   "part_5g": 30.2,
+   "part_topup": 52.6,
+   "destinations": 54,
+   "victoires": 166,
+   "presence": 525,
+   "taux_victoire": 31.6
+  },
+  {
+   "nom": "Ubigi",
+   "produits": 562,
+   "part": 11.1,
+   "prix_moyen": 29.76,
+   "prix_median": 22.1,
+   "prix_min": 5.39,
+   "prix_max": 142.88,
+   "illimites": 68,
+   "eur_go_median": 2.41,
+   "part_5g": 37.7,
+   "part_topup": 56.9,
+   "destinations": 54,
+   "victoires": 111,
+   "presence": 439,
+   "taux_victoire": 25.3
+  },
+  {
+   "nom": "eSIMX",
+   "produits": 432,
+   "part": 8.5,
+   "prix_moyen": 29.33,
+   "prix_median": 19.91,
+   "prix_min": 5.36,
+   "prix_max": 136.53,
+   "illimites": 55,
+   "eur_go_median": 2.514,
+   "part_5g": 37.3,
+   "part_topup": 53.2,
+   "destinations": 54,
+   "victoires": 94,
+   "presence": 363,
+   "taux_victoire": 25.9
+  },
+  {
+   "nom": "Saily",
+   "produits": 382,
+   "part": 7.6,
+   "prix_moyen": 28.86,
+   "prix_median": 21.22,
+   "prix_min": 5.49,
+   "prix_max": 142.02,
+   "illimites": 56,
+   "eur_go_median": 2.596,
+   "part_5g": 35.9,
+   "part_topup": 56.8,
+   "destinations": 54,
+   "victoires": 69,
+   "presence": 319,
+   "taux_victoire": 21.6
+  },
+  {
+   "nom": "GigSky",
+   "produits": 342,
+   "part": 6.8,
+   "prix_moyen": 30.67,
+   "prix_median": 21.34,
+   "prix_min": 5.36,
+   "prix_max": 149.53,
+   "illimites": 44,
+   "eur_go_median": 2.469,
+   "part_5g": 34.5,
+   "part_topup": 52.9,
+   "destinations": 53,
+   "victoires": 77,
+   "presence": 290,
+   "taux_victoire": 26.6
+  },
+  {
+   "nom": "Nomad",
+   "produits": 312,
+   "part": 6.2,
+   "prix_moyen": 30.21,
+   "prix_median": 21.58,
+   "prix_min": 5.38,
+   "prix_max": 130.15,
+   "illimites": 45,
+   "eur_go_median": 2.546,
+   "part_5g": 35.6,
+   "part_topup": 55.8,
+   "destinations": 53,
+   "victoires": 74,
+   "presence": 276,
+   "taux_victoire": 26.8
+  },
+  {
+   "nom": "Instabridge",
+   "produits": 282,
+   "part": 5.6,
+   "prix_moyen": 30.19,
+   "prix_median": 21.71,
+   "prix_min": 5.4,
+   "prix_max": 141.03,
+   "illimites": 33,
+   "eur_go_median": 2.492,
+   "part_5g": 31.9,
+   "part_topup": 57.4,
+   "destinations": 53,
+   "victoires": 51,
+   "presence": 251,
+   "taux_victoire": 20.3
+  },
+  {
+   "nom": "aloSIM",
+   "produits": 262,
+   "part": 5.2,
+   "prix_moyen": 30.71,
+   "prix_median": 25.05,
+   "prix_min": 5.36,
+   "prix_max": 154.63,
+   "illimites": 37,
+   "eur_go_median": 2.368,
+   "part_5g": 39.3,
+   "part_topup": 52.7,
+   "destinations": 54,
+   "victoires": 52,
+   "presence": 226,
+   "taux_victoire": 23.0
+  },
+  {
+   "nom": "Holafly",
+   "produits": 242,
+   "part": 4.8,
+   "prix_moyen": 27.98,
+   "prix_median": 18.57,
+   "prix_min": 5.37,
+   "prix_max": 126.91,
+   "illimites": 29,
+   "eur_go_median": 2.747,
+   "part_5g": 34.3,
+   "part_topup": 58.7,
+   "destinations": 54,
+   "victoires": 61,
+   "presence": 222,
+   "taux_victoire": 27.5
+  },
+  {
+   "nom": "Yesim",
+   "produits": 222,
+   "part": 4.4,
+   "prix_moyen": 32.1,
+   "prix_median": 24.76,
+   "prix_min": 5.36,
+   "prix_max": 153.22,
+   "illimites": 28,
+   "eur_go_median": 2.353,
+   "part_5g": 35.6,
+   "part_topup": 54.5,
+   "destinations": 53,
+   "victoires": 40,
+   "presence": 204,
+   "taux_victoire": 19.6
+  },
+  {
+   "nom": "Jetpac",
+   "produits": 212,
+   "part": 4.2,
+   "prix_moyen": 29.94,
+   "prix_median": 18.96,
+   "prix_min": 5.53,
+   "prix_max": 135.33,
+   "illimites": 28,
+   "eur_go_median": 2.492,
+   "part_5g": 30.7,
+   "part_topup": 54.7,
+   "destinations": 54,
+   "victoires": 50,
+   "presence": 196,
+   "taux_victoire": 25.5
+  },
+  {
+   "nom": "Truphone",
+   "produits": 202,
+   "part": 4.0,
+   "prix_moyen": 27.41,
+   "prix_median": 17.78,
+   "prix_min": 5.47,
+   "prix_max": 152.96,
+   "illimites": 25,
+   "eur_go_median": 2.734,
+   "part_5g": 37.1,
+   "part_topup": 50.0,
+   "destinations": 52,
+   "victoires": 26,
+   "presence": 189,
+   "taux_victoire": 13.8
+  },
+  {
+   "nom": "JamboSIM",
+   "produits": 182,
+   "part": 3.6,
+   "prix_moyen": 30.98,
+   "prix_median": 24.88,
+   "prix_min": 5.46,
+   "prix_max": 140.24,
+   "illimites": 25,
+   "eur_go_median": 2.338,
+   "part_5g": 33.5,
+   "part_topup": 49.5,
+   "destinations": 51,
+   "victoires": 51,
+   "presence": 171,
+   "taux_victoire": 29.8
+  },
+  {
+   "nom": "Flexiroam",
+   "produits": 172,
+   "part": 3.4,
+   "prix_moyen": 31.31,
+   "prix_median": 21.69,
+   "prix_min": 5.38,
+   "prix_max": 134.79,
+   "illimites": 28,
+   "eur_go_median": 2.463,
+   "part_5g": 34.9,
+   "part_topup": 55.8,
+   "destinations": 54,
+   "victoires": 49,
+   "presence": 159,
+   "taux_victoire": 30.8
+  },
+  {
+   "nom": "Yatelo",
+   "produits": 162,
+   "part": 3.2,
+   "prix_moyen": 30.13,
+   "prix_median": 24.02,
+   "prix_min": 5.54,
+   "prix_max": 143.83,
+   "illimites": 21,
+   "eur_go_median": 2.568,
+   "part_5g": 35.2,
+   "part_topup": 53.7,
+   "destinations": 46,
+   "victoires": 56,
+   "presence": 149,
+   "taux_victoire": 37.6
+  },
+  {
+   "nom": "Maya Mobile",
+   "produits": 152,
+   "part": 3.0,
+   "prix_moyen": 28.91,
+   "prix_median": 18.66,
+   "prix_min": 5.98,
+   "prix_max": 141.99,
+   "illimites": 18,
+   "eur_go_median": 2.508,
+   "part_5g": 34.2,
+   "part_topup": 45.4,
+   "destinations": 45,
+   "victoires": 38,
+   "presence": 138,
+   "taux_victoire": 27.5
+  },
+  {
+   "nom": "Roamic",
+   "produits": 122,
+   "part": 2.4,
+   "prix_moyen": 27.97,
+   "prix_median": 20.05,
+   "prix_min": 5.95,
+   "prix_max": 147.07,
+   "illimites": 13,
+   "eur_go_median": 2.496,
+   "part_5g": 33.6,
+   "part_topup": 50.8,
+   "destinations": 49,
+   "victoires": 28,
+   "presence": 119,
+   "taux_victoire": 23.5
+  },
+  {
+   "nom": "4S eSIM",
+   "produits": 92,
+   "part": 1.8,
+   "prix_moyen": 24.26,
+   "prix_median": 15.03,
+   "prix_min": 5.6,
+   "prix_max": 128.8,
+   "illimites": 9,
+   "eur_go_median": 2.928,
+   "part_5g": 33.7,
+   "part_topup": 56.5,
+   "destinations": 46,
+   "victoires": 20,
+   "presence": 89,
+   "taux_victoire": 22.5
+  }
+ ],
+ "paliers": [
+  {
+   "label": "1 Go",
+   "go": 1,
+   "offres": 728,
+   "prix_median": 6.71,
+   "eur_go_median": 6.715,
+   "prix_min": 5.36,
+   "prix_max": 11.86
+  },
+  {
+   "label": "3 Go",
+   "go": 3,
+   "offres": 751,
+   "prix_median": 11.21,
+   "eur_go_median": 3.737,
+   "prix_min": 8.56,
+   "prix_max": 18.96
+  },
+  {
+   "label": "5 Go",
+   "go": 5,
+   "offres": 767,
+   "prix_median": 14.23,
+   "eur_go_median": 2.846,
+   "prix_min": 11.11,
+   "prix_max": 24.7
+  },
+  {
+   "label": "10 Go",
+   "go": 10,
+   "offres": 709,
+   "prix_median": 21.41,
+   "eur_go_median": 2.141,
+   "prix_min": 16.43,
+   "prix_max": 36.55
+  },
+  {
+   "label": "20 Go",
+   "go": 20,
+   "offres": 750,
+   "prix_median": 32.73,
+   "eur_go_median": 1.636,
+   "prix_min": 25.1,
+   "prix_max": 55.62
+  },
+  {
+   "label": "50 Go",
+   "go": 50,
+   "offres": 698,
+   "prix_median": 58.75,
+   "eur_go_median": 1.175,
+   "prix_min": 45.29,
+   "prix_max": 99.39
+  },
+  {
+   "label": "Illimité",
+   "go": null,
+   "offres": 653,
+   "prix_median": 51.28,
+   "eur_go_median": null,
+   "prix_min": 30.69,
+   "prix_max": 154.63
+  }
+ ],
+ "prime": [
+  {
+   "jours": 7,
+   "illimite": 34.48,
+   "limite": 16.28,
+   "ratio": 2.12,
+   "offres": 209
+  },
+  {
+   "jours": 15,
+   "illimite": 50.05,
+   "limite": 17.86,
+   "ratio": 2.8,
+   "offres": 192
+  },
+  {
+   "jours": 30,
+   "illimite": 80.91,
+   "limite": 22.1,
+   "ratio": 3.66,
+   "offres": 252
+  }
+ ],
+ "portee": [
+  {
+   "nom": "Mono-pays",
+   "offres": 4278,
+   "part": 84.6,
+   "prix_moyen": 26.9,
+   "prix_median": 19.2,
+   "go_moyen": 14.3,
+   "part_illim": 12.5
+  },
+  {
+   "nom": "Régional / Monde",
+   "offres": 778,
+   "part": 15.4,
+   "prix_moyen": 42.51,
+   "prix_median": 29.38,
+   "go_moyen": 15.4,
+   "part_illim": 15.0
+  }
+ ],
+ "zones": [
+  {
+   "nom": "Europe",
+   "offres": 206,
+   "prix_median": 27.06,
+   "part_illim": 14.1
+  },
+  {
+   "nom": "Asie",
+   "offres": 194,
+   "prix_median": 26.62,
+   "part_illim": 14.9
+  },
+  {
+   "nom": "Amérique du Nord",
+   "offres": 192,
+   "prix_median": 30.44,
+   "part_illim": 14.6
+  },
+  {
+   "nom": "Monde",
+   "offres": 186,
+   "prix_median": 32.26,
+   "part_illim": 16.7
+  }
+ ],
+ "ecarts": {
+  "combinaisons": 1039,
+  "median_pct": 13.4,
+  "median_eur": 2.25,
+  "max_pct": 64.3,
+  "max_eur": 60.37,
+  "total_combinaisons": 1113,
+  "top": [
+   {
+    "libelle": "Europe · Illimité · 30 j",
+    "min": 94.26,
+    "max": 154.63,
+    "eur": 60.37,
+    "pct": 64.0
+   },
+   {
+    "libelle": "Asie · Illimité · 30 j",
+    "min": 93.26,
+    "max": 153.22,
+    "eur": 59.96,
+    "pct": 64.0
+   },
+   {
+    "libelle": "Monde · Illimité · 30 j",
+    "min": 96.06,
+    "max": 152.96,
+    "eur": 56.9,
+    "pct": 59.0
+   },
+   {
+    "libelle": "Amérique du Nord · Illimité · 30 j",
+    "min": 97.57,
+    "max": 147.07,
+    "eur": 49.5,
+    "pct": 51.0
+   },
+   {
+    "libelle": "Monde · 50 Go · 30 j",
+    "min": 84.26,
+    "max": 99.2,
+    "eur": 14.94,
+    "pct": 18.0
+   }
+  ],
+  "top_resume": "Les cinq cas les plus rentables sont tous des offres régionales de 30 jours."
+ },
+ "decisions": [
+  {
+   "id": "D1",
+   "question": "Qu'est-ce qu'« un produit » ?",
+   "retenu": "5 056 produits, un par SKU",
+   "pourquoi": "Les 5 056 SKU sont uniques, et surtout : dédupliquer sur toutes les colonnes <em>en ignorant le SKU</em> ne retire <strong>aucune</strong> ligne. Chaque ligne est donc une référence vendable distincte — c'est aussi ce que le fournisseur nous importe.",
+   "alternative": "4 325 références commerciales (fournisseur + nom), soit 731 de moins (−14,5 %)."
+  },
+  {
+   "id": "D2",
+   "question": "Que faire des 653 forfaits illimités dans la moyenne de Go ?",
+   "retenu": "Exclus — moyenne calculée sur les 4 403 forfaits à volume limité",
+   "pourquoi": "Compter un forfait illimité pour 0 Go est factuellement faux : l'illimité, c'est <em>plus</em> de data, pas moins. Les compter pour zéro ferait <em>baisser</em> la moyenne alors que l'offre est supérieure. Leur volume n'est pas inconnu, il est indéfini — d'où un KPI explicitement libellé.",
+   "alternative": "12,62 Go en les comptant pour zéro, soit 12,9 % de moins — un écart créé de toutes pièces."
+  },
+  {
+   "id": "D3",
+   "question": "618 produits portent plusieurs prix : variantes ou données sales ?",
+   "retenu": "Variantes réelles — aucune déduplication",
+   "pourquoi": "Aucun doublon exact n'existe, même en ignorant le SKU. 457 des 618 couples se distinguent par un attribut réel (4G/5G, rechargeable). L'écart intra-couple médian est de 6,8 % : c'est une amplitude de pricing, pas une faute de saisie. Et sur un comparateur, qu'un même produit existe à plusieurs prix <em>est</em> l'information.",
+   "alternative": "En ne gardant que le prix le plus bas par référence : 4 325 produits, prix moyen 29,16 €, et surtout <strong>39 produits à plus de 100 € au lieu de 56</strong>."
+  },
+  {
+   "id": "D4",
+   "question": "Les zones géographiques comptent-elles comme des pays ?",
+   "retenu": "Non — 50 pays et 4 zones présentés séparément",
+   "pourquoi": "Une eSIM « Europe » et une eSIM « Espagne » ne sont pas deux lignes d'un même classement. Comme les zones sont mécaniquement les 4 plus gros volumes, les mélanger placerait 4 fausses « destinations » en tête de toute répartition géographique. L'écart de prix confirme deux marchés distincts : 42,51 € contre 26,90 €.",
+   "alternative": "« 54 destinations », avec Europe, Asie, Amérique du Nord et Monde aux 4 premières places — par construction."
+  }
+ ],
+ "pieges": [
+  {
+   "titre": "country_code « NA » n'est pas une valeur nulle",
+   "texte": "192 lignes portent le code <code>NA</code> pour « Amérique du Nord ». Lues avec les réglages par défaut de pandas, elles deviennent <code>NaN</code> — vérifié : exactement 192 disparitions silencieuses. Le chargeur impose <code>keep_default_na=False</code>, et une assertion fait échouer le build si jamais ces lignes venaient à manquer."
+  },
+  {
+   "titre": "Les 56 produits à plus de 100 € sont tous des illimités",
+   "texte": "Tous, sans exception — et tous en validité 30 jours, tous régionaux. Le forfait à volume limité le plus cher du catalogue s'arrête à <strong>99,39 €</strong>. La barre des 100 € tombe pile dans l'intervalle vide entre les deux familles de produits : « nettoyer » les lignes sans volume répondrait <strong>0</strong> à une question imposée du brief, sans qu'on s'en aperçoive."
+  },
+  {
+   "titre": "La moyenne de Go vaut 2,9 fois la médiane",
+   "texte": "<code>data_gb</code> n'est pas continu : c'est un palier à 6 valeurs. Moyenne 14,49 Go, <strong>médiane 5 Go</strong> — l'écart vient du palier 50 Go. Publier la seule moyenne donne une image fausse du catalogue, d'où la distribution complète affichée plus bas."
+  },
+  {
+   "titre": "Aucun doublon, et aucun texte libre à analyser",
+   "texte": "Vérifié ligne à ligne : <code>data_display</code> est dérivable de <code>data_gb</code>, et <code>product_name</code> reflète pays + volume + validité — aucune exception sur 5 056 lignes. Tout est déjà dans les colonnes typées, mais il fallait le prouver avant de s'appuyer dessus."
+  }
+ ],
+ "limites": [
+  "Ce jeu de données est un <strong>catalogue</strong>, pas un journal de transactions : il ne contient ni ventes, ni popularité, ni marge. Aucun classement « des plus vendus » n'est calculable, et aucun n'est affiché.",
+  "Les prix ne sont pas confrontés aux sites des fournisseurs : ce dashboard décrit le catalogue importé, pas le marché réel.",
+  "Le périmètre exact de chaque offre (opérateur hôte, politique d'usage raisonnable sur les illimités) n'est pas dans les données."
+ ],
+ "distribution": {
+  "pas": 5,
+  "classes": [
+   {
+    "de": 5,
+    "a": 10,
+    "limites": 887,
+    "illimites": 0
+   },
+   {
+    "de": 10,
+    "a": 15,
+    "limites": 1025,
+    "illimites": 0
+   },
+   {
+    "de": 15,
+    "a": 20,
+    "limites": 580,
+    "illimites": 0
+   },
+   {
+    "de": 20,
+    "a": 25,
+    "limites": 311,
+    "illimites": 0
+   },
+   {
+    "de": 25,
+    "a": 30,
+    "limites": 368,
+    "illimites": 0
+   },
+   {
+    "de": 30,
+    "a": 35,
+    "limites": 272,
+    "illimites": 119
+   },
+   {
+    "de": 35,
+    "a": 40,
+    "limites": 186,
+    "illimites": 65
+   },
+   {
+    "de": 40,
+    "a": 45,
+    "limites": 31,
+    "illimites": 13
+   },
+   {
+    "de": 45,
+    "a": 50,
+    "limites": 130,
+    "illimites": 106
+   },
+   {
+    "de": 50,
+    "a": 55,
+    "limites": 187,
+    "illimites": 73
+   },
+   {
+    "de": 55,
+    "a": 60,
+    "limites": 110,
+    "illimites": 2
+   },
+   {
+    "de": 60,
+    "a": 65,
+    "limites": 96,
+    "illimites": 12
+   },
+   {
+    "de": 65,
+    "a": 70,
+    "limites": 88,
+    "illimites": 9
+   },
+   {
+    "de": 70,
+    "a": 75,
+    "limites": 52,
+    "illimites": 68
+   },
+   {
+    "de": 75,
+    "a": 80,
+    "limites": 27,
+    "illimites": 53
+   },
+   {
+    "de": 80,
+    "a": 85,
+    "limites": 13,
+    "illimites": 53
+   },
+   {
+    "de": 85,
+    "a": 90,
+    "limites": 14,
+    "illimites": 14
+   },
+   {
+    "de": 90,
+    "a": 95,
+    "limites": 16,
+    "illimites": 2
+   },
+   {
+    "de": 95,
+    "a": 100,
+    "limites": 10,
+    "illimites": 8
+   },
+   {
+    "de": 100,
+    "a": 105,
+    "limites": 0,
+    "illimites": 12
+   },
+   {
+    "de": 105,
+    "a": 110,
+    "limites": 0,
+    "illimites": 5
+   },
+   {
+    "de": 110,
+    "a": 115,
+    "limites": 0,
+    "illimites": 3
+   },
+   {
+    "de": 115,
+    "a": 120,
+    "limites": 0,
+    "illimites": 1
+   },
+   {
+    "de": 120,
+    "a": 125,
+    "limites": 0,
+    "illimites": 2
+   },
+   {
+    "de": 125,
+    "a": 130,
+    "limites": 0,
+    "illimites": 9
+   },
+   {
+    "de": 130,
+    "a": 135,
+    "limites": 0,
+    "illimites": 5
+   },
+   {
+    "de": 135,
+    "a": 140,
+    "limites": 0,
+    "illimites": 6
+   },
+   {
+    "de": 140,
+    "a": 145,
+    "limites": 0,
+    "illimites": 8
+   },
+   {
+    "de": 145,
+    "a": 150,
+    "limites": 0,
+    "illimites": 2
+   },
+   {
+    "de": 150,
+    "a": 155,
+    "limites": 0,
+    "illimites": 3
+   }
+  ]
+ },
+ "matrice": {
+  "colonnes": [
+   "1 Go",
+   "3 Go",
+   "5 Go",
+   "10 Go",
+   "20 Go",
+   "50 Go",
+   "Illimité"
+  ],
+  "marche": [
+   6.71,
+   11.21,
+   14.23,
+   21.41,
+   32.73,
+   58.75,
+   51.28
+  ],
+  "lignes": [
+   {
+    "nom": "Saily",
+    "cases": [
+     {
+      "prix": 6.63,
+      "ecart": -1.3,
+      "offres": 57
+     },
+     {
+      "prix": 11.1,
+      "ecart": -1.0,
+      "offres": 60
+     },
+     {
+      "prix": 13.48,
+      "ecart": -5.3,
+      "offres": 47
+     },
+     {
+      "prix": 20.84,
+      "ecart": -2.7,
+      "offres": 56
+     },
+     {
+      "prix": 32.66,
+      "ecart": -0.2,
+      "offres": 58
+     },
+     {
+      "prix": 53.03,
+      "ecart": -9.7,
+      "offres": 48
+     },
+     {
+      "prix": 49.12,
+      "ecart": -4.2,
+      "offres": 56
+     }
+    ],
+    "moyenne": -3.5
+   },
+   {
+    "nom": "4S eSIM",
+    "cases": [
+     {
+      "prix": 7.12,
+      "ecart": 6.0,
+      "offres": 19
+     },
+     {
+      "prix": 11.39,
+      "ecart": 1.6,
+      "offres": 15
+     },
+     {
+      "prix": 14.04,
+      "ecart": -1.4,
+      "offres": 18
+     },
+     {
+      "prix": 19.8,
+      "ecart": -7.5,
+      "offres": 13
+     },
+     {
+      "prix": 28.51,
+      "ecart": -12.9,
+      "offres": 11
+     },
+     {
+      "prix": 58.61,
+      "ecart": -0.2,
+      "offres": 7
+     },
+     {
+      "prix": 47.17,
+      "ecart": -8.0,
+      "offres": 9
+     }
+    ],
+    "moyenne": -3.2
+   },
+   {
+    "nom": "Maya Mobile",
+    "cases": [
+     {
+      "prix": 6.84,
+      "ecart": 1.9,
+      "offres": 19
+     },
+     {
+      "prix": 10.29,
+      "ecart": -8.2,
+      "offres": 25
+     },
+     {
+      "prix": 13.67,
+      "ecart": -3.9,
+      "offres": 29
+     },
+     {
+      "prix": 18.91,
+      "ecart": -11.7,
+      "offres": 23
+     },
+     {
+      "prix": 32.96,
+      "ecart": 0.7,
+      "offres": 19
+     },
+     {
+      "prix": 60.03,
+      "ecart": 2.2,
+      "offres": 19
+     },
+     {
+      "prix": 52.69,
+      "ecart": 2.7,
+      "offres": 18
+     }
+    ],
+    "moyenne": -2.3
+   },
+   {
+    "nom": "Roamic",
+    "cases": [
+     {
+      "prix": 7.85,
+      "ecart": 16.9,
+      "offres": 14
+     },
+     {
+      "prix": 12.54,
+      "ecart": 11.8,
+      "offres": 20
+     },
+     {
+      "prix": 13.13,
+      "ecart": -7.7,
+      "offres": 22
+     },
+     {
+      "prix": 21.7,
+      "ecart": 1.4,
+      "offres": 21
+     },
+     {
+      "prix": 32.9,
+      "ecart": 0.5,
+      "offres": 17
+     },
+     {
+      "prix": 55.01,
+      "ecart": -6.4,
+      "offres": 15
+     },
+     {
+      "prix": 36.88,
+      "ecart": -28.1,
+      "offres": 13
+     }
+    ],
+    "moyenne": -1.7
+   },
+   {
+    "nom": "Ubigi",
+    "cases": [
+     {
+      "prix": 6.76,
+      "ecart": 0.7,
+      "offres": 78
+     },
+     {
+      "prix": 11.3,
+      "ecart": 0.8,
+      "offres": 73
+     },
+     {
+      "prix": 13.71,
+      "ecart": -3.7,
+      "offres": 84
+     },
+     {
+      "prix": 20.89,
+      "ecart": -2.4,
+      "offres": 76
+     },
+     {
+      "prix": 31.42,
+      "ecart": -4.0,
+      "offres": 95
+     },
+     {
+      "prix": 56.62,
+      "ecart": -3.6,
+      "offres": 88
+     },
+     {
+      "prix": 51.95,
+      "ecart": 1.3,
+      "offres": 68
+     }
+    ],
+    "moyenne": -1.6
+   },
+   {
+    "nom": "JamboSIM",
+    "cases": [
+     {
+      "prix": 6.27,
+      "ecart": -6.6,
+      "offres": 23
+     },
+     {
+      "prix": 11.27,
+      "ecart": 0.5,
+      "offres": 22
+     },
+     {
+      "prix": 13.02,
+      "ecart": -8.5,
+      "offres": 25
+     },
+     {
+      "prix": 22.93,
+      "ecart": 7.1,
+      "offres": 28
+     },
+     {
+      "prix": 33.54,
+      "ecart": 2.5,
+      "offres": 32
+     },
+     {
+      "prix": 59.84,
+      "ecart": 1.8,
+      "offres": 27
+     },
+     {
+      "prix": 47.54,
+      "ecart": -7.3,
+      "offres": 25
+     }
+    ],
+    "moyenne": -1.5
+   },
+   {
+    "nom": "Yesim",
+    "cases": [
+     {
+      "prix": 6.36,
+      "ecart": -5.3,
+      "offres": 26
+     },
+     {
+      "prix": 11.09,
+      "ecart": -1.1,
+      "offres": 30
+     },
+     {
+      "prix": 13.86,
+      "ecart": -2.6,
+      "offres": 31
+     },
+     {
+      "prix": 20.64,
+      "ecart": -3.6,
+      "offres": 29
+     },
+     {
+      "prix": 33.54,
+      "ecart": 2.5,
+      "offres": 39
+     },
+     {
+      "prix": 58.54,
+      "ecart": -0.4,
+      "offres": 39
+     },
+     {
+      "prix": 52.43,
+      "ecart": 2.2,
+      "offres": 28
+     }
+    ],
+    "moyenne": -1.2
+   },
+   {
+    "nom": "Jetpac",
+    "cases": [
+     {
+      "prix": 6.71,
+      "ecart": -0.1,
+      "offres": 26
+     },
+     {
+      "prix": 11.33,
+      "ecart": 1.1,
+      "offres": 33
+     },
+     {
+      "prix": 14.55,
+      "ecart": 2.2,
+      "offres": 38
+     },
+     {
+      "prix": 19.2,
+      "ecart": -10.3,
+      "offres": 24
+     },
+     {
+      "prix": 32.95,
+      "ecart": 0.7,
+      "offres": 31
+     },
+     {
+      "prix": 56.87,
+      "ecart": -3.2,
+      "offres": 32
+     },
+     {
+      "prix": 53.06,
+      "ecart": 3.5,
+      "offres": 28
+     }
+    ],
+    "moyenne": -0.9
+   },
+   {
+    "nom": "Truphone",
+    "cases": [
+     {
+      "prix": 7.46,
+      "ecart": 11.1,
+      "offres": 31
+     },
+     {
+      "prix": 10.73,
+      "ecart": -4.3,
+      "offres": 40
+     },
+     {
+      "prix": 14.29,
+      "ecart": 0.4,
+      "offres": 30
+     },
+     {
+      "prix": 21.41,
+      "ecart": 0.0,
+      "offres": 23
+     },
+     {
+      "prix": 33.47,
+      "ecart": 2.3,
+      "offres": 24
+     },
+     {
+      "prix": 53.31,
+      "ecart": -9.3,
+      "offres": 29
+     },
+     {
+      "prix": 48.12,
+      "ecart": -6.2,
+      "offres": 25
+     }
+    ],
+    "moyenne": -0.9
+   },
+   {
+    "nom": "Nomad",
+    "cases": [
+     {
+      "prix": 6.54,
+      "ecart": -2.6,
+      "offres": 42
+     },
+     {
+      "prix": 10.79,
+      "ecart": -3.8,
+      "offres": 46
+     },
+     {
+      "prix": 13.59,
+      "ecart": -4.5,
+      "offres": 50
+     },
+     {
+      "prix": 21.58,
+      "ecart": 0.8,
+      "offres": 42
+     },
+     {
+      "prix": 32.86,
+      "ecart": 0.4,
+      "offres": 43
+     },
+     {
+      "prix": 60.06,
+      "ecart": 2.2,
+      "offres": 44
+     },
+     {
+      "prix": 53.3,
+      "ecart": 3.9,
+      "offres": 45
+     }
+    ],
+    "moyenne": -0.5
+   },
+   {
+    "nom": "Instabridge",
+    "cases": [
+     {
+      "prix": 6.74,
+      "ecart": 0.4,
+      "offres": 40
+     },
+     {
+      "prix": 11.19,
+      "ecart": -0.2,
+      "offres": 37
+     },
+     {
+      "prix": 14.3,
+      "ecart": 0.5,
+      "offres": 39
+     },
+     {
+      "prix": 21.88,
+      "ecart": 2.2,
+      "offres": 52
+     },
+     {
+      "prix": 30.35,
+      "ecart": -7.3,
+      "offres": 42
+     },
+     {
+      "prix": 60.73,
+      "ecart": 3.4,
+      "offres": 39
+     },
+     {
+      "prix": 50.3,
+      "ecart": -1.9,
+      "offres": 33
+     }
+    ],
+    "moyenne": -0.4
+   },
+   {
+    "nom": "Flexiroam",
+    "cases": [
+     {
+      "prix": 6.43,
+      "ecart": -4.2,
+      "offres": 24
+     },
+     {
+      "prix": 11.17,
+      "ecart": -0.4,
+      "offres": 26
+     },
+     {
+      "prix": 14.24,
+      "ecart": 0.1,
+      "offres": 20
+     },
+     {
+      "prix": 21.55,
+      "ecart": 0.7,
+      "offres": 27
+     },
+     {
+      "prix": 33.19,
+      "ecart": 1.4,
+      "offres": 21
+     },
+     {
+      "prix": 59.27,
+      "ecart": 0.9,
+      "offres": 26
+     },
+     {
+      "prix": 51.21,
+      "ecart": -0.1,
+      "offres": 28
+     }
+    ],
+    "moyenne": -0.2
+   },
+   {
+    "nom": "Airalo",
+    "cases": [
+     {
+      "prix": 6.6,
+      "ecart": -1.7,
+      "offres": 126
+     },
+     {
+      "prix": 11.2,
+      "ecart": -0.1,
+      "offres": 105
+     },
+     {
+      "prix": 14.92,
+      "ecart": 4.8,
+      "offres": 117
+     },
+     {
+      "prix": 21.34,
+      "ecart": -0.3,
+      "offres": 103
+     },
+     {
+      "prix": 32.16,
+      "ecart": -1.7,
+      "offres": 105
+     },
+     {
+      "prix": 58.88,
+      "ecart": 0.2,
+      "offres": 75
+     },
+     {
+      "prix": 50.2,
+      "ecart": -2.1,
+      "offres": 91
+     }
+    ],
+    "moyenne": -0.1
+   },
+   {
+    "nom": "eSIMX",
+    "cases": [
+     {
+      "prix": 6.89,
+      "ecart": 2.7,
+      "offres": 60
+     },
+     {
+      "prix": 10.96,
+      "ecart": -2.2,
+      "offres": 62
+     },
+     {
+      "prix": 14.12,
+      "ecart": -0.8,
+      "offres": 73
+     },
+     {
+      "prix": 20.59,
+      "ecart": -3.8,
+      "offres": 61
+     },
+     {
+      "prix": 33.1,
+      "ecart": 1.1,
+      "offres": 55
+     },
+     {
+      "prix": 61.2,
+      "ecart": 4.2,
+      "offres": 66
+     },
+     {
+      "prix": 51.95,
+      "ecart": 1.3,
+      "offres": 55
+     }
+    ],
+    "moyenne": 0.4
+   },
+   {
+    "nom": "Holafly",
+    "cases": [
+     {
+      "prix": 6.73,
+      "ecart": 0.2,
+      "offres": 35
+     },
+     {
+      "prix": 10.79,
+      "ecart": -3.7,
+      "offres": 38
+     },
+     {
+      "prix": 14.36,
+      "ecart": 0.9,
+      "offres": 49
+     },
+     {
+      "prix": 21.97,
+      "ecart": 2.6,
+      "offres": 31
+     },
+     {
+      "prix": 31.25,
+      "ecart": -4.5,
+      "offres": 29
+     },
+     {
+      "prix": 63.11,
+      "ecart": 7.4,
+      "offres": 31
+     },
+     {
+      "prix": 51.63,
+      "ecart": 0.7,
+      "offres": 29
+     }
+    ],
+    "moyenne": 0.5
+   },
+   {
+    "nom": "aloSIM",
+    "cases": [
+     {
+      "prix": 7.27,
+      "ecart": 8.3,
+      "offres": 35
+     },
+     {
+      "prix": 11.93,
+      "ecart": 6.4,
+      "offres": 34
+     },
+     {
+      "prix": 14.82,
+      "ecart": 4.1,
+      "offres": 37
+     },
+     {
+      "prix": 20.01,
+      "ecart": -6.5,
+      "offres": 32
+     },
+     {
+      "prix": 32.36,
+      "ecart": -1.1,
+      "offres": 53
+     },
+     {
+      "prix": 59.98,
+      "ecart": 2.1,
+      "offres": 34
+     },
+     {
+      "prix": 49.82,
+      "ecart": -2.8,
+      "offres": 37
+     }
+    ],
+    "moyenne": 1.5
+   },
+   {
+    "nom": "Yatelo",
+    "cases": [
+     {
+      "prix": 6.46,
+      "ecart": -3.7,
+      "offres": 26
+     },
+     {
+      "prix": 11.45,
+      "ecart": 2.1,
+      "offres": 28
+     },
+     {
+      "prix": 13.66,
+      "ecart": -4.0,
+      "offres": 16
+     },
+     {
+      "prix": 23.39,
+      "ecart": 9.2,
+      "offres": 21
+     },
+     {
+      "prix": 30.84,
+      "ecart": -5.7,
+      "offres": 26
+     },
+     {
+      "prix": 53.05,
+      "ecart": -9.7,
+      "offres": 24
+     },
+     {
+      "prix": 63.11,
+      "ecart": 23.1,
+      "offres": 21
+     }
+    ],
+    "moyenne": 1.6
+   },
+   {
+    "nom": "GigSky",
+    "cases": [
+     {
+      "prix": 6.41,
+      "ecart": -4.5,
+      "offres": 47
+     },
+     {
+      "prix": 11.49,
+      "ecart": 2.5,
+      "offres": 57
+     },
+     {
+      "prix": 14.51,
+      "ecart": 2.0,
+      "offres": 42
+     },
+     {
+      "prix": 20.15,
+      "ecart": -5.9,
+      "offres": 47
+     },
+     {
+      "prix": 33.02,
+      "ecart": 0.9,
+      "offres": 50
+     },
+     {
+      "prix": 58.18,
+      "ecart": -1.0,
+      "offres": 55
+     },
+     {
+      "prix": 62.59,
+      "ecart": 22.1,
+      "offres": 44
+     }
+    ],
+    "moyenne": 2.3
+   }
+  ]
+ }
+}

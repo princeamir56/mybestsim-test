@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# Node
+node_modules/
+.next/
+dist/
+.vercel/
+.netlify/
+*.log
+npm-debug.log*
+
+# OS / editeurs
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Fichiers de travail temporaires
+/tmp/
+*.tmp
+*.bak
+
+# npm (jsdom sert uniquement a la verification locale)
+package-lock.json
+
+# App React (Vite)
+app/node_modules/
+app/.ssr/
+app/dist/

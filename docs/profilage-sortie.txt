@@ -1,0 +1,208 @@
+
+==============================================================================
+1. STRUCTURE DU JEU DE DONNÉES
+==============================================================================
+Lignes                : 5056
+Fournisseurs          : 18 (1 par fichier, sans mélange)
+SKU uniques           : 5056 / 5056
+Devises               : ['EUR']
+Colonnes à valeur vide: ['data_gb']
+
+Domaines fermés constatés :
+  validity_days : [7, 15, 30]
+  data_gb       : [1, 3, 5, 10, 20, 50] (+ vide = Illimité)
+  network       : {'4G': 3302, '5G': 1754}
+  top_up        : {'oui': 2738, 'non': 2318}
+  country_code  : 54 codes distincts
+
+Lignes par fournisseur :
+provider
+Airalo         722
+Ubigi          562
+eSIMX          432
+Saily          382
+GigSky         342
+Nomad          312
+Instabridge    282
+aloSIM         262
+Holafly        242
+Yesim          222
+Jetpac         212
+Truphone       202
+JamboSIM       182
+Flexiroam      172
+Yatelo         162
+Maya Mobile    152
+Roamic         122
+4S eSIM         92
+
+==============================================================================
+2. PIÈGE 1 — country_code "NA" = Amérique du Nord, pas une valeur nulle
+==============================================================================
+Lignes country_code == 'NA'      : 192
+country_name associés            : ['Amérique du Nord']
+Part du catalogue                : 3.80 %
+Rang de fréquence du code 'NA'   : 3e
+
+CONTRE-TEST — lecture SANS keep_default_na=False :
+  country_code devenus NaN       : 192
+  => le piège se déclenche par défaut, sur exactement ces 192 lignes.
+
+==============================================================================
+3. PIÈGE 2 — 653 data_gb vides signifient "Illimité"
+==============================================================================
+Lignes sans data_gb              : 653 (12.92 %)
+data_display sur ces lignes      : ['Illimité']  <- aucune exception
+Fournisseurs concernés           : 18 / 18  <- tous
+
+Moyenne Go en EXCLUANT les illimités : 14.4915 Go
+Moyenne Go en les comptant pour ZÉRO : 12.6199 Go
+
+Prix moyen des illimités         : 60.81 €   (médiane 51.28 €)
+Prix moyen des forfaits limités  : 24.63 €   (médiane 17.57 €)
+Prix moyen global                : 29.3013 €
+=> exclure les illimités fait chuter le prix moyen de 15.9 %
+
+==============================================================================
+4. PIÈGE 3 — produits portant plusieurs prix / doublons
+==============================================================================
+Couples (fournisseur, nom) distincts        : 4325
+Couples portant PLUSIEURS prix              : 618
+Lignes concernées                           : 1347
+
+Recherche de VRAIS doublons :
+  lignes identiques sur toutes les colonnes : 0
+  lignes identiques EN IGNORANT le SKU      : 0
+  => aucun doublon exact dans ce jeu de données.
+
+Couples répétés AU MÊME PRIX : 2 — ce ne sont pas des doublons :
+          sku provider                product_name price network top_up
+airalo-100157   Airalo eSIM Pologne 10 Go 30 jours 24.77      5G    oui
+airalo-100505   Airalo eSIM Pologne 10 Go 30 jours 24.77      4G    non
+    -> se distinguent sur : ['network', 'top_up']
+
+          sku provider                  product_name price network top_up
+yatelo-104609   Yatelo eSIM États-Unis 3 Go 15 jours  9.77      4G    oui
+yatelo-104678   Yatelo eSIM États-Unis 3 Go 15 jours  9.77      5G    non
+    -> se distinguent sur : ['network', 'top_up']
+
+Sur les 618 couples multi-prix, en regardant ['country_code', 'data_gb', 'validity_days', 'network', 'top_up'] :
+  au moins un attribut varie  -> variante défendable : 457 couples
+  aucun attribut ne varie     -> prix seul différent : 161 couples (336 lignes)
+
+Écart de prix intra-couple (max-min en % du min) :
+  médiane 6.8 %  ·  moyenne 8.1 %  ·  max 56.1 %  ·  couples au-dessus de 30 % : 8
+  => amplitude de pricing normale, pas une erreur de saisie.
+
+==============================================================================
+5. PIÈGE A (non signalé) — la frontière des 100 € et les illimités
+==============================================================================
+Produits à plus de 100 €            : 56
+Produits à 100,00 € exactement      : 0  => « plus de » et « au moins » donnent le même
+
+Parmi ces 56 produits :
+  illimités            : 56 / 56
+  validité 30 jours    : 56 / 56
+  offres régionales    : 56 / 56
+  zones couvertes      : {'Europe': 16, 'Asie': 16, 'Amérique du Nord': 13, 'Monde': 11}
+
+Prix max d'un forfait à volume LIMITÉ : 99.39 €
+=> en excluant les lignes sans data_gb, le KPI n°2 du brief vaudrait 0 au lieu de 56.
+
+==============================================================================
+6. PIÈGE B (non signalé) — « nombre total de produits » a 4 réponses
+==============================================================================
+Lignes / SKU uniques                        : 5056
+Combinaisons d'attributs distinctes hors SKU: 5056
+Offres distinctes (fournisseur+nom+prix)    : 5054
+Références commerciales (fournisseur+nom)   : 4325
+
+==============================================================================
+7. PIÈGE C (non signalé) — la moyenne de Go masque la réalité du catalogue
+==============================================================================
+Moyenne : 14.49 Go   ·   Médiane : 5 Go
+data_gb n'est pas continu, c'est un palier à 6 valeurs (1 Go, 3 Go, 5 Go, 10 Go, 20 Go et 50 Go) :
+      1 Go :  728 offres (14.40 %)
+      3 Go :  751 offres (14.85 %)
+      5 Go :  767 offres (15.17 %)
+     10 Go :  709 offres (14.02 %)
+     20 Go :  750 offres (14.83 %)
+     50 Go :  698 offres (13.81 %)
+  Illimité :  653 offres (12.92 %)
+
+==============================================================================
+8. PIÈGE D (non signalé) — 4 des 54 « pays » sont des zones
+==============================================================================
+Codes zone : {'EU': 'Europe', 'AS': 'Asie', 'NA': 'Amérique du Nord', 'WW': 'Monde'}
+
+country_name
+Amérique du Nord    192
+Asie                194
+Europe              206
+Monde               186
+
+Total offres régionales : 778 (15.4 % du catalogue)
+
+Comparaison des deux portées :
+                  offres  prix_moyen  go_moyen  part_illimite
+portee                                                       
+Mono-pays           4278       26.90     14.32          12.53
+Régional / Monde     778       42.51     15.44          15.04
+
+==============================================================================
+9. PIÈGE E (non signalé) — aucune colonne de texte libre à parser
+==============================================================================
+Lignes où data_display != attendu depuis data_gb : 0 / 5056
+Lignes où product_name ne reflète pas pays+data+validité : 0 / 5056
+=> data_display et product_name sont entièrement dérivables des colonnes
+   typées. Aucun parsing de texte libre n'est nécessaire — mais il fallait
+   le prouver avant de s'appuyer dessus.
+
+==============================================================================
+10. PIÈGE F (non signalé) — l'encodage est SAIN, c'est la console qui ment
+==============================================================================
+Fichiers analysés                 : 18
+Fichiers avec BOM ou UTF-8 invalide : 0 []
+
+Octets bruts autour de « Amérique » : b'Am\xc3\xa9riqu'
+  décodés en UTF-8  -> Amérique du Nord 
+  décodés en cp1252 -> AmÃ©rique du Nord 
+
+Encodage de la console Python     : cp1252 (poste Windows du profilage)
+=> le charabia vient de l'affichage Windows, pas des données.
+   « Nettoyer » l'encodage aurait corrompu les 54 noms de destination.
+
+==============================================================================
+11. CHIFFRES DE CADRAGE (formalisés à l'étape 2)
+==============================================================================
+Prix min : 5.36 € — aloSIM / eSIM Irlande 1 Go 7 jours
+Prix max : 154.63 € — aloSIM / eSIM Europe Illimité 30 jours
+Prix moyen 29.30 € · médian 20.70 €
+
+Prime de l'illimité (prix médians, par durée) :
+   7 jours : illimité  34.48 €  vs  limité 16.28 €   ×2.12
+  15 jours : illimité  50.05 €  vs  limité 17.86 €   ×2.80
+  30 jours : illimité  80.91 €  vs  limité 22.10 €   ×3.66
+
+€/Go médian par fournisseur (hors illimités) — classement de valeur :
+   1. JamboSIM       2.338 €/Go
+   2. Yesim          2.353 €/Go
+   3. aloSIM         2.368 €/Go
+   4. Ubigi          2.410 €/Go
+   5. Flexiroam      2.463 €/Go
+   6. GigSky         2.469 €/Go
+   7. Jetpac         2.492 €/Go
+   8. Instabridge    2.492 €/Go
+   9. Roamic         2.496 €/Go
+  10. Maya Mobile    2.508 €/Go
+  11. eSIMX          2.514 €/Go
+  12. Nomad          2.546 €/Go
+  13. Yatelo         2.568 €/Go
+  14. Saily          2.596 €/Go
+  15. Truphone       2.734 €/Go
+  16. Holafly        2.747 €/Go
+  17. Airalo         2.764 €/Go
+  18. 4S eSIM        2.928 €/Go
+
+Part 5G par fournisseur :
+  aloSIM 39.3%  Ubigi 37.7%  eSIMX 37.3%  Truphone 37.1%  Saily 35.9%  Yesim 35.6%  Nomad 35.6%  Yatelo 35.2%  Flexiroam 34.9%  GigSky 34.5%  Holafly 34.3%  Maya Mobile 34.2%  4S eSIM 33.7%  Roamic 33.6%  JamboSIM 33.5%  Instabridge 31.9%  Jetpac 30.7%  Airalo 30.2%

@@ -1,0 +1,20 @@
+{
+  "name": "mybestsim-test-recrutement",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dashboard du catalogue eSIM et article SEO — test de recrutement MyBestSim",
+  "scripts": {
+    "donnees": "python scripts/donnees_article.py && python scripts/build_site.py",
+    "build": "npm run donnees && npm --prefix app run build",
+    "verifier": "node scripts/verifier_site.js",
+    "test-import": "python scripts/test_nouveau_fournisseur.py",
+    "captures": "node app/scripts/shots.mjs",
+    "audit": "node app/scripts/audit.mjs",
+    "preview": "npx --yes http-server site -p 4173 --silent",
+    "profilage": "python scripts/profilage.py --ecrire",
+    "statistiques": "python scripts/statistiques.py --ecrire"
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1"
+  }
+}

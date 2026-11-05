@@ -1,0 +1,116 @@
+# =============================================================================
+# Le déclencheur du pipeline.
+#
+# Le brief décrit un import QUOTIDIEN de fichiers CSV fournisseurs. Cette
+# chaîne existait déjà en local (agrégation Python → bundle Vite → prérendu →
+# vérification) ; il ne lui manquait que de partir toute seule.
+#
+# Le filet de sécurité n'est pas ajouté ici, il est déjà dans le code :
+#   * les sept assertions de scripts/mbs_catalogue.py font échouer `build`
+#     plutôt que de produire un dashboard faux ;
+#   * scripts/verifier_site.js sort en code non nul si le HTML servi n'est pas
+#     cohérent avec les données qui l'ont produit ;
+#   * scripts/test_nouveau_fournisseur.py vérifie que la PROSE suit les données.
+#
+# Ce workflow leur donne le pouvoir d'arrêter un déploiement : si l'un d'eux
+# échoue, rien n'est publié et le site en ligne reste la version précédente,
+# correcte.
+# =============================================================================
+
+name: Pipeline catalogue eSIM
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/fournisseurs/**'
+      - 'app/**'
+      - 'scripts/**'
+      - 'package.json'
+      - '.github/workflows/pipeline.yml'
+  pull_request:
+    paths:
+      - 'data/fournisseurs/**'
+      - 'app/**'
+      - 'scripts/**'
+  # Relance à la main depuis l'onglet Actions.
+  workflow_dispatch:
+  # L'import est quotidien : on repasse chaque matin même sans commit, pour
+  # détecter une dérive avant qu'un visiteur ne la voie.
+  schedule:
+    - cron: '0 5 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pipeline-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  construire:
+    name: Agréger, construire, vérifier
+    runs-on: ubuntu-latest
+
+    env:
+      # L'URL publique du site : elle alimente robots.txt, sitemap.xml et les
+      # balises canoniques. À définir en variable de dépôt une fois le domaine
+      # Vercel connu (Settings → Secrets and variables → Actions → Variables).
+      SITE_ORIGIN: ${{ vars.SITE_ORIGIN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Aucun lockfile n'est versionné dans ce dépôt : `npm ci` échouerait.
+      - name: Dépendances
+        run: |
+          pip install -r requirements.txt
+          npm install
+          npm --prefix app install
+
+      # Les assertions du chargeur canonique s'exécutent ici. Un CSV qui perd
+      # ses 192 « NA » arrête le job : c'est tout l'intérêt de les avoir
+      # écrites en assertions plutôt qu'en commentaires.
+      - name: Agréger les CSV et construire le site
+        run: npm run build
+
+      - name: Vérifier le HTML réellement servi
+        run: npm run verifier
+
+      - name: Vérifier que la prose suit les données
+        run: npm run test-import
+
+      - name: Régénérer les sorties en texte brut
+        run: |
+          npm run profilage
+          npm run statistiques
+
+      # Le dossier site/ est versionné : c'est lui que Vercel publie. On le
+      # réécrit uniquement s'il a réellement changé, pour ne pas créer un
+      # commit vide à chaque passage du cron.
+      - name: Publier le résultat
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/src/data site docs
+          if git diff --cached --quiet; then
+            echo "Aucun changement : le catalogue est identique au dernier build."
+            exit 0
+          fi
+          LIGNES=$(python -c "import json;print(json.load(open('app/src/data/catalogue.json',encoding='utf-8'))['meta']['lignes'])")
+          FOURN=$(python -c "import json;print(json.load(open('app/src/data/catalogue.json',encoding='utf-8'))['kpi']['fournisseurs'])")
+          git commit -m "chore(data): rebuild automatique — ${LIGNES} lignes, ${FOURN} fournisseurs"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push

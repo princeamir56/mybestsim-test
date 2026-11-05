@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0E1A26" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Chargées sans bloquer le rendu : le texte s'affiche tout de suite, dans la
+         police de repli, puis bascule. -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      />
+    </noscript>
+
+    <!-- Avant tout rendu : sur le tableau de bord, un voile de la couleur du hero
+         cache le passage du HTML prérendu à React. Le voile vit dans le CSS et se
+         retire seul ; sans JavaScript, ce script ne tourne pas et rien n'est caché. -->
+    <script>
+      if (!/internet-en-croisiere/.test(location.pathname)) document.documentElement.classList.add('voile');
+    </script>
+
+    <!-- SEO:HEAD — remplacé par route au prérendu (scripts/prerender.mjs). -->
+    <title>Catalogue eSIM — Tableau de bord MyBestSim</title>
+    <meta name="description" content="Analyse du catalogue eSIM MyBestSim : prix, volumes, couverture, et les arbitrages de traitement assumés." />
+    <!-- /SEO:HEAD -->
+  </head>
+  <body>
+    <div id="root"><!--SSR--></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

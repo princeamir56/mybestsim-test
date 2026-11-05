@@ -1,0 +1,313 @@
+{
+ "source": {
+  "lignes": 5056,
+  "fournisseurs": 18,
+  "devise": "EUR",
+  "avertissement": "Prix relevés dans le catalogue fournisseurs importé par MyBestSim. Ce sont des prix de catalogue, susceptibles d'évoluer, et non des prix constatés en vente."
+ },
+ "itineraires": [
+  {
+   "nom": "Méditerranée",
+   "destinations_couvertes": [
+    "Espagne",
+    "Italie",
+    "Grèce",
+    "Croatie",
+    "France",
+    "Portugal",
+    "Turquie",
+    "Maroc"
+   ],
+   "destinations_absentes": [],
+   "offres_totales": 692,
+   "forfait_type": {
+    "offres": 34,
+    "fournisseurs": 13,
+    "prix_min": 11.11,
+    "prix_median": 12.24,
+    "prix_max": 13.52,
+    "moins_cher_fournisseur": "aloSIM",
+    "moins_cher_produit": "eSIM France 5 Go 7 jours"
+   },
+   "toutes_offres": {
+    "offres": 692,
+    "fournisseurs": 18,
+    "prix_min": 5.38,
+    "prix_median": 19.55,
+    "prix_max": 86.16,
+    "moins_cher_fournisseur": "Nomad",
+    "moins_cher_produit": "eSIM Italie 1 Go 7 jours"
+   }
+  },
+  {
+   "nom": "Caraïbes",
+   "destinations_couvertes": [
+    "Rép. dominicaine",
+    "Mexique",
+    "Colombie"
+   ],
+   "destinations_absentes": [],
+   "offres_totales": 271,
+   "forfait_type": {
+    "offres": 9,
+    "fournisseurs": 6,
+    "prix_min": 11.11,
+    "prix_median": 12.83,
+    "prix_max": 13.29,
+    "moins_cher_fournisseur": "JamboSIM",
+    "moins_cher_produit": "eSIM Rép. dominicaine 5 Go 7 jours"
+   },
+   "toutes_offres": {
+    "offres": 271,
+    "fournisseurs": 18,
+    "prix_min": 5.36,
+    "prix_median": 23.09,
+    "prix_max": 85.82,
+    "moins_cher_fournisseur": "eSIMX",
+    "moins_cher_produit": "eSIM Colombie 1 Go 7 jours"
+   }
+  },
+  {
+   "nom": "Alaska / Amérique du Nord",
+   "destinations_couvertes": [
+    "États-Unis",
+    "Canada"
+   ],
+   "destinations_absentes": [],
+   "offres_totales": 168,
+   "forfait_type": {
+    "offres": 4,
+    "fournisseurs": 4,
+    "prix_min": 12.36,
+    "prix_median": 12.81,
+    "prix_max": 13.43,
+    "moins_cher_fournisseur": "Jetpac",
+    "moins_cher_produit": "eSIM États-Unis 5 Go 7 jours"
+   },
+   "toutes_offres": {
+    "offres": 168,
+    "fournisseurs": 18,
+    "prix_min": 5.37,
+    "prix_median": 18.99,
+    "prix_max": 85.76,
+    "moins_cher_fournisseur": "Holafly",
+    "moins_cher_produit": "eSIM États-Unis 1 Go 7 jours"
+   }
+  },
+  {
+   "nom": "Norvège & fjords",
+   "destinations_couvertes": [
+    "Norvège"
+   ],
+   "destinations_absentes": [],
+   "offres_totales": 89,
+   "forfait_type": {
+    "offres": 4,
+    "fournisseurs": 4,
+    "prix_min": 11.5,
+    "prix_median": 12.24,
+    "prix_max": 13.05,
+    "moins_cher_fournisseur": "Saily",
+    "moins_cher_produit": "eSIM Norvège 5 Go 7 jours"
+   },
+   "toutes_offres": {
+    "offres": 89,
+    "fournisseurs": 17,
+    "prix_min": 5.68,
+    "prix_median": 18.22,
+    "prix_max": 72.07,
+    "moins_cher_fournisseur": "eSIMX",
+    "moins_cher_produit": "eSIM Norvège 1 Go 7 jours"
+   }
+  },
+  {
+   "nom": "Baltique & mer du Nord",
+   "destinations_couvertes": [
+    "Suède",
+    "Pologne",
+    "Allemagne",
+    "Pays-Bas"
+   ],
+   "destinations_absentes": [],
+   "offres_totales": 348,
+   "forfait_type": {
+    "offres": 18,
+    "fournisseurs": 9,
+    "prix_min": 11.12,
+    "prix_median": 12.21,
+    "prix_max": 13.46,
+    "moins_cher_fournisseur": "Ubigi",
+    "moins_cher_produit": "eSIM Pays-Bas 5 Go 7 jours"
+   },
+   "toutes_offres": {
+    "offres": 348,
+    "fournisseurs": 18,
+    "prix_min": 5.42,
+    "prix_median": 17.11,
+    "prix_max": 79.29,
+    "moins_cher_fournisseur": "Nomad",
+    "moins_cher_produit": "eSIM Allemagne 1 Go 7 jours"
+   }
+  }
+ ],
+ "profils": [
+  {
+   "libelle": "Croisière d'une semaine, usage normal",
+   "go": 5,
+   "jours": 7,
+   "offres": 265,
+   "fournisseurs": 18,
+   "prix_min": 11.11,
+   "prix_median": 12.49,
+   "prix_max": 18.72,
+   "moins_cher_fournisseur": "aloSIM",
+   "moins_cher_produit": "eSIM France 5 Go 7 jours"
+  },
+  {
+   "libelle": "Croisière de 10 à 15 jours",
+   "go": 10,
+   "jours": 15,
+   "offres": 228,
+   "fournisseurs": 18,
+   "prix_min": 18.18,
+   "prix_median": 20.6,
+   "prix_max": 30.81,
+   "moins_cher_fournisseur": "4S eSIM",
+   "moins_cher_produit": "eSIM France 10 Go 15 jours"
+  },
+  {
+   "libelle": "Longue croisière ou gros usage",
+   "go": 20,
+   "jours": 30,
+   "offres": 260,
+   "fournisseurs": 18,
+   "prix_min": 32.76,
+   "prix_median": 36.95,
+   "prix_max": 55.62,
+   "moins_cher_fournisseur": "aloSIM",
+   "moins_cher_produit": "eSIM France 20 Go 30 jours"
+  }
+ ],
+ "zones": [
+  {
+   "nom": "Europe",
+   "offres": 206,
+   "5go_7j": {
+    "offres": 8,
+    "fournisseurs": 6,
+    "prix_min": 15.82,
+    "prix_median": 16.77,
+    "prix_max": 17.97,
+    "moins_cher_fournisseur": "Flexiroam",
+    "moins_cher_produit": "eSIM Europe 5 Go 7 jours"
+   },
+   "10go_15j": {
+    "offres": 8,
+    "fournisseurs": 6,
+    "prix_min": 25.63,
+    "prix_median": 27.57,
+    "prix_max": 30.34,
+    "moins_cher_fournisseur": "Roamic",
+    "moins_cher_produit": "eSIM Europe 10 Go 15 jours"
+   },
+   "20go_30j": {
+    "offres": 10,
+    "fournisseurs": 8,
+    "prix_min": 48.16,
+    "prix_median": 51.16,
+    "prix_max": 55.38,
+    "moins_cher_fournisseur": "GigSky",
+    "moins_cher_produit": "eSIM Europe 20 Go 30 jours"
+   },
+   "illimite_15j": {
+    "offres": 1,
+    "fournisseurs": 1,
+    "prix_min": 63.92,
+    "prix_median": 63.92,
+    "prix_max": 63.92,
+    "moins_cher_fournisseur": "eSIMX",
+    "moins_cher_produit": "eSIM Europe Illimité 15 jours"
+   }
+  },
+  {
+   "nom": "Monde",
+   "offres": 186,
+   "5go_7j": {
+    "offres": 10,
+    "fournisseurs": 8,
+    "prix_min": 16.03,
+    "prix_median": 17.11,
+    "prix_max": 18.72,
+    "moins_cher_fournisseur": "Nomad",
+    "moins_cher_produit": "eSIM Monde 5 Go 7 jours"
+   },
+   "10go_15j": {
+    "offres": 6,
+    "fournisseurs": 4,
+    "prix_min": 25.71,
+    "prix_median": 28.38,
+    "prix_max": 30.81,
+    "moins_cher_fournisseur": "Yatelo",
+    "moins_cher_produit": "eSIM Monde 10 Go 15 jours"
+   },
+   "20go_30j": {
+    "offres": 6,
+    "fournisseurs": 5,
+    "prix_min": 46.12,
+    "prix_median": 47.91,
+    "prix_max": 53.27,
+    "moins_cher_fournisseur": "Jetpac",
+    "moins_cher_produit": "eSIM Monde 20 Go 30 jours"
+   },
+   "illimite_15j": {
+    "offres": 8,
+    "fournisseurs": 7,
+    "prix_min": 60.18,
+    "prix_median": 64.59,
+    "prix_max": 70.45,
+    "moins_cher_fournisseur": "Ubigi",
+    "moins_cher_produit": "eSIM Monde Illimité 15 jours"
+   }
+  },
+  {
+   "nom": "Amérique du Nord",
+   "offres": 192,
+   "5go_7j": {
+    "offres": 12,
+    "fournisseurs": 7,
+    "prix_min": 15.65,
+    "prix_median": 16.85,
+    "prix_max": 18.6,
+    "moins_cher_fournisseur": "eSIMX",
+    "moins_cher_produit": "eSIM Amérique du Nord 5 Go 7 jours"
+   },
+   "10go_15j": {
+    "offres": 16,
+    "fournisseurs": 11,
+    "prix_min": 25.61,
+    "prix_median": 28.66,
+    "prix_max": 30.69,
+    "moins_cher_fournisseur": "Saily",
+    "moins_cher_produit": "eSIM Amérique du Nord 10 Go 15 jours"
+   },
+   "20go_30j": {
+    "offres": 11,
+    "fournisseurs": 8,
+    "prix_min": 47.39,
+    "prix_median": 49.21,
+    "prix_max": 55.36,
+    "moins_cher_fournisseur": "Saily",
+    "moins_cher_produit": "eSIM Amérique du Nord 20 Go 30 jours"
+   },
+   "illimite_15j": {
+    "offres": 9,
+    "fournisseurs": 7,
+    "prix_min": 58.96,
+    "prix_median": 64.01,
+    "prix_max": 69.5,
+    "moins_cher_fournisseur": "JamboSIM",
+    "moins_cher_produit": "eSIM Amérique du Nord Illimité 15 jours"
+   }
+  }
+ ]
+}

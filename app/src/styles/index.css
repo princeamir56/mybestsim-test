@@ -1,0 +1,232 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  /* Les deux courbes du site, pour que le CSS écrit à la main et l'utilitaire
+     Tailwind `ease-soft` ne puissent pas diverger. Miroir de lib/motion.js. */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Les séries de graphiques, validées (contraste, bande de luminosité,
+     séparation protan/tritan) contre la surface papier AVANT d'écrire la
+     moindre ligne de CSS. Ne pas les changer sans repasser le validateur. */
+  --serie-1: #1f6fb2;
+  --serie-2: #d2693a;
+  --ramp-1: #7fb0de;
+  --ramp-2: #5f9bd6;
+  --ramp-3: #3f86c9;
+  --ramp-4: #2a6fb8;
+  --ramp-5: #1d5591;
+  --ramp-6: #143f6b;
+}
+
+/* Framer Motion mesure chaque `useScroll({ target })` depuis l'élément
+   document et prévient qu'un conteneur statique n'est pas mesurable. */
+html {
+  position: relative;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: 6rem;
+}
+
+html,
+body {
+  background-color: #f7f3ec;
+  color: #171c24;
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Les arcs du hero et les panneaux décalés débordent volontairement. Aucun ne
+   doit se transformer en défilement horizontal sur un téléphone. `clip`
+   (contrairement à `hidden`) ne crée pas de conteneur de défilement, donc les
+   en-têtes `sticky` à l'intérieur continuent de fonctionner. */
+#root {
+  overflow-x: clip;
+}
+
+/* Chaque contrôle répond au doigt immédiatement : pas d'attente de 300 ms, pas
+   de flash gris, puisque chacun a déjà son propre état pressé. */
+a,
+button,
+[role='button'],
+[role='tab'],
+summary,
+label {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Le voile : posé par le script en tête de page avant le premier rendu.
+   Sans lui, le HTML prérendu apparaîtrait une fraction de seconde avant que
+   React ne le remplace par la scène d'ouverture. Il se retire seul au bout de
+   quelques secondes : un JavaScript en échec ne doit jamais masquer la page.
+   Sans JavaScript, le script ne tourne pas et le voile n'existe pas. */
+html.voile::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: #0e1a26;
+  animation: voile-secours 0.3s linear 4s forwards;
+}
+@keyframes voile-secours {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+html.intro-bloque,
+html.intro-bloque body {
+  overflow: hidden;
+}
+
+/* Le lien d'évitement : invisible jusqu'à ce qu'un clavier l'atteigne. */
+.lien-evitement {
+  position: fixed;
+  left: 16px;
+  top: -80px;
+  z-index: 70;
+  border-radius: 8px;
+  background: #0e1a26;
+  color: #f7f3ec;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+}
+.lien-evitement:focus {
+  top: 12px;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: Fraunces, Georgia, serif;
+    font-weight: 300;
+  }
+
+  /* Les tableaux de chiffres se lisent en colonnes : chiffres à chasse fixe
+     partout, sans avoir à y penser dans chaque composant. */
+  table,
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background: rgba(31, 111, 178, 0.22);
+  }
+  .bg-abysse ::selection {
+    background: rgba(107, 168, 224, 0.35);
+  }
+
+  :focus-visible {
+    outline: 2px solid #1f6fb2;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .bg-abysse :focus-visible {
+    outline-color: #6ba8e0;
+  }
+}
+
+@layer components {
+  /* L'étiquette en capitales : le signal typographique du comparateur. */
+  .label {
+    @apply font-mono text-[0.68rem] font-medium uppercase tracking-[0.14em] text-azur;
+  }
+  .label-muted {
+    @apply font-mono text-[0.68rem] font-medium uppercase tracking-[0.14em] text-marine/80;
+  }
+
+  /* L'échelle de titres. Trois crans, chacun fluide entre un téléphone et un
+     bureau, pour qu'aucune section n'ait besoin de son propre clamp(). */
+  .h-display {
+    @apply font-display text-[clamp(2.4rem,8.4vw,3.8rem)] font-light leading-[1.03] tracking-[-0.025em] lg:text-[clamp(3.4rem,4.8vw,5rem)];
+  }
+  .h-section {
+    @apply font-display text-[clamp(1.9rem,6vw,2.6rem)] font-light leading-[1.08] tracking-[-0.02em] lg:text-[clamp(2.6rem,3.4vw,3.4rem)];
+  }
+  .h-card {
+    @apply font-display text-[1.35rem] font-normal leading-tight lg:text-[1.5rem];
+  }
+
+  .lede {
+    @apply text-[1.0425rem] leading-[1.75] text-slate md:text-[1.1rem];
+  }
+
+  .shell {
+    @apply mx-auto w-full max-w-[1380px] px-5 sm:px-7 lg:px-10;
+  }
+
+  /* La surface de carte : un filet, du papier, et le halo chaud en guise
+     d'ombre. Le dégradé très léger évite l'aplat mort. */
+  .card-surface {
+    @apply border border-marine/10 bg-gradient-to-b from-white/75 to-white/45;
+  }
+
+  /* Le chiffre héros d'une tuile : c'est lui qu'on lit en premier. */
+  .figure {
+    @apply font-display text-[clamp(2.1rem,5.6vw,2.9rem)] font-normal leading-none tracking-[-0.03em] text-marine tabular;
+  }
+
+  /* Le bouton principal. L'accent n'apparaît que là. */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-3 py-3.5 text-center font-mono text-[0.7rem] font-medium uppercase tracking-[0.12em] sm:px-7 transition-all duration-300 ease-soft;
+  }
+  .btn-primary {
+    @apply btn bg-signal-fonce text-white shadow-signal hover:brightness-[1.1] active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply btn border border-marine/20 text-marine hover:border-marine/40 hover:bg-white/60 active:scale-[0.98];
+  }
+}
+
+/* La barre de défilement, accordée au papier plutôt que laissée au système. */
+@media (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #efe9de;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(17, 58, 99, 0.22);
+    border: 3px solid #efe9de;
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(17, 58, 99, 0.38);
+  }
+}
+
+/* Dernier filet de sécurité : si le JavaScript d'animation échouait, rien ne
+   doit rester invisible. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
