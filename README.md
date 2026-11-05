@@ -19,7 +19,7 @@ contient les deux, et surtout **la trace de comment ils ont été construits**.
 |---|---|
 | **[docs/etape-1-profilage.md](docs/etape-1-profilage.md)** | Ce que les 5 056 lignes contiennent vraiment, et les **six pièges** qu'elles tendent |
 | **[docs/etape-2-decisions.md](docs/etape-2-decisions.md)** | Les chiffres définitifs, et les **quatre arbitrages** qui les produisent |
-| **[AI-USAGE.md](AI-USAGE.md)** | Comment j'ai piloté l'agent IA — y compris là où nous nous sommes corrigés mutuellement |
+| **[AI-USAGE.md](AI-USAGE.md)** | Comment j'ai travaillé avec l'agent IA : qui a décidé quoi, ses erreurs et les miennes |
 
 Et, si vous ne devez regarder qu'une commande :
 **`npm run test-import`** ajoute un 19ᵉ fournisseur fictif et vérifie que le
