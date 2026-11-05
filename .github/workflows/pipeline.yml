@@ -96,7 +96,8 @@ jobs:
           npm run profilage
           npm run statistiques
 
-      # Le dossier site/ est versionné : c'est lui que Vercel publie. On le
+      # Vercel reconstruit depuis app/ et les JSON versionnés : ce commit les met à
+      # jour et déclenche donc le redéploiement. site/ suit pour le dépôt. On le
       # réécrit uniquement s'il a réellement changé, pour ne pas créer un
       # commit vide à chaque passage du cron.
       - name: Publier le résultat

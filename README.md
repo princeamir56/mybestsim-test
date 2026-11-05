@@ -8,8 +8,8 @@ contient les deux, et surtout **la trace de comment ils ont été construits**.
 
 | Livrable | Lien |
 |---|---|
-| Tableau de bord eSIM | *(étape 6)* |
-| Article « Internet en croisière : quelle eSIM choisir ? » | *(étape 6)* |
+| Tableau de bord eSIM | https://mybestsim-test.vercel.app |
+| Article « Internet en croisière : quelle eSIM choisir ? » | https://mybestsim-test.vercel.app/internet-en-croisiere |
 
 ---
 
@@ -238,13 +238,13 @@ sans saut quand React prend la main.
 
 ## Mise en ligne
 
-Le dossier `site/` est **versionné** : c'est la sortie publiée, et elle est toujours
-cohérente avec les CSV du dépôt puisque la CI la régénère.
+**Vercel** — le projet a `app` pour Root Directory, et [`app/vercel.json`](app/vercel.json)
+s'applique : Vite et le prérendu construisent vers `app/dist`. Python n'est **pas** nécessaire
+sur Vercel : les JSON agrégés sont versionnés.
 
-**Vercel** — [`vercel.json`](vercel.json) est fourni : `installCommand` installe les
-dépendances, `buildCommand` lance Vite et le prérendu, `outputDirectory` pointe sur
-`site/`. Python n'est **pas** nécessaire sur Vercel : les JSON agrégés sont versionnés,
-et c'est la CI (ou un build local) qui les régénère quand les CSV changent.
+**Quand un CSV est ajouté** : GitHub Actions rejoue l'agrégation et les contrôles. Si tout passe,
+il commite les JSON et `site/` régénérés, et ce commit déclenche le redéploiement. Si un contrôle
+échoue, rien n'est commité : le site en ligne garde les dernières données valides.
 
 L'URL publique alimente les balises canoniques, `robots.txt` et le sitemap. Elle est
 résolue dans cet ordre :
@@ -305,7 +305,7 @@ seul commit à la publication du dépôt ; le déroulé est consigné dans
 | — | Prose dérivée des données : le dépôt devient un pipeline rejouable | ✅ |
 | — | Vérificateur relatif aux données + déclencheur GitHub Actions | ✅ |
 | — | Polissage UI/UX, graphiques natifs, logo animé, SEO technique | ✅ |
-| 6 | Mise en ligne des deux livrables | ⬜ |
+| 6 | Mise en ligne des deux livrables | ✅ |
 
 L'ordre n'est pas décoratif : **aucun travail de mise en forme n'a été engagé avant que
 les chiffres soient validés.** Un tableau de bord soigné construit sur des chiffres faux

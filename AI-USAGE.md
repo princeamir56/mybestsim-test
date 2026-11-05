@@ -631,7 +631,7 @@ L'extension Chrome ne voyait aucun navigateur connecté : il a utilisé le vrai 
 - **Mise en page** : un `col-span` posé sur le mauvais élément laissait les panneaux pleine
   largeur en demi-colonne ; les points des haltères étaient décalés car l'animation écrasait le
   centrage CSS.
-- **Contraste** : texte blanc sur orange à 3,61:1 (jeton plus foncé à 4,8:1), petits libellés
+- **Contraste** : texte blanc sur orange à 3,61:1 (jeton plus foncé à 5,6:1), petits libellés
   sous 4,5:1, mesurés et non estimés.
 - **Typographie** : « € », « % » et « ? » seuls en début de ligne. L'espace insécable avait
   d'abord été mal écrit dans le script Python (regex cassée par un échappement) ; repéré au rendu.
@@ -678,4 +678,22 @@ Vercel. Le dashboard affiche SEO 69 uniquement à cause de son `noindex`, voulu.
 
 ---
 
-*Étape 6 : à compléter.*
+## Étape 6 — Mise en ligne
+
+J'ai importé le dépôt dans Vercel moi-même, avec `app` pour Root Directory. L'agent a ensuite
+contrôlé l'adresse en ligne : pages, statuts, balises SEO, sitemap, puis son audit Chrome à 5
+largeurs (114 contrôles réussis).
+
+Lighthouse sur le site en ligne a relevé ce que les mesures locales n'avaient pas montré :
+
+- un **décalage de mise en page de 0,15 sur l'article**, intermittent : quand les polices arrivent
+  après le premier affichage, le chapeau passe de 179 à 209 px sur téléphone, et tout ce qui suit
+  descend. Corrigé par des polices de repli calées sur les largeurs mesurées (209 px dans les deux
+  cas, mesuré sur Chrome Windows ; à remesurer en ligne) ;
+- un contraste de 4,35:1 sur l'accent foncé, corrigé à 5,1:1 ;
+- aucun cache long sur les fichiers JS : les en-têtes étaient dans le `vercel.json` racine, que le
+  projet n'utilise pas. Déplacés dans `app/vercel.json`.
+
+Mesures en ligne avant ces correctifs, sur téléphone simulé : article performance 79, SEO 100 ;
+tableau de bord performance 64, SEO 69 à cause de son `noindex`, voulu.
+

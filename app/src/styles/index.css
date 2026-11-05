@@ -1,3 +1,18 @@
+/* Les polices de repli, à la largeur des vraies (mesurée sur le texte du site).
+   Sans ça, le chapeau de l'article tient sur une ligne de moins en Arial, puis
+   tout le contenu descend quand Inter arrive : c'était le décalage de mise en page signalé
+   par Lighthouse sur l'article (CLS 0,15). */
+@font-face {
+  font-family: 'Fraunces Repli';
+  src: local('Georgia');
+  size-adjust: 81.8%;
+}
+@font-face {
+  font-family: 'Inter Repli';
+  src: local('Arial');
+  size-adjust: 105.9%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -35,7 +50,7 @@ html,
 body {
   background-color: #f7f3ec;
   color: #171c24;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: Inter, 'Inter Repli', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -119,7 +134,7 @@ html.lenis body {
   h1,
   h2,
   h3 {
-    font-family: Fraunces, Georgia, serif;
+    font-family: Fraunces, 'Fraunces Repli', Georgia, serif;
     font-weight: 300;
   }
 

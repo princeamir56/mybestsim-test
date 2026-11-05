@@ -31,7 +31,7 @@ export default {
         // l'action, et la seconde série des graphiques. Jamais en décoration,
         // pour qu'il veuille toujours dire « c'est ici que ça se passe ».
         signal: '#D2693A',
-        'signal-fonce': '#B9542A',
+        'signal-fonce': '#A94B24',
         'signal-light': '#E89A6F',
 
         // Encre.
@@ -39,8 +39,8 @@ export default {
         slate: '#4C5768',
       },
       fontFamily: {
-        display: ['Fraunces', 'Georgia', 'serif'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Fraunces', 'Fraunces Repli', 'Georgia', 'serif'],
+        body: ['Inter', 'Inter Repli', 'system-ui', 'sans-serif'],
         // Étiquettes, prix, volumes — tout ce que le catalogue *mesure*
         // plutôt qu'il ne le *dit*. Le serif contre le mono, c'est ce qui
         // donne le ton d'un comparateur et pas d'un blog.
