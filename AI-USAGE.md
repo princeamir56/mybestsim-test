@@ -700,3 +700,76 @@ Après ces correctifs, sur l'article et en deux passages : performance 81 et 85,
 bonnes pratiques 100, SEO 100, CLS 0 et 0,061 (sous le seuil de 0,1 de Google), LCP 3,1 et 2,9 s.
 Le tableau de bord n'a pas été remesuré.
 
+---
+
+## Retouches après test manuel
+
+### Ce que j'ai demandé
+
+J'ai testé le site moi-même, y compris en vue mobile, et j'ai envoyé des captures à l'agent : les chiffres
+du haut de page apparaissaient trop lentement, deux libellés de l'histogramme se superposaient sur
+mobile, et ouvrir « Voir les données » déformait les graphiques. J'ai ensuite fourni une image à
+poser en fond du hero, à rendre responsive, et demandé de documenter le tout ici. Chaque
+retouche : je teste moi-même, je commite et je pousse.
+
+### Les défauts et leur vraie cause
+
+- **Graphiques déformés** : sur mobile, la grille n'avait pas de colonne de largeur fixe. Une table
+  dépliée, large de 520 px, élargissait donc le panneau, et le graphique se redessinait à cette
+  largeur. La largeur est maintenant bloquée ; ouvrir chacune des six tables change la largeur du
+  panneau de 0 px, mesuré à six largeurs d'écran. En prime, une première colonne figée et un fondu
+  sur le bord droit tant qu'il reste des colonnes à voir.
+- **Libellés superposés** : le libellé « 100 € » était placé par une règle fixe. Il basculait à
+  gauche sur écran étroit et tombait sur « Médiane ». Les repères choisissent désormais le premier
+  rang libre, calculé d'après les données et la largeur réelle.
+
+### Là où il a fallu que je redemande : la lenteur
+
+L'agent a traité la lenteur en plusieurs passes, et **je l'ai renvoyé deux fois** : il réduisait
+des durées alors que je voulais ne plus attendre du tout.
+
+| Passe | Ce qui a changé | Mon retour |
+|---|---|---|
+| 1 | Délai et compteur raccourcis | Encore lent |
+| 2 | Temps divisés par deux | Toujours trop lent |
+| 3 | Plus aucune animation d'entrée dans le hero, scène d'ouverture réduite | Solution retenue |
+
+La troisième passe a aussi révélé une attente que les durées ne pouvaient pas corriger : le voile
+sombre masquait la page jusqu'au chargement du JavaScript, y compris aux visites sans scène
+d'ouverture. Il n'est plus posé que lorsque la scène va se jouer. Le hero apparaît alors au premier
+affichage, environ 0,5 s après l'ouverture dans un Chrome piloté en local. La scène d'ouverture passe
+d'environ 3 s à environ 1,5 s.
+
+### L'image de fond du hero
+
+C'est moi qui ai fourni l'image ; son placement est une proposition de l'agent, validée en
+commitant, comme le reste. Elle a imposé trois choix :
+
+- **Téléphone et tablette : l'image sous le texte, pas derrière.** Étirée sur toute la hauteur d'un
+  écran vertical, elle aurait été réduite à un gros plan passant sous le paragraphe. Un recadrage
+  garde la scène entière, et le hero s'allonge pour lui faire de la place.
+- **Grand écran : un voile à gauche et un bandeau sous les chiffres.** La bande de chiffres traverse
+  la partie la plus lumineuse de l'image. Le fondu d'opacité au défilement a été retiré, car il
+  aurait coupé le flou de ce bandeau.
+- **Au-delà de 1680 px : l'image n'est plus agrandie.** Ce défaut n'apparaissait dans aucune mesure :
+  tous les contrôles passaient à 2560 px, et c'est en regardant la capture que l'agent a vu la tour
+  Eiffel derrière le texte et l'image floue. Encore une fois, **une mesure verte ne remplace pas de
+  regarder la page**.
+
+Elle remplace les arcs concentriques dessinés en SVG. Le vérificateur compte un contrôle de plus
+(75) : les quatre tailles de l'image doivent exister et être servies dans la page. Les scores
+Lighthouse n'ont pas été remesurés après ces retouches.
+
+### Décisions : qui a tranché quoi
+
+| Sujet | Proposé par | Tranché par |
+|---|---|---|
+| Corriger les trois défauts signalés sur mobile | moi | moi |
+| Colonne figée et fondu dans les tables | l'agent | gardé par moi |
+| Repères placés selon les données et la largeur | l'agent | gardé par moi |
+| Hero affiché sans attente | moi | moi |
+| Retirer toute entrée animée du hero, écourter la scène, limiter le voile | l'agent, après mes retours | gardé par moi |
+| Image de fond du hero | moi | moi |
+| Recadrage téléphone, image sous le texte, bandeau flouté | l'agent | gardé par moi |
+| Plafonner l'image à 1680 px | l'agent | l'agent |
+

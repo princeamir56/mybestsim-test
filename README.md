@@ -38,7 +38,7 @@ pip install -r requirements.txt      # pandas
 npm install && npm --prefix app install
 
 npm run build                        # CSV → JSON → site statique dans site/
-npm run verifier                     # 74 contrôles sur le HTML réellement servi
+npm run verifier                     # 75 contrôles sur le HTML réellement servi
 npm run test-import                  # simule un 19ᵉ fournisseur et contrôle la prose
 npm run preview                      # http://localhost:4173
 ```
@@ -152,7 +152,7 @@ entre les données et la page — un invariant qui reste vrai quel que soit l'im
 - la **date de génération** du JSON, présente dans le pied de page — sans quoi un site
   construit depuis un JSON périmé passerait tous les autres tests sans broncher.
 
-74 contrôles, aucune valeur attendue écrite en dur.
+75 contrôles, aucune valeur attendue écrite en dur.
 
 ### La preuve de bout en bout
 
@@ -234,6 +234,25 @@ n'existe jamais dans le HTML servi : sans JavaScript, la page est directement li
 **La page de lecture ne rejoue aucune entrée** : le texte de l'article est là tout de suite,
 sans saut quand React prend la main.
 
+**Le haut du tableau de bord non plus.** Titre, texte, boutons et chiffres sont en place dès
+l'ouverture, sans compteur ni délai. Une fois la scène d'ouverture vue, le voile sombre n'est
+plus posé : le hero s'affiche dès l'arrivée du HTML. La scène elle-même dure environ 1,5 s,
+lever du rideau compris.
+
+**L'image de fond du hero** est ancrée en bas de la section, jamais déformée, et le fond de la
+section reprend la couleur de son ciel (`#001025`), de sorte qu'aucun raccord ne se voit.
+
+| Largeur | Fichier | Placement |
+|---|---|---|
+| Moins de 640 px | Recadrage `esim-mobile-*` (la scène entière) | Sous le texte et les chiffres |
+| 640 à 1023 px | Image entière `esim-*` | Sous le texte et les chiffres |
+| 1024 à 1680 px | Image entière `esim-*` | Sur toute la section, voile sombre à gauche derrière le texte |
+| Au-delà de 1680 px | Image entière, plafonnée à 1680 px | Centrée, bords fondus dans le ciel |
+
+Le texte ne dépend jamais de l'image pour rester lisible : les chiffres sont posés sur un
+bandeau opaque à 70 % et flouté. L'image est décorative (`alt` vide), précharge par largeur
+d'écran, et pèse de 50 à 108 Ko selon la taille servie.
+
 ---
 
 ## Mise en ligne
@@ -269,7 +288,7 @@ scripts/
   statistiques.py       étape 2 : applique les décisions, produit les chiffres
   build_site.py         agrège le catalogue vers app/src/data/
   donnees_article.py    prix de l'article, extraits du même catalogue
-  verifier_site.js      74 contrôles : cohérence données ↔ HTML, liens internes, SEO
+  verifier_site.js      75 contrôles : cohérence données ↔ HTML, liens internes, SEO
   test_nouveau_fournisseur.py  simule un 19e fournisseur : la prose suit-elle ?
 app/
   src/components/       ui/ · charts/ (10 formes en SVG natif) · sections/ · layout/
@@ -279,6 +298,7 @@ app/
   scripts/shots.mjs     pilote Chrome : captures + débordement horizontal
   scripts/audit.mjs     pilote Chrome : parcours réels et mesures à 5 largeurs
   public/marque/        le logo détouré, et ses pièces pour l'animation d'ouverture
+  public/hero/          l'image de fond du hero, en WebP : deux tailles et un recadrage téléphone
 site/                   la sortie publiée
 AI-USAGE.md             méthode de travail avec l'agent IA
 ```
@@ -306,6 +326,7 @@ seul commit à la publication du dépôt ; le déroulé est consigné dans
 | — | Vérificateur relatif aux données + déclencheur GitHub Actions | ✅ |
 | — | Polissage UI/UX, graphiques natifs, logo animé, SEO technique | ✅ |
 | 6 | Mise en ligne des deux livrables | ✅ |
+| — | Retouches après test manuel : mobile, ouverture immédiate, image de fond du hero | ✅ |
 
 L'ordre n'est pas décoratif : **aucun travail de mise en forme n'a été engagé avant que
 les chiffres soient validés.** Un tableau de bord soigné construit sur des chiffres faux

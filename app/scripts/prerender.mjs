@@ -81,6 +81,11 @@ const ROUTES = [
       `Analyse de ${lignesFr} produits eSIM chez ${catalogue.meta.fichiers} fournisseurs : prix, ` +
       `volumes de data, couverture, et les ${catalogue.decisions.length} arbitrages de traitement assumés.`,
     precharger: ['marque/corps.webp', 'marque/aile-g.webp', 'marque/aile-d.webp'],
+    // Mêmes fichiers et mêmes points de rupture que le <picture> du hero.
+    prechargerImages: [
+      ['(max-width: 639px)', [['hero/esim-mobile-640.webp', 640], ['hero/esim-mobile-1022.webp', 1022]]],
+      ['(min-width: 640px)', [['hero/esim-1120.webp', 1120], ['hero/esim-1672.webp', 1672]]],
+    ],
     robots: 'noindex, follow', // outil interne : il n'a pas vocation à ranker
     schema: {
       '@context': 'https://schema.org',
@@ -180,6 +185,10 @@ for (const route of ROUTES) {
     `<meta name="twitter:description" content="${echappe(route.description)}" />`,
     `<meta name="twitter:image" content="${IMAGE_PARTAGE}" />`,
     ...(route.precharger || []).map((f) => `<link rel="preload" as="image" href="${BASE}${f}" type="image/webp" />`),
+    ...(route.prechargerImages || []).map(
+      ([media, tailles]) =>
+        `<link rel="preload" as="image" type="image/webp" fetchpriority="high" media="${media}" imagesizes="100vw" imagesrcset="${tailles.map(([f, l]) => `${BASE}${f} ${l}w`).join(', ')}" />`
+    ),
     `<script type="application/ld+json">${JSON.stringify(route.schema)}</script>`,
   ].join('\n    ');
 

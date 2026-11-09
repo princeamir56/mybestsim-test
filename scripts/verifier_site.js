@@ -250,6 +250,9 @@ verifier("l'image de partage existe", fs.existsSync(path.join(SITE, 'og-croisier
 verifier('le logo et les favicons existent',
   ['marque/oiseau-512.png', 'marque/corps.webp', 'marque/aile-g.webp', 'marque/aile-d.webp', 'favicon-32.png', 'apple-touch-icon.png']
     .every((f) => fs.existsSync(path.join(SITE, f))));
+const fondHero = ['esim-1672', 'esim-1120', 'esim-mobile-1022', 'esim-mobile-640'].map((f) => `hero/${f}.webp`);
+verifier("l'image de fond du hero existe et est servie, à chaque taille",
+  fondHero.every((f) => fs.existsSync(path.join(SITE, f)) && dash.html.includes(f)));
 verifier('la date de publication ne suit pas les données',
   /"datePublished":"\d{4}-\d{2}-\d{2}"/.test(art.ld));
 
