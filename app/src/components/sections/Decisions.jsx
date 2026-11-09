@@ -56,7 +56,7 @@ export default function Decisions({ ouverte, setOuverte, demande }) {
           <Reveal>
             <span className="inline-flex items-center gap-3 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-signal-light">
               <span className="inline-block h-px w-8 bg-signal/60" />
-              02 — La partie qui compte
+              02 · La partie qui compte
             </span>
           </Reveal>
           <h2 className="h-section mt-5 text-porcelain">
@@ -67,7 +67,7 @@ export default function Decisions({ ouverte, setOuverte, demande }) {
               {Mot(data.decisions.length)} ambiguïtés réelles existent dans ce catalogue. Aucune n'a
               de réponse
               objectivement juste : chacune est un choix, et chaque choix déplace les
-              chiffres ci-dessus. Les voici, avec leur justification et — surtout —{' '}
+              chiffres ci-dessus. Les voici, avec leur justification et surtout{' '}
               <span className="text-porcelain">
                 ce que le chiffre aurait valu avec l'autre option
               </span>

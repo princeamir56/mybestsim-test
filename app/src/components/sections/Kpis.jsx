@@ -120,7 +120,7 @@ const TUILES = [
 export default function Kpis({ onOuvrirDecision }) {
   return (
     <section id="chiffres" className="shell scroll-mt-24 py-20 lg:py-28">
-      <SectionHead num="01 — Les chiffres clés" title={'Les six statistiques\ndemandées'}>
+      <SectionHead num="01 · Les chiffres clés" title={'Les six statistiques\ndemandées'}>
         Calculées une seule fois, en Python, au moment du build. Les repères{' '}
         <span className="rounded bg-azur/12 px-1.5 py-0.5 font-mono text-[0.72em] text-marine">
           D1
@@ -188,7 +188,7 @@ function Tuile({ tuile, index, onOuvrir }) {
               <button
                 type="button"
                 onClick={() => onOuvrir?.(tuile.drapeau)}
-                title={`Ce chiffre dépend de l'arbitrage ${tuile.drapeau} — cliquer pour le lire`}
+                title={`Ce chiffre dépend de l'arbitrage ${tuile.drapeau} : cliquer pour le lire`}
                 aria-label={`Lire l'arbitrage ${tuile.drapeau}`}
                 className="relative shrink-0 rounded-md bg-azur/12 px-1.5 py-0.5 font-mono text-[0.68rem] font-semibold text-marine transition-colors duration-300 after:absolute after:-inset-3 after:content-[''] hover:bg-signal/15"
               >

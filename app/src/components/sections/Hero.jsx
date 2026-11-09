@@ -54,7 +54,7 @@ export default function Hero() {
           className="mt-8 max-w-[62ch] text-[1.05rem] leading-[1.75] text-porcelain/75 md:text-[1.12rem] lg:max-w-[50ch]"
         >
           {data.meta.fichiers} fichiers importés chaque jour, un par fournisseur. Ce
-          tableau de bord en sort les statistiques clés — et, parce que les données
+          tableau de bord en sort les statistiques clés et, parce que les données
           posent {mot(data.decisions.length)} questions sans réponse unique, il affiche
           aussi{' '}
           <span className="text-porcelain">les arbitrages retenus</span> et ce que les

@@ -34,7 +34,7 @@ export default function Footer() {
                 du build, puis le résultat est empaqueté dans la page. Le navigateur ne
                 lit jamais les CSV : il n'y a ni serveur, ni base de données, ni appel
                 réseau. Sept assertions font échouer le build plutôt que de laisser
-                passer un chiffre faux — notamment si les {n(data.faits.na_lignes)} lignes
+                passer un chiffre faux, notamment si les {n(data.faits.na_lignes)} lignes
                 « Amérique du Nord » venaient à disparaître silencieusement.
               </p>
             </div>
@@ -80,7 +80,7 @@ export default function Footer() {
         </Reveal>
 
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-porcelain/60">
-          <span>Test de recrutement MyBestSim — Amir Kerkeni</span>
+          <span>Test de recrutement MyBestSim · Amir Kerkeni</span>
           <span className="flex items-center gap-2">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full rounded-full bg-signal opacity-75 motion-safe:animate-pulse-ring" />

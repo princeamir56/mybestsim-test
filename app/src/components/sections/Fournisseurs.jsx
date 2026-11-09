@@ -15,7 +15,7 @@ export default function Fournisseurs() {
 
   return (
     <section id="fournisseurs" className="shell scroll-mt-24 py-20 lg:py-28">
-      <SectionHead num="03 — Répartition" title={'Qui propose quoi,\net à quel prix'}>
+      <SectionHead num="03 · Répartition" title={'Qui propose quoi,\net à quel prix'}>
         La sixième statistique du brief, et le point de départ de tout le reste.
       </SectionHead>
 

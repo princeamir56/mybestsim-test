@@ -586,47 +586,47 @@
    "id": "D1",
    "question": "Qu'est-ce qu'« un produit » ?",
    "retenu": "5 056 produits, un par SKU",
-   "pourquoi": "Les 5 056 SKU sont uniques, et surtout : dédupliquer sur toutes les colonnes <em>en ignorant le SKU</em> ne retire <strong>aucune</strong> ligne. Chaque ligne est donc une référence vendable distincte — c'est aussi ce que le fournisseur nous importe.",
+   "pourquoi": "Les 5 056 SKU sont uniques, et surtout : dédupliquer sur toutes les colonnes <em>en ignorant le SKU</em> ne retire <strong>aucune</strong> ligne. Chaque ligne est donc une référence vendable distincte, ce qui correspond aussi à ce que le fournisseur nous importe.",
    "alternative": "4 325 références commerciales (fournisseur + nom), soit 731 de moins (−14,5 %)."
   },
   {
    "id": "D2",
    "question": "Que faire des 653 forfaits illimités dans la moyenne de Go ?",
-   "retenu": "Exclus — moyenne calculée sur les 4 403 forfaits à volume limité",
-   "pourquoi": "Compter un forfait illimité pour 0 Go est factuellement faux : l'illimité, c'est <em>plus</em> de data, pas moins. Les compter pour zéro ferait <em>baisser</em> la moyenne alors que l'offre est supérieure. Leur volume n'est pas inconnu, il est indéfini — d'où un KPI explicitement libellé.",
-   "alternative": "12,62 Go en les comptant pour zéro, soit 12,9 % de moins — un écart créé de toutes pièces."
+   "retenu": "Exclus : la moyenne est calculée sur les 4 403 forfaits à volume limité",
+   "pourquoi": "Compter un forfait illimité pour 0 Go est factuellement faux : l'illimité, c'est <em>plus</em> de data, pas moins. Les compter pour zéro ferait <em>baisser</em> la moyenne alors que l'offre est supérieure. Leur volume n'est pas inconnu, il est indéfini, d'où un KPI explicitement libellé.",
+   "alternative": "12,62 Go en les comptant pour zéro, soit 12,9 % de moins, alors que cet écart est créé de toutes pièces."
   },
   {
    "id": "D3",
    "question": "618 produits portent plusieurs prix : variantes ou données sales ?",
-   "retenu": "Variantes réelles — aucune déduplication",
+   "retenu": "Variantes réelles, donc aucune déduplication",
    "pourquoi": "Aucun doublon exact n'existe, même en ignorant le SKU. 457 des 618 couples se distinguent par un attribut réel (4G/5G, rechargeable). L'écart intra-couple médian est de 6,8 % : c'est une amplitude de pricing, pas une faute de saisie. Et sur un comparateur, qu'un même produit existe à plusieurs prix <em>est</em> l'information.",
    "alternative": "En ne gardant que le prix le plus bas par référence : 4 325 produits, prix moyen 29,16 €, et surtout <strong>39 produits à plus de 100 € au lieu de 56</strong>."
   },
   {
    "id": "D4",
    "question": "Les zones géographiques comptent-elles comme des pays ?",
-   "retenu": "Non — 50 pays et 4 zones présentés séparément",
+   "retenu": "Non : 50 pays et 4 zones présentés séparément",
    "pourquoi": "Une eSIM « Europe » et une eSIM « Espagne » ne sont pas deux lignes d'un même classement. Comme les zones sont mécaniquement les 4 plus gros volumes, les mélanger placerait 4 fausses « destinations » en tête de toute répartition géographique. L'écart de prix confirme deux marchés distincts : 42,51 € contre 26,90 €.",
-   "alternative": "« 54 destinations », avec Europe, Asie, Amérique du Nord et Monde aux 4 premières places — par construction."
+   "alternative": "« 54 destinations », avec Europe, Asie, Amérique du Nord et Monde aux 4 premières places, par construction."
   }
  ],
  "pieges": [
   {
    "titre": "country_code « NA » n'est pas une valeur nulle",
-   "texte": "192 lignes portent le code <code>NA</code> pour « Amérique du Nord ». Lues avec les réglages par défaut de pandas, elles deviennent <code>NaN</code> — vérifié : exactement 192 disparitions silencieuses. Le chargeur impose <code>keep_default_na=False</code>, et une assertion fait échouer le build si jamais ces lignes venaient à manquer."
+   "texte": "192 lignes portent le code <code>NA</code> pour « Amérique du Nord ». Lues avec les réglages par défaut de pandas, elles deviennent <code>NaN</code>, comme le confirme le contre-test : exactement 192 disparitions silencieuses. Le chargeur impose <code>keep_default_na=False</code>, et une assertion fait échouer le build si jamais ces lignes venaient à manquer."
   },
   {
    "titre": "Les 56 produits à plus de 100 € sont tous des illimités",
-   "texte": "Tous, sans exception — et tous en validité 30 jours, tous régionaux. Le forfait à volume limité le plus cher du catalogue s'arrête à <strong>99,39 €</strong>. La barre des 100 € tombe pile dans l'intervalle vide entre les deux familles de produits : « nettoyer » les lignes sans volume répondrait <strong>0</strong> à une question imposée du brief, sans qu'on s'en aperçoive."
+   "texte": "Tous, sans exception, et ils sont tous en validité 30 jours, tous régionaux. Le forfait à volume limité le plus cher du catalogue s'arrête à <strong>99,39 €</strong>. La barre des 100 € tombe pile dans l'intervalle vide entre les deux familles de produits : « nettoyer » les lignes sans volume répondrait <strong>0</strong> à une question imposée du brief, sans qu'on s'en aperçoive."
   },
   {
    "titre": "La moyenne de Go vaut 2,9 fois la médiane",
-   "texte": "<code>data_gb</code> n'est pas continu : c'est un palier à 6 valeurs. Moyenne 14,49 Go, <strong>médiane 5 Go</strong> — l'écart vient du palier 50 Go. Publier la seule moyenne donne une image fausse du catalogue, d'où la distribution complète affichée plus bas."
+   "texte": "<code>data_gb</code> n'est pas continu : c'est un palier à 6 valeurs. Moyenne 14,49 Go, <strong>médiane 5 Go</strong>, un écart qui vient du palier 50 Go. Publier la seule moyenne donne une image fausse du catalogue, d'où la distribution complète affichée plus bas."
   },
   {
    "titre": "Aucun doublon, et aucun texte libre à analyser",
-   "texte": "Vérifié ligne à ligne : <code>data_display</code> est dérivable de <code>data_gb</code>, et <code>product_name</code> reflète pays + volume + validité — aucune exception sur 5 056 lignes. Tout est déjà dans les colonnes typées, mais il fallait le prouver avant de s'appuyer dessus."
+   "texte": "Vérifié ligne à ligne : <code>data_display</code> est dérivable de <code>data_gb</code>, et <code>product_name</code> reflète pays + volume + validité, avec aucune exception sur 5 056 lignes. Tout est déjà dans les colonnes typées, mais il fallait le prouver avant de s'appuyer dessus."
   }
  ],
  "limites": [

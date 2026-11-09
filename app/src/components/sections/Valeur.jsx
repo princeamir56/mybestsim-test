@@ -53,8 +53,8 @@ export default function Valeur() {
   return (
     <section id="valeur" className="relative scroll-mt-24 bg-shell/60 py-20 lg:py-28">
       <div className="shell">
-        <SectionHead num="04 — Bonus" title={'Qui offre réellement\nle plus de valeur ?'}>
-          La répartition dit qui est gros. Ces quatre lectures disent qui est intéressant —
+        <SectionHead num="04 · Bonus" title={'Qui offre réellement\nle plus de valeur ?'}>
+          La répartition dit qui est gros. Ces quatre lectures disent qui est intéressant,
           et elles ne donnent pas le même gagnant.
         </SectionHead>
 

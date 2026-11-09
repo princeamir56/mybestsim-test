@@ -190,7 +190,7 @@ def construire_donnees(df: pd.DataFrame) -> dict:
             f"Les {fr(F['lignes'])} SKU sont uniques, et surtout : dédupliquer sur "
             f"toutes les colonnes <em>en ignorant le SKU</em> ne retire "
             f"<strong>aucune</strong> ligne. Chaque ligne est donc une référence "
-            f"vendable distincte — c'est aussi ce que le fournisseur nous importe."
+            f"vendable distincte, ce qui correspond aussi à ce que le fournisseur nous importe."
         )
     else:
         pourquoi_d1 = (
@@ -205,7 +205,7 @@ def construire_donnees(df: pd.DataFrame) -> dict:
     # D3 — meme logique : de vrais doublons rendent "aucune deduplication"
     # indefendable en l'etat, et la decision doit le dire.
     if F["doublons_hors_sku"] == 0:
-        retenu_d3 = "Variantes réelles — aucune déduplication"
+        retenu_d3 = "Variantes réelles, donc aucune déduplication"
         phrase_doublons = "Aucun doublon exact n'existe, même en ignorant le SKU."
     else:
         retenu_d3 = (f"Variantes réelles, sauf {fr(F['doublons_hors_sku'])} lignes "
@@ -226,7 +226,7 @@ def construire_donnees(df: pd.DataFrame) -> dict:
     )
     phrase_alt_d4 = (
         f"« {F['destinations']} destinations », avec "
-        f"{liste_fr(F['noms_zones'])} aux {F['zones']} premières places — "
+        f"{liste_fr(F['noms_zones'])} aux {F['zones']} premières places, "
         f"par construction."
         if F["zones_en_tete"]
         else f"« {F['destinations']} destinations », en comparant des pays à des "
@@ -410,15 +410,15 @@ def construire_donnees(df: pd.DataFrame) -> dict:
                 "id": "D2",
                 "question": f"Que faire des {fr(F['illimites'])} forfaits illimités "
                             f"dans la moyenne de Go ?",
-                "retenu": f"Exclus — moyenne calculée sur les {fr(len(lim))} forfaits à volume limité",
+                "retenu": f"Exclus : la moyenne est calculée sur les {fr(len(lim))} forfaits à volume limité",
                 "pourquoi": "Compter un forfait illimité pour 0 Go est factuellement faux : "
                             "l'illimité, c'est <em>plus</em> de data, pas moins. Les compter "
                             "pour zéro ferait <em>baisser</em> la moyenne alors que l'offre "
-                            "est supérieure. Leur volume n'est pas inconnu, il est indéfini — "
+                            "est supérieure. Leur volume n'est pas inconnu, il est indéfini, "
                             "d'où un KPI explicitement libellé.",
                 "alternative": f"{fr(df['go'].fillna(0).mean(), 2)} Go en les comptant pour zéro, "
                                f"soit {fr((1 - df['go'].fillna(0).mean() / lim['go'].mean()) * 100, 1)} % "
-                               f"de moins — un écart créé de toutes pièces.",
+                               f"de moins, alors que cet écart est créé de toutes pièces.",
             },
             {
                 "id": "D3",
@@ -440,7 +440,7 @@ def construire_donnees(df: pd.DataFrame) -> dict:
             {
                 "id": "D4",
                 "question": "Les zones géographiques comptent-elles comme des pays ?",
-                "retenu": f"Non — {df.loc[~df['zone'], 'country_code'].nunique()} pays et "
+                "retenu": f"Non : {df.loc[~df['zone'], 'country_code'].nunique()} pays et "
                           f"{len(ZONES)} zones présentés séparément",
                 "pourquoi": f"Une eSIM « Europe » et une eSIM « Espagne » ne sont pas "
                             f"deux lignes d'un même classement. {phrase_zones_tete} "
@@ -454,12 +454,12 @@ def construire_donnees(df: pd.DataFrame) -> dict:
             {"titre": "country_code « NA » n'est pas une valeur nulle",
              "texte": f"{fr(F['na_lignes'])} lignes portent le code <code>NA</code> pour "
                       f"« Amérique du Nord ». Lues avec les réglages par défaut de pandas, "
-                      f"elles deviennent <code>NaN</code> — vérifié : exactement "
+                      f"elles deviennent <code>NaN</code>, comme le confirme le contre-test : exactement "
                       f"{fr(F['na_lignes'])} disparitions silencieuses. Le chargeur impose "
                       f"<code>keep_default_na=False</code>, et une assertion fait échouer le "
                       f"build si jamais ces lignes venaient à manquer."},
             {"titre": titre_chers,
-             "texte": f"{ouverture_chers} — et {detail_chers}. Le forfait à volume limité le "
+             "texte": f"{ouverture_chers}, et ils sont {detail_chers}. Le forfait à volume limité le "
                       f"plus cher du catalogue s'arrête à "
                       f"<strong>{fr(F['max_limite'], 2)} €</strong>. {phrase_frontiere}"
                       f"« nettoyer » les lignes sans volume répondrait "
@@ -468,13 +468,13 @@ def construire_donnees(df: pd.DataFrame) -> dict:
             {"titre": f"La moyenne de Go vaut {fr(ratio_go, 1)} fois la médiane",
              "texte": f"<code>data_gb</code> n'est pas continu : c'est un palier à "
                       f"{F['nb_paliers']} valeurs. Moyenne {fr(F['go_moyen'], 2)} Go, "
-                      f"<strong>médiane {fr(F['go_median'])} Go</strong> — l'écart vient du "
+                      f"<strong>médiane {fr(F['go_median'])} Go</strong>, un écart qui vient du "
                       f"palier {F['palier_max']} Go. Publier la seule moyenne donne une image "
                       f"fausse du catalogue, d'où la distribution complète affichée plus bas."},
             {"titre": titre_texte_libre,
              "texte": f"{rappel_doublons}{phrase_texte_libre} : <code>data_display</code> est dérivable de "
                       f"<code>data_gb</code>, et <code>product_name</code> reflète pays + "
-                      f"volume + validité — {compte_exceptions} sur {fr(F['lignes'])} lignes. "
+                      f"volume + validité, avec {compte_exceptions} sur {fr(F['lignes'])} lignes. "
                       f"Tout est déjà dans les colonnes typées, mais il fallait le prouver "
                       f"avant de s'appuyer dessus."},
         ],

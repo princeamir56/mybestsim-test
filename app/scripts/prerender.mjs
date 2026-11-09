@@ -150,7 +150,7 @@ const ROUTES = [
     // servi par l'hébergeur à partir de ce fichier.
     url: '/404',
     fichier: '404.html',
-    title: 'Page introuvable — MyBestSim',
+    title: 'Page introuvable | MyBestSim',
     description: "Cette adresse n'existe pas. Retrouvez le tableau de bord et le guide croisière.",
     robots: 'noindex, follow',
     schema: { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Page introuvable' },

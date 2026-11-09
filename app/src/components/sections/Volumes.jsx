@@ -23,7 +23,7 @@ export default function Volumes() {
 
   return (
     <section id="data" className="shell scroll-mt-24 py-20 lg:py-28">
-      <SectionHead num="05 — Volumes & couverture" title={'Une grille tarifaire,\npas une distribution'}>
+      <SectionHead num="05 · Volumes & couverture" title={'Une grille tarifaire,\npas une distribution'}>
         Le catalogue n'est pas un continuum de volumes : c'est une grille de{' '}
         {mot(data.faits.nb_paliers)} paliers, plus l'illimité. Et {mot(data.meta.zones)} des{' '}
         {data.meta.destinations} « destinations » sont en réalité des zones.

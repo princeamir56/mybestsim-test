@@ -760,10 +760,21 @@ Elle remplace les arcs concentriques dessinés en SVG. Le vérificateur compte u
 (75) : les quatre tailles de l'image doivent exister et être servies dans la page. Les scores
 Lighthouse n'ont pas été remesurés après ces retouches.
 
+### Relecture du style
+
+J'ai demandé de retirer les tirets longs des textes du tableau de bord et de l'article, au profit
+de connecteurs (car, puis, mais, c'est-à-dire) : 50 passages réécrits, sans changer aucun chiffre
+ni le sens des phrases. Le tiret seul qui signale une case vide dans un tableau reste, car il n'y
+joue pas le rôle d'une ponctuation.
+
+Conséquence technique : réécrire la prose modifie `catalogue.json`, ce qui aurait avancé la date
+« Mis à jour le » alors que les données n'avaient pas changé. Elle a été conservée.
+
 ### Décisions : qui a tranché quoi
 
 | Sujet | Proposé par | Tranché par |
 |---|---|---|
+| Remplacer les tirets longs par des connecteurs | moi | moi |
 | Corriger les trois défauts signalés sur mobile | moi | moi |
 | Colonne figée et fondu dans les tables | l'agent | gardé par moi |
 | Repères placés selon les données et la largeur | l'agent | gardé par moi |

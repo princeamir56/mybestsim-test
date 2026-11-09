@@ -57,8 +57,8 @@ export default function Article() {
           <P>
             Elles existent, et il serait malhonnête de les passer sous silence. Certains
             opérateurs commercialisent des forfaits donnant accès au{' '}
-            <B>réseau mobile embarqué des navires</B> — GigSky avec son offre{' '}
-            <i>Cellular at Sea</i>, ou des revendeurs s'appuyant sur l'infrastructure de
+            <B>réseau mobile embarqué des navires</B> : c'est le cas de GigSky avec son offre{' '}
+            <i>Cellular at Sea</i>, ou de revendeurs s'appuyant sur l'infrastructure de
             Telenor Maritime.
           </P>
           <P>
@@ -70,12 +70,12 @@ export default function Article() {
 
           <ARetenir>
             Une eSIM de voyage n'est pas un substitut au Wi-Fi du bord. C'est un produit
-            complémentaire, qui couvre les moments où vous êtes à terre — et qui les
+            complémentaire, qui couvre les moments où vous êtes à terre, et qui les
             couvre très bien.
           </ARetenir>
         </Section>
 
-        <Section id="escales" titre="Alors à quoi sert-elle ? Aux escales — et ça change tout">
+        <Section id="escales" titre="Alors à quoi sert-elle ? Aux escales, et ça change tout">
           <P>
             Posée comme ça, la limite ressemble à un défaut rédhibitoire. Elle ne l'est
             pas, pour une raison simple : <B>c'est à terre que vous avez réellement
@@ -105,9 +105,9 @@ export default function Article() {
           </P>
           <Liste
             items={[
-              ['Une escale par jour ou presque', "(typiquement une Méditerranée d'été) — l'eSIM est le meilleur rapport qualité/prix de votre voyage, et de loin."],
-              ['Deux ou trois jours de navigation', "sur une semaine (Caraïbes, Baltique) — l'eSIM reste rentable ; prévoyez de télécharger vos contenus avant les journées en mer."],
-              ['Une traversée', "(transatlantique, longues navigations) — là, seul le forfait du bord répond."],
+              ['Une escale par jour ou presque', "(typiquement une Méditerranée d'été) : dans ce cas, l'eSIM est le meilleur rapport qualité/prix de votre voyage, et de loin."],
+              ['Deux ou trois jours de navigation', "sur une semaine (Caraïbes, Baltique) : l'eSIM reste rentable, mais prévoyez de télécharger vos contenus avant les journées en mer."],
+              ['Une traversée', "(transatlantique, longues navigations) : là, seul le forfait du bord répond."],
             ]}
           />
         </Section>
@@ -121,7 +121,7 @@ export default function Article() {
           </P>
           <P>
             Le scénario est toujours le même. Le navire s'éloigne de la côte, votre
-            téléphone perd l'antenne terrestre, cherche un réseau — et{' '}
+            téléphone perd l'antenne terrestre, cherche un réseau, puis{' '}
             <B>s'accroche seul à celui du bateau</B>. Sans manipulation de votre part,
             sans alerte visible. Une application qui se synchronise, une sauvegarde
             photo, une mise à jour : la consommation démarre.
@@ -134,7 +134,7 @@ export default function Article() {
           </P>
           <Liste
             items={[
-              ['Sur un réseau terrestre', "— dans un port, par exemple — l'itinérance européenne s'applique normalement : pas de frais supplémentaires."],
+              ['Sur un réseau terrestre', "(dans un port, par exemple), l'itinérance européenne s'applique normalement : pas de frais supplémentaires."],
               ['Via un système par satellite', "« la réglementation de l'UE ne s'applique plus ». Des services sans plafonnement des prix peuvent alors vous être facturés."],
             ]}
           />
@@ -151,7 +151,7 @@ export default function Article() {
               80 % puis un blocage.
             </P>
             <P small last>
-              Mais c'est une protection attachée au <B>régime d'itinérance</B> — celui
+              Mais c'est une protection attachée au <B>régime d'itinérance</B>, c'est-à-dire celui
               dont la page européenne dit précisément qu'il ne s'applique plus en liaison
               satellite. <B>Nous ne pouvons donc pas vous garantir que ce plafond vous
               protège en mer</B>, et les documents officiels consultés ne tranchent pas
@@ -240,7 +240,7 @@ export default function Article() {
           <SousTitre>Une eSIM par pays, ou une seule eSIM régionale ?</SousTitre>
           <P>
             C'est <B>la vraie question d'une croisière</B>, et celle que les comparatifs
-            généralistes n'abordent jamais — parce qu'ils raisonnent sur un voyage dans
+            généralistes n'abordent jamais, parce qu'ils raisonnent sur un voyage dans
             un seul pays. Or un itinéraire en Méditerranée touche couramment l'Espagne,
             l'Italie et la Grèce dans la même semaine.
           </P>
@@ -263,7 +263,7 @@ export default function Article() {
           <ARetenir>
             En dessous de deux pays visités, prenez des eSIM locales.{' '}
             <B>À partir de trois escales dans trois pays différents, l'eSIM régionale
-            devient moins chère</B> — et vous n'avez qu'une seule installation à gérer.
+            devient moins chère</B>, et vous n'avez qu'une seule installation à gérer.
           </ARetenir>
 
           <Methodologie />
@@ -286,7 +286,7 @@ export default function Article() {
           <Encadre titre="Les trois questions à se poser, dans l'ordre">
             <ol className="space-y-3.5">
               {[
-                ["Ai-je besoin d'être joignable en mer ?", "Si oui — travail, responsabilité familiale — le forfait du bord n'est pas optionnel, et aucune eSIM ne le remplacera."],
+                ["Ai-je besoin d'être joignable en mer ?", "Si oui, pour le travail ou une responsabilité familiale, le forfait du bord n'est pas optionnel, et aucune eSIM ne le remplacera."],
                 ["Combien d'escales ?", "C'est ce qui détermine la rentabilité de l'eSIM, et elle est atteinte dès la première ou la deuxième."],
                 ["Puis-je me passer d'Internet en mer ?", "Si oui, l'eSIM seule suffit, et vous économisez l'intégralité du forfait du bord."],
               ].map(([t, s], i) => (
@@ -307,7 +307,7 @@ export default function Article() {
             Nous ne publierons pas de tableau des prix Wi-Fi des compagnies : ils varient
             selon le navire, la durée, le moment de l'achat et les promotions, et les
             chiffres qui circulent en ligne se contredisent. Consultez le site de votre
-            compagnie — mais vérifiez ces quatre points, qui changent tout :
+            compagnie, mais vérifiez ces quatre points, qui changent tout :
           </P>
           <Liste
             items={[
@@ -345,14 +345,14 @@ export default function Article() {
         <Section id="installation" titre="Installer votre eSIM avant de partir">
           <P>
             Une règle, impérative : <B>installez votre eSIM depuis chez vous, avant
-            l'embarquement.</B> L'installation nécessite une connexion Internet —
+            l'embarquement.</B> L'installation nécessite une connexion Internet, et
             attendre d'être à bord, c'est devoir payer le Wi-Fi du bateau pour activer la
             solution censée vous en passer.
           </P>
           <Liste
             ordonnee
             items={[
-              ['Vérifiez la compatibilité eSIM', "de votre téléphone, et qu'il n'est pas bloqué opérateur — un téléphone verrouillé refusera une eSIM tierce."],
+              ['Vérifiez la compatibilité eSIM', "de votre téléphone, et qu'il n'est pas bloqué opérateur, car un téléphone verrouillé refusera une eSIM tierce."],
               ['Achetez et installez le forfait à la maison', "en Wi-Fi. Vous recevez un QR code ; l'eSIM s'ajoute à côté de votre ligne habituelle, qui reste active."],
               ['Activez-la à la première escale', 'pas avant. La plupart des forfaits démarrent leur décompte à la première connexion au réseau, pas à l\'achat.'],
               ['Désignez l\'eSIM comme ligne de données', "par défaut, et laissez l'itinérance désactivée sur votre ligne principale. C'est cette combinaison qui vous protège."],
@@ -461,7 +461,7 @@ function Reponse() {
           <p>
             Et surtout : <B>coupez les données mobiles dès l'embarquement.</B> Votre
             téléphone s'accroche seul au réseau du navire, qui n'est pas couvert par la
-            réglementation européenne sur l'itinérance — <B>donc sans plafond de prix</B>.
+            réglementation européenne sur l'itinérance, <B>donc sans plafond de prix</B>.
           </p>
         </div>
       </aside>
@@ -725,11 +725,11 @@ function SchemaCouverture() {
 }
 
 const SOURCES = [
-  ['Your Europe — Commission européenne, « Itinérance : ce que vous payez pour utiliser votre smartphone dans un autre pays de l\'UE », section bateau et avion.',
+  ['Your Europe, Commission européenne : « Itinérance : ce que vous payez pour utiliser votre smartphone dans un autre pays de l\'UE », section bateau et avion.',
    'https://europa.eu/youreurope/citizens/consumers/internet-telecoms/mobile-roaming-costs/index_fr.htm'],
-  ['ARCEP — « Comment fonctionne l\'itinérance à l\'international (hors Union européenne) ? », plafond par défaut, alerte et blocage.',
+  ['ARCEP : « Comment fonctionne l\'itinérance à l\'international (hors Union européenne) ? », plafond par défaut, alerte et blocage.',
    'https://www.arcep.fr/mes-demarches-et-services/consommateurs/fiches-pratiques/itinerance-international-hors-union-europeenne.html'],
-  ['UFC-Que Choisir — « Téléphoner en zone maritime : avis de tempête sur les factures ». Article ancien : nous en reprenons le mécanisme décrit, pas les tarifs cités.',
+  ['UFC-Que Choisir : « Téléphoner en zone maritime : avis de tempête sur les factures ». Article ancien : nous en reprenons le mécanisme décrit, pas les tarifs cités.',
    'https://www.quechoisir.org/actualite-telephoner-en-zone-maritime-avis-de-tempete-sur-les-factures-n10537/'],
 ];
 

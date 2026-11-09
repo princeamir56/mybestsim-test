@@ -60,7 +60,7 @@ const FAQ_BRUTE = [
     reponse:
       'Cela dépend du nombre de pays touchés. Pour une ou deux destinations, des eSIM ' +
       'locales reviennent moins cher. À partir de trois pays, une eSIM régionale devient ' +
-      "plus avantageuse — et vous n'avez qu'une installation à gérer avant le départ.",
+      "plus avantageuse, et vous n'avez qu'une installation à gérer avant le départ.",
   },
   {
     question: 'Quand faut-il acheter et activer son eSIM ?',
@@ -80,7 +80,7 @@ export const ITINERAIRES_EDITO = [
     texte:
       "L'itinéraire le plus favorable à l'eSIM : escales quasi quotidiennes, navigation " +
       "de nuit, et des pays tous très bien couverts. C'est aussi celui qui multiplie le " +
-      'plus les frontières — Espagne, France, Italie, Grèce, parfois Croatie ou Turquie ' +
+      "plus les frontières, puisque l'Espagne, la France, l'Italie, la Grèce et parfois la Croatie ou la Turquie se succèdent " +
       "dans la même semaine. Une eSIM régionale Europe est presque toujours le bon choix, " +
       'sauf sur un circuit qui reste dans un seul pays.',
   },
@@ -91,7 +91,7 @@ export const ITINERAIRES_EDITO = [
     texte:
       'Escales nombreuses mais entrecoupées de navigation, et surtout : chaque île est un ' +
       'pays différent, avec ses propres opérateurs. Vérifiez que votre destination exacte ' +
-      'est couverte — les catalogues sont plus fournis sur les grandes îles. Attention ' +
+      'est couverte, car les catalogues sont plus fournis sur les grandes îles. Attention ' +
       "aussi aux escales en outre-mer français, où votre forfait habituel peut déjà s'appliquer.",
   },
   {
@@ -101,7 +101,7 @@ export const ITINERAIRES_EDITO = [
     texte:
       'Itinéraire à forte proportion de navigation : les journées de mer y sont nombreuses ' +
       "et les escales plus espacées. L'eSIM reste utile à Vancouver, Seattle ou Juneau, " +
-      "mais elle couvrira une part plus faible de votre voyage — c'est l'un des itinéraires " +
+      "mais elle couvrira une part plus faible de votre voyage, et c'est l'un des itinéraires " +
       'où le forfait du bord se justifie le mieux. Une eSIM couvrant toute l\'Amérique du ' +
       'Nord évite d\'en jongler deux entre États-Unis et Canada.',
   },
@@ -111,8 +111,8 @@ export const ITINERAIRES_EDITO = [
     verdict: 'Mono-pays',
     texte:
       'Particularité utile : la navigation se fait en grande partie dans les fjords, donc ' +
-      "près des côtes. Vous conserverez plus souvent du signal qu'en haute mer — sans " +
-      'garantie, cela dépend du relief et de l\'opérateur. Les escales restant dans un seul ' +
+      "près des côtes. Vous conserverez plus souvent du signal qu'en haute mer, mais sans " +
+      'garantie, car cela dépend du relief et de l\'opérateur. Les escales restant dans un seul ' +
       'pays, une eSIM Norvège suffit, sauf si le circuit inclut le Danemark ou l\'Islande.',
   },
   {
