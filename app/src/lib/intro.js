@@ -6,8 +6,8 @@
 // plus grand affichage de la page, que Google mesure.
 const CLE = 'mbs-intro-vue';
 
-export const SCENE = 1.05; // l'oiseau, puis le mot
-export const LEVER = 0.45; // le rideau qui se lève
+export const SCENE = 2.15; // l'oiseau, puis le mot
+export const LEVER = 0.8; // le rideau qui se lève
 const SCENE_REDUITE = 0.7;
 
 const mouvementReduit = () => {

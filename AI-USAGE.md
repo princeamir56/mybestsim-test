@@ -737,8 +737,11 @@ des durées alors que je voulais ne plus attendre du tout.
 La troisième passe a aussi révélé une attente que les durées ne pouvaient pas corriger : le voile
 sombre masquait la page jusqu'au chargement du JavaScript, y compris aux visites sans scène
 d'ouverture. Il n'est plus posé que lorsque la scène va se jouer. Le hero apparaît alors au premier
-affichage, environ 0,5 s après l'ouverture dans un Chrome piloté en local. La scène d'ouverture passe
-d'environ 3 s à environ 1,5 s.
+affichage, environ 0,5 s après l'ouverture dans un Chrome piloté en local.
+
+La scène d'ouverture avait aussi été ramenée à environ 1,5 s. Après l'avoir revue, je l'ai trouvée
+trop brève et j'ai demandé de lui rendre sa durée d'origine (environ 3 s). Le hero, lui, reste
+immédiat : il est déjà complet quand le rideau se lève.
 
 ### L'image de fond du hero
 
@@ -779,6 +782,7 @@ Conséquence technique : réécrire la prose modifie `catalogue.json`, ce qui au
 | Colonne figée et fondu dans les tables | l'agent | gardé par moi |
 | Repères placés selon les données et la largeur | l'agent | gardé par moi |
 | Hero affiché sans attente | moi | moi |
+| Rendre à la scène d'ouverture sa durée d'origine | moi | moi |
 | Retirer toute entrée animée du hero, écourter la scène, limiter le voile | l'agent, après mes retours | gardé par moi |
 | Image de fond du hero | moi | moi |
 | Recadrage téléphone, image sous le texte, bandeau flouté | l'agent | gardé par moi |

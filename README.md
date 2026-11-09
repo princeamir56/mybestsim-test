@@ -236,8 +236,8 @@ sans saut quand React prend la main.
 
 **Le haut du tableau de bord non plus.** Titre, texte, boutons et chiffres sont en place dès
 l'ouverture, sans compteur ni délai. Une fois la scène d'ouverture vue, le voile sombre n'est
-plus posé : le hero s'affiche dès l'arrivée du HTML. La scène elle-même dure environ 1,5 s,
-lever du rideau compris.
+plus posé : le hero s'affiche dès l'arrivée du HTML. La scène elle-même dure environ 3 s,
+lever du rideau compris, et le hero est déjà complet quand le rideau se lève.
 
 **L'image de fond du hero** est ancrée en bas de la section, jamais déformée, et le fond de la
 section reprend la couleur de son ciel (`#001025`), de sorte qu'aucun raccord ne se voit.
