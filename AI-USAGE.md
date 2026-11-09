@@ -773,11 +773,22 @@ joue pas le rôle d'une ponctuation.
 Conséquence technique : réécrire la prose modifie `catalogue.json`, ce qui aurait avancé la date
 « Mis à jour le » alors que les données n'avaient pas changé. Elle a été conservée.
 
+### Le schéma de couverture, animé
+
+J'ai demandé de remplacer le schéma fixe de l'article par une animation muette de 5 secondes, en
+boucle. L'agent a proposé de l'écrire en SVG et en CSS plutôt que d'exporter une vidéo : sur une
+page qui doit ranker, le schéma reste dans le HTML servi, ne charge aucun fichier et reste net à
+toute taille. Les libellés restent en HTML sous le dessin, car du texte dans le SVG serait devenu
+illisible à la largeur d'un téléphone. En mouvement réduit, le schéma fixe d'origine reprend sa
+place.
+
 ### Décisions : qui a tranché quoi
 
 | Sujet | Proposé par | Tranché par |
 |---|---|---|
 | Remplacer les tirets longs par des connecteurs | moi | moi |
+| Schéma de couverture animé, en boucle de 5 s | moi | moi |
+| L'écrire en SVG et CSS plutôt qu'en vidéo | l'agent | validé en commitant |
 | Corriger les trois défauts signalés sur mobile | moi | moi |
 | Colonne figée et fondu dans les tables | l'agent | gardé par moi |
 | Repères placés selon les données et la largeur | l'agent | gardé par moi |

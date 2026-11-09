@@ -253,6 +253,12 @@ Le texte ne dépend jamais de l'image pour rester lisible : les chiffres sont po
 bandeau opaque à 70 % et flouté. L'image est décorative (`alt` vide), précharge par largeur
 d'écran, et pèse de 50 à 108 Ko selon la taille servie.
 
+**Le schéma de couverture de l'article est une animation en boucle de 5 s** : un navire quitte
+le port, perd le réseau terrestre, puis passe sur le satellite du bord. Elle est écrite en SVG et
+en CSS, pas en fichier vidéo : le schéma reste dans le HTML servi, net à toute taille, sans son,
+sans lecteur et sans téléchargement supplémentaire. En mouvement réduit, il redevient le schéma
+fixe à trois navires.
+
 ---
 
 ## Mise en ligne

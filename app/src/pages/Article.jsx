@@ -674,51 +674,97 @@ const Methodologie = () => (
   </Reveal>
 );
 
-/** Le schéma de la couverture : du port au large, ce qui capte et ce qui ne capte plus. */
-function SchemaCouverture() {
-  const zones = [
-    ['Au port', 'Réseau terrestre', 'eSIM active', '#1f6fb2'],
-    ['Près des côtes', 'Signal dégradé', 'Intermittent', '#7fb0de'],
-    ['Au large', 'Satellite du navire', 'eSIM inutile', '#d2693a'],
-  ];
-  const Navire = ({ x, couleur }) => (
-    <g transform={`translate(${x} 128)`}>
+const ZONES_COUVERTURE = [
+  ['Au port', 'Réseau terrestre', 'eSIM active', '#1f6fb2'],
+  ['Près des côtes', 'Signal dégradé', 'Intermittent', '#7fb0de'],
+  ['Au large', 'Satellite du navire', 'eSIM inutile', '#d2693a'],
+];
+const ARCS_ANTENNE = [18, 44, 74, 108, 146, 188, 236, 290];
+const HOULE = `M60 158${' q10 -4 20 0 t20 0'.repeat(16)}`;
+
+function Coque({ couleur, classePoint }) {
+  return (
+    <>
       <path d="M-34 0h68l-9 17h-50z" fill="#113a63" />
       <path d="M-22 0v-11h44V0zM-9-11v-9h18v9z" fill="#ffffff" stroke="#113a63" strokeWidth="1.5" />
-      <circle cx="0" cy="-27" r="3.5" fill={couleur} />
-    </g>
+      <circle cx="0" cy="-27" r="3.5" fill={couleur} className={classePoint} />
+    </>
   );
+}
+
+/**
+ * Du port au large, ce qui capte et ce qui ne capte plus : une boucle de 5 s.
+ *
+ * Tout le mouvement vit dans le CSS (classes `couverture-*` d'index.css). Le schéma
+ * est donc dans le HTML servi, net à toute taille, sans fichier vidéo à charger et
+ * sans JavaScript. En mouvement réduit, il redevient le schéma fixe à trois navires.
+ */
+function SchemaCouverture() {
   return (
     <figure className="my-8 rounded-[1.2rem] border border-marine/10 bg-white/50 p-5 sm:p-6">
-      <svg viewBox="0 0 640 170" className="h-auto w-full" role="img" aria-label="Schéma de la couverture mobile en croisière : au port le téléphone capte le réseau terrestre, près des côtes le signal se dégrade, au large seule la liaison satellite du navire subsiste.">
-        <path d="M0 145 Q 40 138 86 146 L 110 170 L 0 170 Z" fill="#dfd5c2" />
-        <path d="M40 141V84M28 141l12-44 12 44" fill="none" stroke="#113a63" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        {[18, 44, 74, 108, 146, 188].map((r, i) => (
-          <path key={r} d={`M${40 + r} 84 A ${r} ${r} 0 0 0 ${40 + r * 0.72} ${84 - r * 0.69}`} fill="none" stroke="#1f6fb2" strokeWidth="2" strokeLinecap="round" opacity={Math.max(0.1, 0.85 - i * 0.15)} />
-        ))}
+      <svg viewBox="0 0 640 170" className="h-auto w-full" role="img" aria-label="Animation en boucle de la couverture mobile en croisière : au port, le téléphone capte le réseau terrestre ; près des côtes, le signal se dégrade ; au large, seule la liaison satellite du navire subsiste.">
         <rect x="0" y="145" width="640" height="25" fill="#6ba8e0" opacity="0.16" />
-        <Navire x={130} couleur="#1f6fb2" />
-        <Navire x={320} couleur="#7fb0de" />
-        <Navire x={540} couleur="#d2693a" />
+        <path className="couverture-houle" d={HOULE} fill="none" stroke="#6ba8e0" strokeOpacity="0.55" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M0 145 Q40 138 86 146 L110 170 L0 170 Z" fill="#dfd5c2" />
+        <path d="M40 141V84M28 141l12-44 12 44" fill="none" stroke="#113a63" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        {ARCS_ANTENNE.map((r, i) => (
+          <path
+            key={r}
+            className="couverture-onde"
+            style={{ animationDelay: `${(i * 0.11 - 1.25).toFixed(2)}s` }}
+            d={`M${40 + r} 84 A ${r} ${r} 0 0 0 ${40 + r * 0.72} ${84 - r * 0.69}`}
+            fill="none"
+            stroke="#1f6fb2"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeOpacity={Math.max(0.12, 0.85 - i * 0.12)}
+          />
+        ))}
         <g transform="translate(590 26)" fill="none" stroke="#113a63" strokeWidth="2" strokeLinejoin="round">
-          <rect x="-7" y="-6" width="14" height="12" rx="2" fill="#ffffff" />
+          <rect className="couverture-satellite" x="-7" y="-6" width="14" height="12" rx="2" fill="#ffffff" />
           <path d="M-7 0h-16M7 0h16M-23-6h-0v12M23-6v12" />
         </g>
-        <path d="M584 38 L546 94" stroke="#d2693a" strokeWidth="2" strokeDasharray="4 5" strokeLinecap="round" />
+
+        {/* Mouvement réduit : les trois étapes côte à côte, sans rien qui bouge. */}
+        <g className="couverture-fixe">
+          <path d="M584 38 L546 94" stroke="#d2693a" strokeWidth="2" strokeDasharray="4 5" strokeLinecap="round" />
+          {[[130, '#1f6fb2'], [320, '#7fb0de'], [540, '#d2693a']].map(([x, couleur]) => (
+            <g key={x} transform={`translate(${x} 128)`}><Coque couleur={couleur} /></g>
+          ))}
+        </g>
+
+        <g className="couverture-anime">
+          <path className="couverture-liaison" d="M584 38 L544 96" stroke="#d2693a" strokeWidth="2" strokeDasharray="4 5" strokeLinecap="round" />
+          <g transform="translate(130 128)">
+            <g className="couverture-navire">
+              <path className="couverture-sillage" d="M-38 21h-30M-42 26h-16" stroke="#6ba8e0" strokeWidth="1.75" strokeLinecap="round" />
+              <g className="couverture-roulis">
+                <Coque couleur="#1f6fb2" classePoint="couverture-point" />
+                <g fill="#1f6fb2">
+                  <rect className="couverture-barre-1" x="12" y="-18" width="4" height="5" rx="1" />
+                  <rect className="couverture-barre-2" x="18" y="-22" width="4" height="9" rx="1" />
+                  <rect className="couverture-barre-3" x="24" y="-26" width="4" height="13" rx="1" />
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
       </svg>
       <div className="mt-4 grid gap-4 sm:grid-cols-3">
-        {zones.map(([zone, reseau, etat, couleur]) => (
+        {ZONES_COUVERTURE.map(([zone, reseau, etat, couleur], i) => (
           <div key={zone}>
-            <span aria-hidden="true" className="block h-1 w-10 rounded-full" style={{ background: couleur }} />
+            <span aria-hidden="true" className="block h-1 w-10 overflow-hidden rounded-full bg-marine/12">
+              <span className={`couverture-jauge couverture-jauge-${i + 1} block h-full w-full rounded-full`} style={{ background: couleur }} />
+            </span>
             <p className="mt-2.5 font-display text-[1rem] text-marine">{zone}</p>
             <p className="mt-0.5 text-[0.84rem] text-slate">{reseau} · {etat}</p>
           </div>
         ))}
       </div>
       <figcaption className="mt-4 border-t border-marine/10 pt-3 text-[0.8rem] text-marine/80">
-        Suggestion d'image : remplacer ce schéma par une illustration de la couverture mobile en
-        croisière, du port à la pleine mer.{' '}
-        <i>Alt : « Schéma de la couverture mobile en croisière, du port à la pleine mer »</i>
+        Suggestion d'image : garder cette animation sur la page publiée, ou la décliner en
+        illustration du trajet entre le port et la pleine mer.{' '}
+        <i>Alt : « Un navire quitte le port, perd le réseau terrestre, puis passe sur le satellite du bord »</i>
       </figcaption>
     </figure>
   );

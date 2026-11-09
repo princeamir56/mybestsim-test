@@ -23,6 +23,7 @@
      Tailwind `ease-soft` ne puissent pas diverger. Miroir de lib/motion.js. */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1); /* trajet à l'écran */
 
   /* Les séries de graphiques, validées (contraste, bande de luminosité,
      séparation protan/tritan) contre la surface papier AVANT d'écrire la
@@ -230,6 +231,266 @@ html.lenis body {
   }
   ::-webkit-scrollbar-thumb:hover {
     background: rgba(17, 58, 99, 0.38);
+  }
+}
+
+/* Le schéma de couverture de l'article : une boucle de 5 s, sans JavaScript.
+   Toutes les périodes sont des diviseurs de 5 s, pour qu'aucun raccord ne se voie.
+   0-16 % au port · 16-38 % vers la côte · 38-46 % près des côtes · 46-70 % vers le
+   large · 70-93 % au large · 93-100 % le navire s'efface et la boucle repart. */
+@media (prefers-reduced-motion: no-preference) {
+  .couverture-fixe {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .couverture-anime {
+    display: none;
+  }
+}
+.couverture-navire {
+  animation: couverture-cap 5s linear infinite;
+}
+.couverture-roulis {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: couverture-roulis 2.5s ease-in-out infinite;
+}
+.couverture-houle {
+  animation: couverture-houle 2.5s linear infinite;
+}
+.couverture-onde {
+  animation: couverture-onde 1.25s linear infinite;
+}
+.couverture-sillage {
+  opacity: 0;
+  animation: couverture-sillage 5s linear infinite;
+}
+.couverture-point {
+  animation: couverture-point 5s linear infinite;
+}
+.couverture-barre-1 {
+  animation: couverture-barre-1 5s linear infinite;
+}
+.couverture-barre-2 {
+  animation: couverture-barre-2 5s linear infinite;
+}
+.couverture-barre-3 {
+  animation: couverture-barre-3 5s linear infinite;
+}
+.couverture-liaison {
+  animation:
+    couverture-liaison 5s linear infinite,
+    couverture-flux 0.5s linear infinite;
+}
+.couverture-satellite {
+  animation: couverture-satellite 5s linear infinite;
+}
+.couverture-jauge {
+  transform-origin: left;
+}
+.couverture-jauge-1 {
+  animation: couverture-jauge-1 5s linear infinite;
+}
+.couverture-jauge-2 {
+  animation: couverture-jauge-2 5s linear infinite;
+}
+.couverture-jauge-3 {
+  animation: couverture-jauge-3 5s linear infinite;
+}
+@keyframes couverture-cap {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  5% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  16% {
+    transform: translateX(0);
+    animation-timing-function: var(--ease-in-out);
+  }
+  38% {
+    transform: translateX(190px);
+  }
+  46% {
+    transform: translateX(190px);
+    animation-timing-function: var(--ease-in-out);
+  }
+  70%,
+  93% {
+    opacity: 1;
+    transform: translateX(410px);
+  }
+  99%,
+  100% {
+    opacity: 0;
+    transform: translateX(410px);
+  }
+}
+@keyframes couverture-roulis {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.2deg);
+  }
+  50% {
+    transform: translateY(-1.5px) rotate(1.2deg);
+  }
+}
+@keyframes couverture-houle {
+  to {
+    transform: translateX(-40px);
+  }
+}
+@keyframes couverture-onde {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.12;
+  }
+}
+@keyframes couverture-sillage {
+  0%,
+  17%,
+  38%,
+  47%,
+  70%,
+  100% {
+    opacity: 0;
+  }
+  23%,
+  33%,
+  53%,
+  64% {
+    opacity: 0.8;
+  }
+}
+@keyframes couverture-point {
+  0%,
+  24% {
+    fill: var(--serie-1);
+  }
+  34%,
+  50% {
+    fill: var(--ramp-1);
+  }
+  66%,
+  100% {
+    fill: var(--serie-2);
+  }
+}
+@keyframes couverture-barre-1 {
+  0%,
+  54% {
+    opacity: 1;
+  }
+  60%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes couverture-barre-2 {
+  0%,
+  28% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 0;
+  }
+  39%,
+  41% {
+    opacity: 1;
+  }
+  44%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes couverture-barre-3 {
+  0%,
+  20% {
+    opacity: 1;
+  }
+  26%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes couverture-liaison {
+  0%,
+  68% {
+    opacity: 0;
+  }
+  74%,
+  92% {
+    opacity: 1;
+  }
+  98%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes couverture-flux {
+  to {
+    stroke-dashoffset: -9;
+  }
+}
+@keyframes couverture-satellite {
+  0%,
+  68%,
+  98%,
+  100% {
+    fill: #ffffff;
+  }
+  74%,
+  92% {
+    fill: #f3cdb6;
+  }
+}
+@keyframes couverture-jauge-1 {
+  0% {
+    transform: scaleX(0);
+  }
+  20%,
+  93% {
+    transform: scaleX(1);
+  }
+  99%,
+  100% {
+    transform: scaleX(0);
+  }
+}
+@keyframes couverture-jauge-2 {
+  0%,
+  24% {
+    transform: scaleX(0);
+  }
+  50%,
+  93% {
+    transform: scaleX(1);
+  }
+  99%,
+  100% {
+    transform: scaleX(0);
+  }
+}
+@keyframes couverture-jauge-3 {
+  0%,
+  54% {
+    transform: scaleX(0);
+  }
+  76%,
+  93% {
+    transform: scaleX(1);
+  }
+  99%,
+  100% {
+    transform: scaleX(0);
   }
 }
 
