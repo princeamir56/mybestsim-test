@@ -1,11 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
-import { useReducedMotion } from '../../lib/motion.js';
+import { useEffect, useRef } from 'react';
+import { useParcours } from './parcours.js';
 import { BUREAU, NOEUDS, SCENARIOS, TELEPHONE } from '../../data/automatisation.js';
-
-const TRAJET = 520; // le paquet sur une flèche
-const PAUSE = 1000; // le temps de lire l'étape
-const PAUSE_FIN = 2600; // avant que le scénario ne reparte
 
 const EPAISSEUR_PAQUET = { largeur: 48, hauteur: 20 };
 
@@ -34,15 +29,6 @@ function pointe(points, taille = 7) {
   const [ux, uy] = [(bx - ax) / l, (by - ay) / l];
   const base = [bx - ux * taille, by - uy * taille];
   return `${bx},${by} ${base[0] - uy * 4.5},${base[1] + ux * 4.5} ${base[0] + uy * 4.5},${base[1] - ux * 4.5}`;
-}
-
-function jalons(points) {
-  const longueurs = [0];
-  for (let i = 1; i < points.length; i += 1) {
-    longueurs.push(longueurs[i - 1] + Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]));
-  }
-  const total = longueurs[longueurs.length - 1] || 1;
-  return longueurs.map((l) => l / total);
 }
 
 /* ---------------------------------------------------------------- icônes --- */
@@ -214,96 +200,31 @@ function Bouton({ etiquette, icone, onClick, disabled }) {
 }
 
 export default function Diagramme() {
-  const reduit = useReducedMotion();
-  const { ref: refVue, inView } = useInView({ threshold: 0.12 });
-
-  const [scenarioId, setScenarioId] = useState(SCENARIOS[0].id);
-  const [etape, setEtape] = useState(0);
-  const [lecture, setLecture] = useState(true);
-  const [selection, setSelection] = useState(null);
-  const [arrivee, setArrivee] = useState(null);
-
   const sceneBureau = useRef(null);
   const sceneTel = useRef(null);
   const paquetBureau = useRef(null);
   const paquetTel = useRef(null);
   const journal = useRef(null);
 
-  const scenario = SCENARIOS.find((s) => s.id === scenarioId);
-  const etapes = scenario.etapes;
-  const courante = etapes[etape];
-  const derniere = etape === etapes.length - 1;
-  const enLecture = lecture && !reduit && inView;
-  const cle = `${scenarioId}:${etape}`;
-  const arrive = !enLecture || arrivee === cle || !courante.arete;
-
-  useEffect(() => {
-    if (!enLecture) return undefined;
-    const trajet = courante.arete ? TRAJET : 0;
-    const animations = [];
-
-    if (courante.arete) {
-      const bureauVisible = sceneBureau.current?.offsetWidth > 0;
-      const [scene, paquet, plan] = bureauVisible
-        ? [sceneBureau.current, paquetBureau.current, BUREAU]
-        : [sceneTel.current, paquetTel.current, TELEPHONE];
-      const points = plan.aretes[courante.arete];
-      if (scene && paquet && points) {
-        const { width, height } = scene.getBoundingClientRect();
-        const offsets = jalons(points);
-        paquet.textContent = courante.paquet;
-        animations.push(
-          paquet.animate(
-            points.map(([x, y], i) => ({ transform: `translate(${(x / plan.W) * width}px, ${(y / plan.H) * height}px)`, offset: offsets[i] })),
-            { duration: TRAJET, easing: 'cubic-bezier(0.77, 0, 0.175, 1)', fill: 'forwards' }
-          ),
-          paquet.animate({ opacity: [0, 1, 1, 0], offset: [0, 0.12, 0.88, 1] }, { duration: TRAJET, fill: 'forwards' })
-        );
-      }
-    }
-
-    const t1 = setTimeout(() => setArrivee(cle), trajet);
-    const t2 = setTimeout(() => setEtape(derniere ? 0 : etape + 1), trajet + (derniere ? PAUSE_FIN : PAUSE));
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      animations.forEach((a) => a.cancel());
-    };
-  }, [enLecture, cle]); // eslint-disable-line react-hooks/exhaustive-deps
+  const {
+    refVue, reduit, scenario, scenarioId, etapes, courante, etape, derniere, enLecture, cle,
+    lecture, setLecture, selection, etats, aretes, etapesVues, choisirScenario, aller, surChoisir, reprendre,
+  } = useParcours({
+    scenarios: SCENARIOS,
+    noeuds: NOEUDS,
+    scenes: [
+      { scene: sceneBureau, paquet: paquetBureau, plan: BUREAU },
+      { scene: sceneTel, paquet: paquetTel, plan: TELEPHONE },
+    ],
+    pointsDe: (plan, id) => plan.aretes[id],
+  });
 
   // Le journal défile dans son propre cadre : jamais la page.
   useEffect(() => {
     if (journal.current) journal.current.scrollTop = journal.current.scrollHeight;
   }, [cle]);
 
-  /* -------------------------- ce qui est allumé à l'étape en cours -------- */
-  const etats = Object.fromEntries(Object.keys(NOEUDS).map((id) => [id, 'repos']));
-  const aretes = {};
-  etapes.slice(0, etape + 1).forEach((e, i) => {
-    const passee = i < etape;
-    if (passee || arrive) etats[e.noeud] = e.echec ? 'echec' : passee ? 'fait' : 'actif';
-    if (e.arete) aretes[e.arete] = 'allumee';
-  });
-
-  const lignesJournal = etapes.slice(0, etape + 1).filter((e, i) => i < etape || arrive).flatMap((e) => e.log);
-
-  const choisirScenario = (id) => {
-    setScenarioId(id);
-    setEtape(0);
-    setSelection(null);
-    setLecture(true);
-  };
-  const aller = (i) => {
-    setLecture(false);
-    setSelection(null);
-    setEtape(Math.max(0, Math.min(etapes.length - 1, i)));
-  };
-  const surChoisir = (id) => {
-    setLecture(false);
-    setSelection(id);
-    const i = etapes.findIndex((e) => e.noeud === id);
-    if (i >= 0) setEtape(i);
-  };
+  const lignesJournal = etapesVues.flatMap((e) => e.log);
 
   const detail = NOEUDS[selection ?? courante.noeud];
   const proprietes = { etats, aretes, selection, surChoisir };
@@ -338,7 +259,7 @@ export default function Diagramme() {
             disabled={reduit}
           />
           <Bouton etiquette="Étape suivante" icone="suivant" onClick={() => aller(etape + 1)} disabled={derniere} />
-          <Bouton etiquette="Reprendre au début" icone="rejouer" onClick={() => { setEtape(0); setSelection(null); setLecture(true); }} />
+          <Bouton etiquette="Reprendre au début" icone="rejouer" onClick={reprendre} />
         </div>
       </div>
       <p className="mt-4 text-[0.95rem] text-porcelain/75">{scenario.resume}</p>

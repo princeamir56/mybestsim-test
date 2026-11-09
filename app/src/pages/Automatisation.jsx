@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Diagramme from '../components/automatisation/Diagramme.jsx';
+import PerspectiveN8n from '../components/automatisation/PerspectiveN8n.jsx';
 import { CONTROLES, NOEUDS, SCENARIOS } from '../data/automatisation.js';
 import { n, dateFr } from '../lib/format.js';
 import data from '../data/catalogue.json';
@@ -98,6 +99,8 @@ export default function Automatisation() {
           </p>
         </aside>
       </section>
+
+      <PerspectiveN8n />
 
       <div className="shell mt-16 flex flex-wrap gap-3">
         <Link to="/" className="btn-primary">Voir le tableau de bord</Link>

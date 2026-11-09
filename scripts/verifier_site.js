@@ -271,6 +271,8 @@ titre('Page d\'automatisation');
 const auto = charger('automation/index.html');
 verifier('la page est prérendue, avec ses scénarios', auto.texte.includes('Nouveau fichier') && auto.texte.includes('Fichier corrompu'));
 verifier('elle reste hors index, comme le tableau de bord', (auto.doc.querySelector('meta[name=robots]') || {}).content?.includes('noindex'));
+verifier('le workflow n8n est présenté comme une perspective non déployée',
+  auto.texte.includes('non déployé') && auto.texte.includes('simulée'));
 const assertions = (fs.readFileSync(path.join(__dirname, 'mbs_catalogue.py'), 'utf8').split('def _verifier')[1].split('def faits')[0].match(/^\s+assert /gm) || []).length;
 verifier('le nombre d\'assertions annoncé est exact', auto.texte.includes(`${assertions} assertions`), `${assertions}`);
 

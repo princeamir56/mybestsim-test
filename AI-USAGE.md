@@ -833,3 +833,23 @@ référence à un fichier de données, le schéma nomme le dossier sans jamais �
 | Page en `noindex`, comme le tableau de bord | l'agent | validé en commitant |
 | Bouton près des décisions et lien dans le pied de page | l'agent | moi |
 
+### La perspective : un workflow n8n
+
+J'ai demandé une section sur l'évolution du projet vers un workflow n8n, interactive comme la
+première et dans l'esprit de l'éditeur n8n. Elle est **présentée comme une proposition** : aucune
+instance n'existe, l'exécution est simulée, et les sorties affichées sont des exemples.
+
+L'agent a proposé de ne pas remplacer GitHub Actions. n8n prendrait l'amont et l'aval du pipeline
+(collecter, écarter, annuler, prévenir), et le pipeline resterait le seul à calculer les chiffres.
+L'IA n'y rédige que des messages. C'est aussi la réponse à la limite annoncée plus haut sur la page :
+les fichiers arrivent aujourd'hui par un commit.
+
+Les deux schémas partagent désormais le même moteur (`parcours.js`), ce qui évite de maintenir deux
+fois la lecture, les étapes et le déplacement du paquet.
+
+| Sujet | Proposé par | Tranché par |
+|---|---|---|
+| Section n8n, interactive et au style de l'éditeur | moi | moi |
+| n8n en amont et en aval, GitHub Actions conservé | l'agent | validé en commitant |
+| Mention « simulation, non déployé » | l'agent | validé en commitant |
+

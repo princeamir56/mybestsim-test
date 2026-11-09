@@ -39,7 +39,7 @@ pip install -r requirements.txt      # pandas
 npm install && npm --prefix app install
 
 npm run build                        # CSV → JSON → site statique dans site/
-npm run verifier                     # 80 contrôles sur le HTML réellement servi
+npm run verifier                     # 81 contrôles sur le HTML réellement servi
 npm run test-import                  # simule un 19ᵉ fournisseur et contrôle la prose
 npm run preview                      # http://localhost:4173
 ```
@@ -91,6 +91,12 @@ brique au clic. Le contenu décrit [`pipeline.yml`](.github/workflows/pipeline.y
 ([`automatisation.js`](app/src/data/automatisation.js)) : le vérificateur recoupe les totaux
 annoncés avec le code. Un bouton du panneau « Décisions » et le pied de page y mènent. Elle reste en
 `noindex`, comme le tableau de bord : seul l'article a vocation à ranker.
+
+La même page présente la **suite possible du projet** : un workflow n8n simulé, avec une toile de
+nœuds, trois exécutions (tarifs reçus par mail, fichier invalide, pipeline en échec), et les
+paramètres et la sortie de chaque nœud. Il prendrait en charge ce que le pipeline ne fait pas encore
+(aller chercher les fichiers, écarter les mauvais, confirmer la publication). **Il n'est pas déployé** :
+GitHub Actions resterait le seul à produire les chiffres, et la section le dit explicitement.
 
 ### Un seul point d'entrée pour les données
 
@@ -163,7 +169,7 @@ entre les données et la page — un invariant qui reste vrai quel que soit l'im
 - la **date de génération** du JSON, présente dans le pied de page — sans quoi un site
   construit depuis un JSON périmé passerait tous les autres tests sans broncher.
 
-80 contrôles, aucune valeur attendue écrite en dur.
+81 contrôles, aucune valeur attendue écrite en dur.
 
 ### La preuve de bout en bout
 
@@ -305,7 +311,7 @@ scripts/
   statistiques.py       étape 2 : applique les décisions, produit les chiffres
   build_site.py         agrège le catalogue vers app/src/data/
   donnees_article.py    prix de l'article, extraits du même catalogue
-  verifier_site.js      80 contrôles : cohérence données ↔ HTML, liens internes, SEO
+  verifier_site.js      81 contrôles : cohérence données ↔ HTML, liens internes, SEO
   test_nouveau_fournisseur.py  simule un 19e fournisseur : la prose suit-elle ?
 app/
   src/components/       ui/ · charts/ (10 formes en SVG natif) · sections/ · layout/ · automatisation/
