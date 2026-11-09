@@ -935,3 +935,50 @@ Vérifié en local : build, 85 contrôles, 14 contrôles de prose, audit Chrome,
 | Dire qui a rédigé les rapports, plutôt que les réécrire à mon nom | l'agent | validé en commitant |
 | Quatre contrôles supplémentaires | l'agent | validé en commitant |
 
+---
+
+## Renforcement de l'article
+
+### Ce que j'ai demandé
+
+La même relecture jugeait l'article plus faible que le tableau de bord. J'ai demandé d'appliquer ses
+recommandations. Je commite et je pousse moi-même.
+
+### Ce qui a changé
+
+- **Le titre pose une question, l'article y répond avec des noms.** Chaque itinéraire cite les trois
+  offres les moins chères du catalogue, calculées par `donnees_article.py`. Le classement porte sur
+  le prix seul, et l'article le dit.
+- **Le bouton final menait à mon tableau de bord.** Il mène maintenant au comparateur MyBestSim, et
+  l'article compte de vrais liens vers leurs pages. L'agent a testé chaque adresse avant de l'ajouter.
+- **« Prix réels » contredisait notre propre méthodologie**, qui parle de prix de catalogue. La
+  formule est retirée de la page et des balises.
+- **Trois suggestions d'images** s'ajoutent à la première, comme le brief le demandait.
+- **MSC, Costa et Royal Caribbean sont nommées, sans aucun prix.**
+
+### Ce qui n'a pas pu être vérifié
+
+Ma règle de sources s'applique : le site de MSC refuse les lectures automatiques, et la page de Costa
+n'a pas répondu. L'article les nomme donc sans rien affirmer sur leurs forfaits. Seule Royal Caribbean
+est décrite, d'après sa page officielle, mise à jour en janvier 2021, et les sources le signalent.
+
+### Un contrôle modifié, et pourquoi
+
+Le contrôle de longueur a échoué à 3 401 mots pour un plafond de 3 300. Le plafond n'a pas été
+relevé : les suggestions d'images sont des notes pour l'éditeur, qui ne seront pas publiées, et le
+compteur les exclut désormais. Il reste donc la même exigence, sur le texte réellement publié.
+
+Six contrôles de plus, 91 au total : liens MyBestSim, bouton final, offres nommées, mention des prix,
+suggestions d'images, compagnies et source officielle.
+
+### Décisions : qui a tranché quoi
+
+| Sujet | Proposé par | Tranché par |
+|---|---|---|
+| Appliquer les recommandations sur l'article | l'agent | moi |
+| Nommer les offres, classées par prix seul | l'agent | validé en commitant |
+| Liens vers les pages MyBestSim testées une à une | l'agent | validé en commitant |
+| Retirer « prix réels » | l'agent | validé en commitant |
+| Nommer MSC et Costa sans rien affirmer, faute de source lue | l'agent | validé en commitant |
+| Exclure les notes pour l'éditeur du compte de mots | l'agent | validé en commitant |
+

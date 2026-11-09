@@ -341,5 +341,137 @@
    "prix_local_min": 5.36,
    "cout_au_seuil": 10.72
   }
- }
+ },
+ "selections": [
+  {
+   "itineraire": "Méditerranée",
+   "destination": "Europe",
+   "go": 5,
+   "jours": 7,
+   "offres": [
+    {
+     "fournisseur": "Flexiroam",
+     "prix": 15.82,
+     "reseau": "4G",
+     "rechargeable": true
+    },
+    {
+     "fournisseur": "Airalo",
+     "prix": 15.97,
+     "reseau": "4G",
+     "rechargeable": true
+    },
+    {
+     "fournisseur": "Yatelo",
+     "prix": 16.46,
+     "reseau": "4G",
+     "rechargeable": true
+    }
+   ]
+  },
+  {
+   "itineraire": "Caraïbes",
+   "destination": "Monde",
+   "go": 5,
+   "jours": 7,
+   "offres": [
+    {
+     "fournisseur": "Nomad",
+     "prix": 16.03,
+     "reseau": "4G",
+     "rechargeable": false
+    },
+    {
+     "fournisseur": "Maya Mobile",
+     "prix": 16.1,
+     "reseau": "4G",
+     "rechargeable": false
+    },
+    {
+     "fournisseur": "4S eSIM",
+     "prix": 16.59,
+     "reseau": "4G",
+     "rechargeable": false
+    }
+   ]
+  },
+  {
+   "itineraire": "Alaska et Amérique du Nord",
+   "destination": "Amérique du Nord",
+   "go": 5,
+   "jours": 7,
+   "offres": [
+    {
+     "fournisseur": "eSIMX",
+     "prix": 15.65,
+     "reseau": "5G",
+     "rechargeable": true
+    },
+    {
+     "fournisseur": "aloSIM",
+     "prix": 15.7,
+     "reseau": "5G",
+     "rechargeable": true
+    },
+    {
+     "fournisseur": "Ubigi",
+     "prix": 16.18,
+     "reseau": "4G",
+     "rechargeable": true
+    }
+   ]
+  },
+  {
+   "itineraire": "Norvège et fjords",
+   "destination": "Norvège",
+   "go": 5,
+   "jours": 7,
+   "offres": [
+    {
+     "fournisseur": "Saily",
+     "prix": 11.5,
+     "reseau": "4G",
+     "rechargeable": true
+    },
+    {
+     "fournisseur": "Truphone",
+     "prix": 11.74,
+     "reseau": "5G",
+     "rechargeable": false
+    },
+    {
+     "fournisseur": "JamboSIM",
+     "prix": 12.74,
+     "reseau": "4G",
+     "rechargeable": true
+    }
+   ]
+  },
+  {
+   "itineraire": "Baltique et mer du Nord",
+   "destination": "Europe",
+   "go": 5,
+   "jours": 7,
+   "offres": [
+    {
+     "fournisseur": "Flexiroam",
+     "prix": 15.82,
+     "reseau": "4G",
+     "rechargeable": true
+    },
+    {
+     "fournisseur": "Airalo",
+     "prix": 15.97,
+     "reseau": "4G",
+     "rechargeable": true
+    },
+    {
+     "fournisseur": "Yatelo",
+     "prix": 16.46,
+     "reseau": "4G",
+     "rechargeable": true
+    }
+   ]
+  }
+ ]
 }

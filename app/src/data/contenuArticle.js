@@ -89,6 +89,7 @@ export const ITINERAIRES_EDITO = [
     emoji: '🇪🇸',
     nom: 'Méditerranée',
     verdict: 'Régionale',
+    comparateur: 'comparaison-meilleure-carte-esim-europe/',
     texte:
       "L'itinéraire le plus favorable à l'eSIM : escales quasi quotidiennes, navigation " +
       "de nuit, et des pays tous très bien couverts. C'est aussi celui qui multiplie le " +
@@ -100,16 +101,20 @@ export const ITINERAIRES_EDITO = [
     emoji: '🏝️',
     nom: 'Caraïbes',
     verdict: 'Vérifier île par île',
+    comparateur: 'comparaison-meilleure-carte-esim-monde/',
     texte:
       'Escales nombreuses mais entrecoupées de navigation, et surtout : chaque île est un ' +
       'pays différent, avec ses propres opérateurs. Vérifiez que votre destination exacte ' +
       'est couverte, car les catalogues sont plus fournis sur les grandes îles. Attention ' +
-      "aussi aux escales en outre-mer français, où votre forfait habituel peut déjà s'appliquer.",
+      "aussi aux escales en outre-mer français, où votre forfait habituel peut déjà s'appliquer. " +
+      "Notre catalogue n'a pas d'offre Caraïbes : pour plusieurs îles, regardez une eSIM Monde, " +
+      'en vérifiant que chacune y figure.',
   },
   {
     emoji: '🇺🇸',
     nom: 'Alaska et Amérique du Nord',
     verdict: 'Régionale + forfait du bord',
+    comparateur: 'comparaison-meilleure-carte-esim-amerique-du-nord/',
     texte:
       'Itinéraire à forte proportion de navigation : les journées de mer y sont nombreuses ' +
       "et les escales plus espacées. L'eSIM reste utile à Vancouver, Seattle ou Juneau, " +
@@ -121,6 +126,7 @@ export const ITINERAIRES_EDITO = [
     emoji: '🇳🇴',
     nom: 'Norvège et fjords',
     verdict: 'Mono-pays',
+    comparateur: 'comparaison-meilleure-carte-esim-norvege/',
     texte:
       'Particularité utile : la navigation se fait en grande partie dans les fjords, donc ' +
       "près des côtes. Vous conserverez plus souvent du signal qu'en haute mer, mais sans " +
@@ -131,6 +137,7 @@ export const ITINERAIRES_EDITO = [
     emoji: '🇸🇪',
     nom: 'Baltique et mer du Nord',
     verdict: 'Régionale',
+    comparateur: 'comparaison-meilleure-carte-esim-europe/',
     texte:
       "Comme en Méditerranée, les frontières s'enchaînent : Allemagne, Suède, Pologne, " +
       "Pays-Bas, pays baltes, parfois au rythme d'une par jour. L'eSIM régionale Europe " +

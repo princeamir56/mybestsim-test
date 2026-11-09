@@ -240,6 +240,26 @@ Chiffres produits par `scripts/donnees_article.py` → `app/src/data/article.jso
 
 ---
 
+## 8. Mise à jour avant l'envoi
+
+Une relecture critique a fait ressortir ce que le plan laissait de côté :
+
+- **« Quelle eSIM choisir ? » reste une question de marque.** Chaque itinéraire nomme désormais les
+  trois offres les moins chères du catalogue (`selections` dans `article.json`). Le classement porte
+  sur le prix seul, et l'article le dit : le catalogue ne mesure ni le réseau ni la couverture exacte.
+- **Maillage réel.** Les liens internes prévus au §5 pointent vers les pages MyBestSim existantes,
+  chacune testée avant d'être ajoutée.
+- **Les compagnies sont nommées, toujours sans prix.** Les forfaits de Royal Caribbean viennent de
+  sa page officielle, mise à jour en janvier 2021. Les pages de MSC et de Costa n'ont pas pu être
+  relues directement : l'article les nomme sans rien affirmer sur leurs forfaits.
+- **« Prix réels » est retiré.** Ce sont des prix de catalogue, comme le dit la méthodologie.
+
+Ce dernier passage a porté l'article à environ 3 280 mots publiés, FAQ et tableaux compris, hors
+notes pour l'éditeur : au-dessus de la cible initiale, à cause de contenu que les concurrents n'ont
+pas, et non de remplissage.
+
+---
+
 ## Sources
 
 - [Your Europe (Commission européenne) — Itinérance : bateau, avion et satellite](https://europa.eu/youreurope/citizens/consumers/internet-telecoms/mobile-roaming-costs/index_fr.htm)

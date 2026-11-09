@@ -39,7 +39,7 @@ pip install -r requirements.txt      # pandas
 npm install && npm --prefix app install
 
 npm run build                        # CSV → JSON → site statique dans site/
-npm run verifier                     # 85 contrôles sur le HTML réellement servi
+npm run verifier                     # 91 contrôles sur le HTML réellement servi
 npm run test-import                  # simule un 19ᵉ fournisseur et contrôle la prose
 npm run preview                      # http://localhost:4173
 ```
@@ -176,7 +176,7 @@ entre les données et la page — un invariant qui reste vrai quel que soit l'im
 - la **date de génération** du JSON, présente dans le pied de page — sans quoi un site
   construit depuis un JSON périmé passerait tous les autres tests sans broncher.
 
-85 contrôles, aucune valeur attendue écrite en dur.
+91 contrôles, aucune valeur attendue écrite en dur.
 
 ### La preuve de bout en bout
 
@@ -318,7 +318,7 @@ scripts/
   statistiques.py       étape 2 : applique les décisions, produit les chiffres
   build_site.py         agrège le catalogue vers app/src/data/
   donnees_article.py    prix de l'article, extraits du même catalogue
-  verifier_site.js      85 contrôles : cohérence données ↔ HTML, liens internes, SEO
+  verifier_site.js      91 contrôles : cohérence données ↔ HTML, liens internes, SEO
   test_nouveau_fournisseur.py  simule un 19e fournisseur : la prose suit-elle ?
 app/
   src/components/       ui/ · charts/ (10 formes en SVG natif) · sections/ · layout/ · automatisation/
@@ -359,6 +359,7 @@ seul commit à la publication du dépôt ; le déroulé est consigné dans
 | — | Retouches après test manuel : mobile, ouverture immédiate, image de fond du hero | ✅ |
 | — | Schéma interactif de l'automatisation (`/automation`) | ✅ |
 | — | Relecture critique avant l'envoi : quatre défauts corrigés et documentés | ✅ |
+| — | Article renforcé : offres nommées par itinéraire, liens MyBestSim, suggestions d'images | ✅ |
 
 L'ordre n'est pas décoratif : **aucun travail de mise en forme n'a été engagé avant que
 les chiffres soient validés.** Un tableau de bord soigné construit sur des chiffres faux

@@ -21,6 +21,7 @@ const prof10 = art.profils.find((p) => p.go === 10);
 const europe = art.zones.find((z) => z.nom === 'Europe');
 const ecartRegional = Math.round((europe['5go_7j'].prix_min / prof5.prix_min - 1) * 100);
 const petitForfait = art.multi_pays.petit_forfait;
+const choixMediterranee = art.selections[0];
 
 /** Le gabarit éditorial : une colonne étroite, du papier, rien qui distraie. */
 export default function Article() {
@@ -91,6 +92,10 @@ export default function Article() {
               ['Réserver', "une excursion sur place, souvent moins chère qu'à bord."],
               ['Appeler le bateau', 'ou vos proches en cas de problème.'],
             ]}
+          />
+          <SuggestionImage
+            description="photo d'une passagère consultant un plan sur son téléphone, sur le quai, avec le navire en arrière-plan."
+            alt="Une passagère de croisière utilise son eSIM pour se repérer pendant une escale"
           />
           <P>
             À bord, en revanche, l'essentiel est fourni : le programme du jour, les
@@ -168,6 +173,11 @@ export default function Article() {
             valent plus ; <B>le fonctionnement, lui, n'a pas changé</B>.
           </P>
 
+          <SuggestionImage
+            description="capture annotée des réglages iPhone et Android, avec « Itinérance des données » désactivée sur la ligne principale."
+            alt="Réglage de l'itinérance des données désactivé sur un smartphone avant une croisière"
+          />
+
           <Encadre titre="✅ Les 4 gestes à faire avant d'embarquer">
             <ol className="space-y-3.5">
               {[
@@ -189,7 +199,7 @@ export default function Article() {
           </Encadre>
         </Section>
 
-        <Section id="prix" titre="Combien coûte une eSIM de croisière ? Les prix réels">
+        <Section id="prix" titre="Combien coûte une eSIM de croisière ? Les prix du catalogue">
           <P>
             Les chiffres qui suivent ne sont pas des estimations. Ils sont extraits du
             catalogue de <B>{n(art.source.lignes)} offres</B> que MyBestSim importe
@@ -201,7 +211,8 @@ export default function Article() {
           <P>
             Pour 7 jours avec escales quotidiennes, <B>5 Go suffisent largement</B> :
             vous n'êtes connecté que quelques heures par jour, et la navigation GPS
-            consomme peu une fois la carte téléchargée.
+            consomme peu une fois la carte téléchargée. Pour affiner, essayez notre{' '}
+            <Mbs slug="calculateur-de-donnee-voyage/">calculateur de données</Mbs>.
           </P>
 
           <Tableau
@@ -329,6 +340,13 @@ export default function Article() {
               ['Acheté avant ou à bord ?', 'Le tarif de prévente est souvent inférieur à celui pratiqué une fois à bord.'],
             ]}
           />
+          <P>
+            Royal Caribbean illustre bien cette logique : sa page officielle distingue un
+            forfait <i>Surf</i> (navigation, e-mails, réseaux sociaux) d'un
+            forfait <i>Surf and Stream</i> (streaming et appels vidéo), vendus par appareil,
+            et conseille d'acheter tôt. Chez MSC comme chez Costa, posez les mêmes questions
+            sur le site de la compagnie ou dans votre espace de réservation.
+          </P>
         </Section>
 
         <Section id="itineraires" titre="Quelle eSIM selon votre itinéraire ?">
@@ -336,6 +354,10 @@ export default function Article() {
             Le principe est partout le même : <B>comptez les pays touchés</B>. Choisissez
             une eSIM locale {SEUIL_TXT.avant}, et une eSIM régionale {SEUIL_TXT.des}.
           </P>
+          <SuggestionImage
+            description="carte des cinq bassins de croisière, avec le type d'eSIM conseillé sur chacun."
+            alt="Carte des itinéraires de croisière et de l'eSIM conseillée pour chacun"
+          />
           <div className="mt-8 grid gap-4">
             {ITINERAIRES_EDITO.map((it, i) => (
               <Reveal key={it.nom} delay={i * 0.05}>
@@ -348,10 +370,19 @@ export default function Article() {
                     </span>
                   </div>
                   <p className="mt-3 text-[0.95rem] leading-relaxed text-slate">{it.texte}</p>
+                  <Selection itineraire={it.nom} comparateur={it.comparateur} />
                 </div>
               </Reveal>
             ))}
           </div>
+          <P small>
+            <span className="mt-6 block">
+              Ces sélections classent les offres par prix, le seul critère que notre
+              catalogue mesure : ni la qualité du réseau, ni la liste exacte des pays
+              couverts. Pour un avis plus large, consultez notre{' '}
+              <Mbs slug="meilleurs-fournisseurs-esim/">comparatif des meilleurs fournisseurs</Mbs>.
+            </span>
+          </P>
         </Section>
 
         <Section id="installation" titre="Installer votre eSIM avant de partir">
@@ -364,7 +395,7 @@ export default function Article() {
           <Liste
             ordonnee
             items={[
-              ['Vérifiez la compatibilité eSIM', "de votre téléphone, et qu'il n'est pas bloqué opérateur, car un téléphone verrouillé refusera une eSIM tierce."],
+              ['Vérifiez la compatibilité eSIM', <>de votre téléphone sur <Mbs slug="telephones-compatibles-esim/">notre liste</Mbs>, et qu'il n'est pas bloqué opérateur, car un téléphone verrouillé refusera une eSIM tierce.</>],
               ['Achetez et installez le forfait à la maison', "en Wi-Fi. Vous recevez un QR code ; l'eSIM s'ajoute à côté de votre ligne habituelle, qui reste active."],
               ['Activez-la à la première escale', 'pas avant. La plupart des forfaits démarrent leur décompte à la première connexion au réseau, pas à l\'achat.'],
               ['Désignez l\'eSIM comme ligne de données', "par défaut, et laissez l'itinérance désactivée sur votre ligne principale. C'est cette combinaison qui vous protège."],
@@ -394,12 +425,11 @@ export default function Article() {
               Trouvez l'eSIM adaptée à votre itinéraire
             </h2>
             <p className="mx-auto mt-3 max-w-[46ch] text-[0.95rem] text-slate">
-              Comparez {n(art.source.lignes)} offres de {art.source.fournisseurs}{' '}
-              fournisseurs, prix et volumes à jour.
+              Comparez les offres de votre destination sur le comparateur MyBestSim.
             </p>
             <div className="mt-7 flex justify-center">
               <Magnetic>
-                <Link to="/" className="btn-primary">Comparer les eSIM</Link>
+                <a href={`${MBS}`} className="btn-primary">Comparer les eSIM</a>
               </Magnetic>
             </div>
           </div>
@@ -446,7 +476,7 @@ function Entete() {
           <span aria-hidden="true">·</span>
           <span>9&nbsp;min de lecture</span>
           <span aria-hidden="true">·</span>
-          <span>Prix issus de {n(art.source.lignes)} offres réelles</span>
+          <span>Prix issus d'un catalogue de {n(art.source.lignes)} offres</span>
         </div>
       </Reveal>
     </header>
@@ -468,7 +498,10 @@ function Reponse() {
             Elle reste malgré tout le meilleur achat d'une croisière à escales
             nombreuses : comptez <B>{eur(prof5.prix_min)} à {eur(prof5.prix_max)}</B> pour
             5 Go sur 7 jours, là où le Wi-Fi du bateau se paie à la journée et par
-            appareil.
+            appareil. Pour une Méditerranée à plusieurs pays, notre choix est une{' '}
+            <B>eSIM régionale {choixMediterranee.destination}</B>, à partir
+            de <B>{eur(choixMediterranee.offres[0].prix)}</B> chez{' '}
+            {choixMediterranee.offres[0].fournisseur}.
           </p>
           <p>
             Et surtout : <B>coupez les données mobiles dès l'embarquement.</B> Votre
@@ -563,6 +596,54 @@ const P = ({ children, small, last }) => (
 );
 
 const B = ({ children }) => <strong className="font-semibold text-marine">{T(children)}</strong>;
+
+const MBS = 'https://mybestsim.com/fr/';
+
+/** Un lien vers le site MyBestSim : c'est du maillage interne, donc sans nofollow. */
+const Mbs = ({ slug, children }) => (
+  <a
+    href={`${MBS}${slug}`}
+    className="py-1 font-medium text-marine underline decoration-signal/50 underline-offset-2 transition-colors hover:text-signal-fonce"
+  >
+    {children}
+  </a>
+);
+
+const SuggestionImage = ({ description, alt }) => (
+  <aside data-note-edition className="my-7 rounded-[1.1rem] border border-dashed border-marine/25 p-5 text-[0.84rem] leading-relaxed text-marine/80">
+    <b className="font-semibold text-marine">Suggestion d'image :</b> {typo(description)}{' '}
+    <i>Alt : « {alt} »</i>
+  </aside>
+);
+
+/** Les trois offres les moins chères d'un itinéraire, lues dans article.json. */
+function Selection({ itineraire, comparateur }) {
+  const s = art.selections.find((x) => x.itineraire === itineraire);
+  if (!s || !s.offres.length) return null;
+  return (
+    <div className="mt-4 border-t border-marine/10 pt-4">
+      <p className="text-[0.84rem] font-medium text-marine">
+        Les moins chères au catalogue : eSIM {s.destination}, {s.go}&nbsp;Go / {s.jours}&nbsp;jours
+      </p>
+      <ol className="mt-2 space-y-1.5 text-[0.9rem]">
+        {s.offres.map((o) => (
+          <li key={o.fournisseur} className="flex flex-wrap items-baseline justify-between gap-x-3">
+            <span className="text-slate">
+              <b className="font-semibold text-marine">{o.fournisseur}</b>{' '}
+              <span className="text-[0.8rem]">
+                {o.reseau}{o.rechargeable ? ' · rechargeable' : ''}
+              </span>
+            </span>
+            <span className="font-mono font-semibold text-marine">{eur(o.prix)}</span>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-3 text-[0.84rem]">
+        <Mbs slug={comparateur}>Comparer toutes les eSIM {s.destination}</Mbs>
+      </p>
+    </div>
+  );
+}
 
 function Liste({ items, ordonnee }) {
   const Tag = ordonnee ? 'ol' : 'ul';
@@ -773,7 +854,7 @@ function SchemaCouverture() {
           </div>
         ))}
       </div>
-      <figcaption className="mt-4 border-t border-marine/10 pt-3 text-[0.8rem] text-marine/80">
+      <figcaption data-note-edition className="mt-4 border-t border-marine/10 pt-3 text-[0.8rem] text-marine/80">
         Suggestion d'image : garder cette animation sur la page publiée, ou la décliner en
         illustration du trajet entre le port et la pleine mer.{' '}
         <i>Alt : « Un navire quitte le port, perd le réseau terrestre, puis passe sur le satellite du bord »</i>
@@ -789,6 +870,8 @@ const SOURCES = [
    'https://www.arcep.fr/mes-demarches-et-services/consommateurs/fiches-pratiques/itinerance-international-hors-union-europeenne.html'],
   ['UFC-Que Choisir : « Téléphoner en zone maritime : avis de tempête sur les factures ». Article ancien : nous en reprenons le mécanisme décrit, pas les tarifs cités.',
    'https://www.quechoisir.org/actualite-telephoner-en-zone-maritime-avis-de-tempete-sur-les-factures-n10537/'],
+  ['Royal Caribbean : « Cruise 101: Getting Online When You\'re Onboard », page mise à jour en janvier 2021 : vérifiez les noms de forfaits en vigueur.',
+   'https://webapps.royalcaribbean.com/blog/cruise-101-getting-online-when-youre-onboard/'],
 ];
 
 function Sources() {
@@ -811,7 +894,7 @@ function Sources() {
             </li>
           ))}
           <li className="flex gap-3 text-[0.85rem] leading-relaxed text-slate">
-            <span className="font-mono text-[0.7rem] text-marine/80">[4]</span>
+            <span className="font-mono text-[0.7rem] text-marine/80">[{SOURCES.length + 1}]</span>
             <span>
               Prix : catalogue fournisseurs MyBestSim, {n(art.source.lignes)} offres de{' '}
               {art.source.fournisseurs} fournisseurs, extrait le {dateFr(cat.meta.genere_le)}.

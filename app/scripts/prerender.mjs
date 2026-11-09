@@ -101,7 +101,7 @@ const ROUTES = [
     fichier: 'internet-en-croisiere/index.html',
     title: 'Internet en croisière : quelle eSIM choisir ? Le guide honnête 2026',
     description:
-      "Une eSIM ne capte pas en pleine mer. Ce qu'elle apporte en escale, ses prix réels " +
+      "Une eSIM ne capte pas en pleine mer. Ce qu'elle apporte en escale, ses prix " +
       'par itinéraire, et comment éviter la facture du bateau.',
     robots: 'index, follow, max-snippet:-1, max-image-preview:large',
     schema: {
@@ -112,7 +112,7 @@ const ROUTES = [
           headline: 'Internet en croisière : quelle eSIM choisir ?',
           description:
             "Une eSIM ne capte pas en pleine mer. Ce qu'elle apporte en escale, ses prix " +
-            'réels et comment éviter la facture du réseau du bateau.',
+            'et comment éviter la facture du réseau du bateau.',
           inLanguage: 'fr-FR',
           datePublished: DATE_PUBLICATION,
           dateModified: aujourdhui,

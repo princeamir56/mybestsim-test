@@ -59,6 +59,40 @@ def bloc(sel: pd.DataFrame) -> dict | None:
     }
 
 
+# Pour chaque itinéraire de l'article : l'eSIM adaptée au nombre de pays touchés.
+# Le catalogue n'a pas de zone Caraïbes : l'eSIM Monde couvre le cas multi-îles.
+SELECTIONS = [("Méditerranée", "Europe"),
+              ("Caraïbes", "Monde"),
+              ("Alaska et Amérique du Nord", "Amérique du Nord"),
+              ("Norvège et fjords", "Norvège"),
+              ("Baltique et mer du Nord", "Europe")]
+
+
+def selection(df: pd.DataFrame, itineraire: str, destination: str,
+              go: int = 5, jours: int = 7) -> dict:
+    """
+    Les trois fournisseurs les moins chers d'un itinéraire, un seul par fournisseur.
+
+    Le classement porte sur le prix, seul critère que le catalogue mesure : ni la
+    qualité du réseau ni la liste des pays couverts n'y figurent, et l'article le dit.
+    """
+    offres = (df[(df["country_name"] == destination) & (df["go"] == go) & (df["jours"] == jours)]
+              .sort_values(["prix", "sku"])
+              .drop_duplicates("provider")
+              .head(3))
+    return {
+        "itineraire": itineraire,
+        "destination": destination,
+        "go": go,
+        "jours": jours,
+        "offres": [{"fournisseur": o["provider"],
+                    "prix": round(float(o["prix"]), 2),
+                    "reseau": o["network"],
+                    "rechargeable": o["top_up"] == "oui"}
+                   for _, o in offres.iterrows()],
+    }
+
+
 def multi_pays(df: pd.DataFrame) -> dict:
     """
     À partir de combien de pays une eSIM régionale Europe bat-elle les locales ?
@@ -160,6 +194,9 @@ def main() -> None:
     # --- Local ou régional : le seuil que les phrases de l'article reprennent -
     donnees["multi_pays"] = multi_pays(df)
 
+    # --- Les offres citées par nom dans chaque itinéraire --------------------
+    donnees["selections"] = [selection(df, it, dest) for it, dest in SELECTIONS]
+
     os.makedirs(DOSSIER_DONNEES, exist_ok=True)
     chemin = os.path.join(DOSSIER_DONNEES, "article.json")
     with open(chemin, "w", encoding="utf-8") as fh:
@@ -208,6 +245,11 @@ def main() -> None:
         print(f"  {p['go']} Go / {p['jours']} j : local dès {p['prix_local_min']:.2f} €, "
               f"régional dès {p['prix_regional_min']:.2f} €, seuil {p['seuil']} pays", file=out)
     print(f"  Seuil publié dans l'article : {donnees['multi_pays']['seuil']} pays", file=out)
+
+    print("\n--- Les moins chères par itinéraire, 5 Go / 7 jours ---", file=out)
+    for s in donnees["selections"]:
+        noms = ", ".join(f"{o['fournisseur']} {o['prix']:.2f} €" for o in s["offres"])
+        print(f"  {s['itineraire']} (eSIM {s['destination']}) : {noms}", file=out)
 
     print(f"\n[écrit] {chemin}", file=out)
     out.flush()

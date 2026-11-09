@@ -168,8 +168,12 @@ const art = charger('internet-en-croisiere/index.html');
 
 titre('Prérendu');
 verifier('la racine React n\'est pas vide', art.html.indexOf('<div id="root"></div>') === -1);
-const motsArt = art.texte.split(/\s+/).filter((m) => /\w/.test(m)).length;
-verifier('entre 2 400 et 3 300 mots dans le HTML servi',
+// Les suggestions d'images sont des notes pour l'éditeur : elles ne seront pas
+// publiées, donc elles ne comptent pas dans la longueur de l'article.
+const corpsPublie = art.doc.body.cloneNode(true);
+corpsPublie.querySelectorAll('[data-note-edition]').forEach((e) => e.remove());
+const motsArt = norm(corpsPublie.textContent).split(/\s+/).filter((m) => /\w/.test(m)).length;
+verifier('entre 2 400 et 3 300 mots publiés dans le HTML servi',
   motsArt >= 2400 && motsArt <= 3300, `${motsArt} mots`);
 
 titre('Base SEO');
@@ -234,8 +238,24 @@ verifier('la limite « le plafond ne protège pas forcément » est écrite',
   art.texte.includes('ne pouvons donc pas vous garantir'));
 verifier('les eSIM maritimes sont mentionnées', art.texte.includes('Cellular at Sea'));
 verifier("suggestion d'image fournie", art.texte.includes("Suggestion d'image"));
+const liensHttp = [...art.doc.querySelectorAll('a[href^="http"]')];
+const liensMarque = liensHttp.filter((a) => a.href.startsWith('https://mybestsim.com/fr/'));
 verifier('liens externes en nofollow',
-  [...art.doc.querySelectorAll('a[href^="http"]')].every((a) => a.rel.includes('nofollow')));
+  liensHttp.filter((a) => !liensMarque.includes(a)).every((a) => a.rel.includes('nofollow')));
+verifier('liens MyBestSim présents, et sans nofollow',
+  liensMarque.length >= 6 && liensMarque.every((a) => !a.rel.includes('nofollow')), `${liensMarque.length} lien(s)`);
+verifier('le bouton final mène au comparateur MyBestSim',
+  liensMarque.some((a) => a.href === 'https://mybestsim.com/fr/' && a.textContent.includes('Comparer les eSIM')));
+const selectionsAbsentes = ART.selections.filter((s) => !s.offres.length
+  || s.offres.some((o) => !art.texte.includes(o.fournisseur) || !art.texte.includes(nf2.format(o.prix))));
+verifier('chaque itinéraire nomme ses offres, avec leur prix',
+  selectionsAbsentes.length === 0, selectionsAbsentes.map((s) => s.itineraire).join(', '));
+verifier('les prix sont présentés comme des prix de catalogue',
+  !/prix réels|offres réelles/i.test(art.texte + art.doc.title + art.ld));
+verifier("au moins 4 suggestions d'images",
+  (art.texte.match(/Suggestion d'image/g) || []).length >= 4);
+verifier('les grandes compagnies sont nommées, et la source officielle citée',
+  ['MSC', 'Costa', 'Royal Caribbean'].every((c) => art.texte.includes(c)) && art.html.includes('royalcaribbean.com'));
 
 // Les conseils doivent rester d'accord avec les prix et entre eux.
 const MOTS = ['zéro', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix'];
