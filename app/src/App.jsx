@@ -7,6 +7,7 @@ import SmoothScroll from './components/ui/SmoothScroll.jsx';
 import ScrollProgress from './components/ui/ScrollProgress.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Article from './pages/Article.jsx';
+import Automatisation from './pages/Automatisation.jsx';
 import Introuvable from './pages/Introuvable.jsx';
 import { allerA, allerEnHaut } from './lib/scroll.js';
 
@@ -47,6 +48,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/internet-en-croisiere" element={<Article />} />
+          <Route path="/automation" element={<Automatisation />} />
           <Route path="*" element={<Introuvable />} />
         </Routes>
       </main>

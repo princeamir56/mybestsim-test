@@ -28,7 +28,7 @@ const LARGEURS = {
   portable: { width: 1280, height: 720, deviceScaleFactor: 1 },
   bureau: { width: 1680, height: 1000, deviceScaleFactor: 1 },
 };
-const PAGES = [['dashboard', '/'], ['article', '/internet-en-croisiere'], ['404', '/nimporte-quoi']];
+const PAGES = [['dashboard', '/'], ['article', '/internet-en-croisiere'], ['automation', '/automation'], ['404', '/nimporte-quoi']];
 
 const echecs = [];
 const pause = (ms) => new Promise((r) => setTimeout(r, ms));

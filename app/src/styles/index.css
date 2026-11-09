@@ -234,6 +234,19 @@ html.lenis body {
   }
 }
 
+/* /automation : le flux dans les flèches allumées, et la boucle du lendemain. */
+.auto-flux {
+  animation: auto-flux 0.7s linear infinite;
+}
+.auto-boucle {
+  animation: auto-flux 2.4s linear infinite;
+}
+@keyframes auto-flux {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+
 /* Le schéma de couverture de l'article : une boucle de 5 s, sans JavaScript.
    Toutes les périodes sont des diviseurs de 5 s, pour qu'aucun raccord ne se voie.
    0-16 % au port · 16-38 % vers la côte · 38-46 % près des côtes · 46-70 % vers le

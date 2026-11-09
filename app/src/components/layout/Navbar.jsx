@@ -50,7 +50,9 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', surTouche);
   }, [ouvert]);
 
-  const clair = defile || !surDashboard || ouvert;
+  // Les deux pages qui s'ouvrent sur un fond sombre gardent un en-tête transparent.
+  const surFondSombre = surDashboard || pathname.startsWith('/automation');
+  const clair = defile || !surFondSombre || ouvert;
   const fonce = !clair;
   const lienCible = surDashboard ? '/internet-en-croisiere' : '/';
   const lienLibelle = surDashboard ? 'Guide croisière' : 'Le tableau de bord';

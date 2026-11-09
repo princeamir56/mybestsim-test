@@ -799,3 +799,36 @@ place.
 | Recadrage téléphone, image sous le texte, bandeau flouté | l'agent | gardé par moi |
 | Plafonner l'image à 1680 px | l'agent | l'agent |
 
+---
+
+## Le schéma interactif de l'automatisation
+
+### Ce que j'ai demandé
+
+Une page `/automation` qui explique toute l'automatisation par un schéma animé, avec des flèches
+et des lignes, en m'appuyant sur une image d'inspiration sans la copier.
+
+### Ce que l'agent en a fait
+
+Plutôt qu'une illustration, il a proposé un schéma qui **rejoue le workflow** : quatre scénarios,
+dont un fichier corrompu où le pipeline refuse de publier, un paquet qui devient CSV, JSON puis HTML
+en avançant, un journal d'exécution, et le détail de chaque brique au clic.
+
+L'image d'inspiration annonçait des choses que le projet ne fait pas, comme des données en temps réel
+et un audit complet en intégration continue. Le schéma décrit uniquement `pipeline.yml`, et un encadré
+dit ce que l'automatisation ne fait pas encore : les fichiers arrivent par un commit, et l'audit
+Chrome se lance à la main.
+
+Comme le reste du dépôt, la page ne doit pas pouvoir mentir : le vérificateur compare le nombre de
+contrôles et d'assertions annoncés à ceux du code. Le JavaScript servi ne devant contenir aucune
+référence à un fichier de données, le schéma nomme le dossier sans jamais écrire l'extension.
+
+### Décisions : qui a tranché quoi
+
+| Sujet | Proposé par | Tranché par |
+|---|---|---|
+| Page `/automation` et schéma animé | moi | moi |
+| Scénarios jouables, paquet, journal, détail au clic | l'agent | validé en commitant |
+| Encadré « ce qu'elle ne fait pas encore » | l'agent | validé en commitant |
+| Page en `noindex` tant qu'elle n'est pas reliée | l'agent | validé en commitant |
+

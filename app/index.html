@@ -33,7 +33,7 @@
       (function () {
         var vue = false;
         try { vue = sessionStorage.getItem('mbs-intro-vue') === '1'; } catch (e) {}
-        if (!vue && !location.hash && !/internet-en-croisiere/.test(location.pathname)) {
+        if (!vue && !location.hash && !/internet-en-croisiere|automation/.test(location.pathname)) {
           document.documentElement.classList.add('voile');
         }
       })();

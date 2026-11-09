@@ -43,7 +43,9 @@ const nf2 = new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFr
 const nb = (v) => nf.format(v);
 const eur = (v) => `${nf2.format(v)} €`;
 
+let totalControles = 0;
 function verifier(nom, ok, detail) {
+  totalControles += 1;
   if (!ok) echecs.push(nom + (detail ? ' — ' + detail : ''));
   console.log(`  ${ok ? 'ok  ' : 'ÉCHEC'} ${nom}${!ok && detail ? ' — ' + detail : ''}`);
 }
@@ -265,8 +267,15 @@ const nf404 = charger('404.html');
 verifier('404.html est une vraie page, pas le tableau de bord', nf404.texte.includes("s'est envolée") && !nf404.texte.includes('Décisions & qualité'));
 verifier('404.html est hors index', (nf404.doc.querySelector('meta[name=robots]') || {}).content?.includes('noindex'));
 
+titre('Page d\'automatisation');
+const auto = charger('automation/index.html');
+verifier('la page est prérendue, avec ses scénarios', auto.texte.includes('Nouveau fichier') && auto.texte.includes('Fichier corrompu'));
+verifier('elle reste hors index tant qu\'elle n\'est pas reliée au site', (auto.doc.querySelector('meta[name=robots]') || {}).content?.includes('noindex'));
+const assertions = (fs.readFileSync(path.join(__dirname, 'mbs_catalogue.py'), 'utf8').split('def _verifier')[1].split('def faits')[0].match(/^\s+assert /gm) || []).length;
+verifier('le nombre d\'assertions annoncé est exact', auto.texte.includes(`${assertions} assertions`), `${assertions}`);
+
 titre('Liens internes');
-const routesValides = new Set(['/', '/internet-en-croisiere']);
+const routesValides = new Set(['/', '/internet-en-croisiere', '/automation']);
 const verifierLiens = (page, nom) => {
   const morts = [];
   page.doc.querySelectorAll('a[href]').forEach((a) => {
@@ -287,6 +296,10 @@ const verifierLiens = (page, nom) => {
 verifierLiens(dash, 'le tableau de bord');
 verifierLiens(art, "l'article");
 verifierLiens(nf404, 'la page introuvable');
+verifierLiens(auto, "la page d'automatisation");
+
+// Dernier contrôle, compté lui-même : la page annonce le total réel de ce script.
+verifier('le nombre de contrôles annoncé est exact', auto.texte.includes(`${totalControles + 1} contrôles`), `${totalControles + 1}`);
 
 /* ============================== BILAN ============================== */
 

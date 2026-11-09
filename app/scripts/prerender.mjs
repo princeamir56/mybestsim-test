@@ -146,6 +146,16 @@ const ROUTES = [
     },
   },
   {
+    url: '/automation',
+    fichier: 'automation/index.html',
+    title: "Comment le catalogue se met à jour tout seul | MyBestSim",
+    description:
+      "Le pipeline GitHub Actions du catalogue eSIM, en schéma interactif : déclencheurs, agrégation, " +
+      'contrôles, publication, et ce qui se passe quand une donnée est fausse.',
+    robots: 'noindex, follow', // pas encore relié au reste du site
+    schema: { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Automatisation du catalogue eSIM' },
+  },
+  {
     // Une adresse inconnue reçoit une vraie page d'erreur, avec un statut 404
     // servi par l'hébergeur à partir de ce fichier.
     url: '/404',

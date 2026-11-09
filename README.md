@@ -10,6 +10,7 @@ contient les deux, et surtout **la trace de comment ils ont été construits**.
 |---|---|
 | Tableau de bord eSIM | https://mybestsim-test.vercel.app |
 | Article « Internet en croisière : quelle eSIM choisir ? » | https://mybestsim-test.vercel.app/internet-en-croisiere |
+| Schéma interactif de l'automatisation | https://mybestsim-test.vercel.app/automation |
 
 ---
 
@@ -38,7 +39,7 @@ pip install -r requirements.txt      # pandas
 npm install && npm --prefix app install
 
 npm run build                        # CSV → JSON → site statique dans site/
-npm run verifier                     # 75 contrôles sur le HTML réellement servi
+npm run verifier                     # 80 contrôles sur le HTML réellement servi
 npm run test-import                  # simule un 19ᵉ fournisseur et contrôle la prose
 npm run preview                      # http://localhost:4173
 ```
@@ -80,6 +81,15 @@ data/fournisseurs/*.csv           18 fichiers fournisseurs
                                               │
                                             site/   ← ce qui est publié
 ```
+
+### Voir le pipeline tourner : `/automation`
+
+La page [`/automation`](app/src/pages/Automatisation.jsx) rejoue le workflow réel sur un schéma
+interactif : quatre scénarios (nouveau fichier, contrôle de 5 h, fichier corrompu, pull request),
+un paquet qui change de nature à chaque étape, un journal d'exécution, et le détail de chaque
+brique au clic. Le contenu décrit [`pipeline.yml`](.github/workflows/pipeline.yml) tel qu'il est
+([`automatisation.js`](app/src/data/automatisation.js)) : le vérificateur recoupe les totaux
+annoncés avec le code. La page est en `noindex` tant qu'elle n'est pas reliée au reste du site.
 
 ### Un seul point d'entrée pour les données
 
@@ -152,7 +162,7 @@ entre les données et la page — un invariant qui reste vrai quel que soit l'im
 - la **date de génération** du JSON, présente dans le pied de page — sans quoi un site
   construit depuis un JSON périmé passerait tous les autres tests sans broncher.
 
-75 contrôles, aucune valeur attendue écrite en dur.
+80 contrôles, aucune valeur attendue écrite en dur.
 
 ### La preuve de bout en bout
 
@@ -294,10 +304,10 @@ scripts/
   statistiques.py       étape 2 : applique les décisions, produit les chiffres
   build_site.py         agrège le catalogue vers app/src/data/
   donnees_article.py    prix de l'article, extraits du même catalogue
-  verifier_site.js      75 contrôles : cohérence données ↔ HTML, liens internes, SEO
+  verifier_site.js      80 contrôles : cohérence données ↔ HTML, liens internes, SEO
   test_nouveau_fournisseur.py  simule un 19e fournisseur : la prose suit-elle ?
 app/
-  src/components/       ui/ · charts/ (10 formes en SVG natif) · sections/ · layout/
+  src/components/       ui/ · charts/ (10 formes en SVG natif) · sections/ · layout/ · automatisation/
   src/lib/              motion.js · format.js · ssr.js
   src/data/             JSON produits par Python (versionnés)
   scripts/prerender.mjs un HTML complet par route
@@ -333,6 +343,7 @@ seul commit à la publication du dépôt ; le déroulé est consigné dans
 | — | Polissage UI/UX, graphiques natifs, logo animé, SEO technique | ✅ |
 | 6 | Mise en ligne des deux livrables | ✅ |
 | — | Retouches après test manuel : mobile, ouverture immédiate, image de fond du hero | ✅ |
+| — | Schéma interactif de l'automatisation (`/automation`) | ✅ |
 
 L'ordre n'est pas décoratif : **aucun travail de mise en forme n'a été engagé avant que
 les chiffres soient validés.** Un tableau de bord soigné construit sur des chiffres faux
