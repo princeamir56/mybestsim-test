@@ -29,7 +29,7 @@ export default function Volumes() {
         {data.meta.destinations} « destinations » sont en réalité des zones.
       </SectionHead>
 
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <Panel
           title="Combien d'offres à chaque palier"
           note={
@@ -136,7 +136,7 @@ export default function Volumes() {
             </>
           }
         >
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
             <Anneau
               centre={n(totalOffres)}
               sousCentre="offres"

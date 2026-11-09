@@ -3,10 +3,48 @@ import { COULEUR, Infobulle, Legende, graduations, useGraphique, useInfobulle } 
 import { EASE } from '../../lib/motion.js';
 import { n } from '../../lib/format.js';
 
-const HAUT = 54; // Réservé aux repères, pour qu'ils ne se posent jamais sur une barre.
+const HAUT_MIN = 54; // Réservé aux repères, pour qu'ils ne se posent jamais sur une barre.
 const BAS = 30;
 const GAUCHE = 40;
 const DROITE = 10;
+
+const RANG = 18; // Hauteur d'une ligne de repère.
+const RETRAIT = 6; // Entre le trait et son texte.
+const JEU = 8; // Écart minimal entre deux textes voisins.
+const largeurTexte = (t) => String(t).length * 6.5; // 11,5 px semi-gras, arrondi au-dessus.
+
+/**
+ * Range les repères de gauche à droite, chacun au premier rang où il ne touche
+ * ni un autre texte, ni le trait d'un autre repère. La position dépend donc des
+ * données et de la largeur réelle : deux valeurs proches ou un écran étroit ne
+ * peuvent plus superposer deux libellés.
+ */
+function placerReperes(reperes, x, largeur) {
+  const places = [];
+  [...reperes]
+    .sort((a, b) => a.valeur - b.valeur)
+    .forEach((r) => {
+      const px = x(r.valeur);
+      const lignes = px + RETRAIT + largeurTexte(r.libelle) <= largeur || !r.court ? [r.libelle] : r.court;
+      const l = Math.max(...lignes.map(largeurTexte));
+      const aGauche = px + RETRAIT + l > largeur;
+      const de = aGauche ? px - RETRAIT - l : px + RETRAIT;
+      const a = de + l;
+      const libre = (rang) =>
+        places.every((p) => {
+          const memesRangs = rang < p.rang + p.lignes.length && p.rang < rang + lignes.length;
+          const texte = memesRangs && de < p.a + JEU && p.de < a + JEU;
+          // Un trait descend de son rang jusqu'aux barres.
+          const coupeTrait = rang + lignes.length > p.rang && de < p.px && p.px < a;
+          const estCoupe = rang < p.rang + p.lignes.length && p.de < px && px < p.a;
+          return !texte && !coupeTrait && !estCoupe;
+        });
+      let rang = 0;
+      while (!libre(rang)) rang += 1;
+      places.push({ ...r, lignes, px, de, a, aGauche, rang });
+    });
+  return places;
+}
 
 /**
  * La forme du catalogue en un coup d'œil : combien d'offres à chaque niveau de
@@ -19,12 +57,15 @@ export default function Histogramme({ classes, reperes }) {
   const { ref, largeur, anime, vu } = useGraphique({ seuil: 0.3 });
   const { conteneur, bulle, montrer, cacher } = useInfobulle();
 
-  const hauteur = largeur < 520 ? 270 : 320;
   const utileX = largeur - GAUCHE - DROITE;
-  const utileY = hauteur - HAUT - BAS;
   const min = classes[0].de;
   const max = classes[classes.length - 1].a;
   const x = (v) => GAUCHE + ((v - min) / (max - min)) * utileX;
+  const places = placerReperes(reperes, x, largeur);
+  // La bande des repères grandit si leur rangement l'exige, sans rogner les barres.
+  const HAUT = Math.max(HAUT_MIN, Math.max(...places.map((p) => p.rang + p.lignes.length)) * RANG + RANG);
+  const hauteur = (largeur < 520 ? 270 : 320) + HAUT - HAUT_MIN;
+  const utileY = hauteur - HAUT - BAS;
   const total = (c) => c.limites + c.illimites;
   const plafond = Math.max(...classes.map(total));
   const y = (v) => utileY * (v / plafond);
@@ -110,7 +151,7 @@ export default function Histogramme({ classes, reperes }) {
             );
           })}
 
-          {reperes.map((r, i) => (
+          {places.map((r, i) => (
             <motion.g
               key={r.libelle}
               className="pointer-events-none"
@@ -118,15 +159,18 @@ export default function Histogramme({ classes, reperes }) {
               animate={vu ? { opacity: 1 } : undefined}
               transition={{ duration: 0.5, delay: anime ? 0.8 + i * 0.12 : 0 }}
             >
-              <line x1={x(r.valeur)} x2={x(r.valeur)} y1={r.ligne * 18 + 8} y2={HAUT + utileY} stroke={COULEUR.encre} strokeWidth="1.25" strokeDasharray={r.plein ? undefined : '3 3'} />
-              <text
-                x={x(r.valeur) + (x(r.valeur) > largeur * 0.62 && largeur < 700 ? -6 : 6)}
-                y={r.ligne * 18 + 17}
-                textAnchor={x(r.valeur) > largeur * 0.62 && largeur < 700 ? 'end' : 'start'}
-                className="fill-marine text-[11.5px] font-semibold"
-              >
-                {r.libelle}
-              </text>
+              <line x1={r.px} x2={r.px} y1={r.rang * RANG + 8} y2={HAUT + utileY} stroke={COULEUR.encre} strokeWidth="1.25" strokeDasharray={r.plein ? undefined : '3 3'} />
+              {r.lignes.map((ligne, k) => (
+                <text
+                  key={ligne}
+                  x={r.px + (r.aGauche ? -RETRAIT : RETRAIT)}
+                  y={(r.rang + k) * RANG + 17}
+                  textAnchor={r.aGauche ? 'end' : 'start'}
+                  className="fill-marine text-[11.5px] font-semibold"
+                >
+                  {ligne}
+                </text>
+              ))}
             </motion.g>
           ))}
         </svg>

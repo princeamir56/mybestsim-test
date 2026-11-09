@@ -25,11 +25,18 @@
       />
     </noscript>
 
-    <!-- Avant tout rendu : sur le tableau de bord, un voile de la couleur du hero
-         cache le passage du HTML prérendu à React. Le voile vit dans le CSS et se
-         retire seul ; sans JavaScript, ce script ne tourne pas et rien n'est caché. -->
+    <!-- Avant tout rendu : quand la scène d'ouverture va se jouer, un voile de la
+         couleur du hero cache le HTML prérendu jusqu'à ce qu'elle démarre. Les autres
+         visites n'ont rien à attendre : le hero s'affiche dès l'arrivée du HTML. Le voile
+         vit dans le CSS et se retire seul ; sans JavaScript, rien n'est caché. -->
     <script>
-      if (!/internet-en-croisiere/.test(location.pathname)) document.documentElement.classList.add('voile');
+      (function () {
+        var vue = false;
+        try { vue = sessionStorage.getItem('mbs-intro-vue') === '1'; } catch (e) {}
+        if (!vue && !location.hash && !/internet-en-croisiere/.test(location.pathname)) {
+          document.documentElement.classList.add('voile');
+        }
+      })();
     </script>
 
     <!-- SEO:HEAD — remplacé par route au prérendu (scripts/prerender.mjs). -->

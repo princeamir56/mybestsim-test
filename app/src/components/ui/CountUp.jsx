@@ -16,7 +16,7 @@ import { useReducedMotion } from '../../lib/motion.js';
  */
 export default function CountUp({
   value,
-  duration = 1500,
+  duration = 400,
   delai = 0,
   format = (v) => String(Math.round(v)),
   className = '',

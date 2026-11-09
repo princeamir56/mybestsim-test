@@ -152,9 +152,9 @@ export default function Kpis({ onOuvrirDecision }) {
         <Histogramme
           classes={data.distribution.classes}
           reperes={[
-            { libelle: `Médiane ${eur(k.prix_median)}`, valeur: k.prix_median, ligne: 0 },
-            { libelle: `Moyenne ${eur(k.prix_moyen)}`, valeur: k.prix_moyen, ligne: 1 },
-            { libelle: `100\u00a0€ : ${n(k.plus_100)} offres au-delà`, valeur: 100, ligne: 0, plein: true },
+            { libelle: `Médiane ${eur(k.prix_median)}`, valeur: k.prix_median },
+            { libelle: `Moyenne ${eur(k.prix_moyen)}`, valeur: k.prix_moyen },
+            { libelle: `100\u00a0€ : ${n(k.plus_100)} offres au-delà`, court: ['100 €', `${n(k.plus_100)} au-delà`], valeur: 100, plein: true },
           ]}
         />
       </Panel>
@@ -169,9 +169,9 @@ function Tuile({ tuile, index, onOuvrir }) {
   return (
     <motion.div
       ref={ref}
-      initial={reduced ? false : { opacity: 0, y: 26 }}
+      initial={reduced ? false : { opacity: 0, y: 18 }}
       animate={inView || reduced ? { opacity: 1, y: 0 } : undefined}
-      transition={{ duration: 0.7, delay: Math.min(index, 6) * 0.07, ease: EASE }}
+      transition={{ duration: 0.25, delay: Math.min(index, 6) * 0.025, ease: EASE }}
       className={tuile.large ? 'sm:col-span-2 lg:col-span-1' : ''}
     >
         <div className="card-surface group relative flex h-full flex-col overflow-hidden rounded-[1.4rem] p-6 shadow-halo transition-shadow duration-500 ease-soft hover:shadow-halo-lg sm:p-7">

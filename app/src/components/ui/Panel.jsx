@@ -3,7 +3,9 @@ import Reveal from './Reveal.jsx';
 /** Le panneau de contenu : la surface sur laquelle vit chaque graphique. */
 export default function Panel({ title, note, action, children, delay = 0, className = '' }) {
   return (
-    <Reveal delay={delay} className={className}>
+    // min-w-0 : dans une grille, un panneau ne doit jamais s'élargir à la mesure
+    // de ce qu'il contient (table dépliée, par exemple).
+    <Reveal delay={delay} className={`min-w-0 ${className}`}>
       <section
         className="card-surface h-full rounded-[1.5rem] p-5 shadow-halo transition-shadow duration-500 ease-soft hover:shadow-halo-lg sm:p-8"
       >

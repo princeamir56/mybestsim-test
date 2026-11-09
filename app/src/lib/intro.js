@@ -6,8 +6,8 @@
 // plus grand affichage de la page, que Google mesure.
 const CLE = 'mbs-intro-vue';
 
-export const SCENE = 2.15; // l'oiseau, puis le mot
-export const LEVER = 0.8; // le rideau qui se lève
+export const SCENE = 1.05; // l'oiseau, puis le mot
+export const LEVER = 0.45; // le rideau qui se lève
 const SCENE_REDUITE = 0.7;
 
 const mouvementReduit = () => {
@@ -48,15 +48,3 @@ export const INTRO_A_JOUER =
   typeof window !== 'undefined' && surLeTableauDeBord() && !dejaVue();
 
 export const dureeScene = () => (mouvementReduit() ? SCENE_REDUITE : SCENE);
-
-let decalage = INTRO_A_JOUER ? dureeScene() + LEVER * 0.55 : 0;
-
-/** Plus aucun décalage une fois la scène passée : la navigation interne n'attend rien. */
-export const introTerminee = () => {
-  setTimeout(() => {
-    decalage = 0;
-  }, 1600);
-};
-
-/** `d(0)` : le moment où le hero se découvre. Tout ce qui arrive après s'y cale. */
-export const d = (secondes = 0) => decalage + secondes;

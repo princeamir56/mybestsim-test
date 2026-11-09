@@ -1,6 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { EASE } from '../../lib/motion.js';
+
+// Le fond opaque de la colonne figée : même teinte que la surface des panneaux,
+// pour que les chiffres qui passent dessous disparaissent sans se voir.
+const FIGEE = 'sticky left-0 bg-[#fbf9f5]';
+const FONDU = 'linear-gradient(to right, #000 calc(100% - 32px), transparent)';
 
 /**
  * L'équivalent textuel de chaque graphique, replié par défaut.
@@ -11,6 +16,22 @@ import { EASE } from '../../lib/motion.js';
  */
 export default function DataTable({ headers, rows, foot, sansMarge }) {
   const [ouvert, setOuvert] = useState(false);
+  const defilant = useRef(null);
+  // Vrai tant qu'il reste des colonnes à droite : le bord s'estompe pour le dire.
+  const [suite, setSuite] = useState(false);
+
+  const mesurer = () => {
+    const el = defilant.current;
+    if (el) setSuite(el.scrollWidth - el.clientWidth - el.scrollLeft > 4);
+  };
+
+  useEffect(() => {
+    if (!ouvert || !defilant.current) return undefined;
+    mesurer();
+    const ro = new ResizeObserver(mesurer);
+    ro.observe(defilant.current);
+    return () => ro.disconnect();
+  }, [ouvert]);
 
   return (
     <div className={sansMarge ? '' : 'mt-6'}>
@@ -35,16 +56,24 @@ export default function DataTable({ headers, rows, foot, sansMarge }) {
             transition={{ duration: 0.42, ease: EASE }}
             className="overflow-hidden"
           >
-            <div className="mt-5 -mx-2 overflow-x-auto px-2" data-lenis-prevent>
-              <table className="w-full min-w-[520px] text-[0.82rem]">
+            <div
+              ref={defilant}
+              onScroll={mesurer}
+              className="mt-5 -mx-2 overflow-x-auto overscroll-x-contain px-2"
+              style={suite ? { maskImage: FONDU, WebkitMaskImage: FONDU } : undefined}
+              data-lenis-prevent
+            >
+              <table className="w-full text-[0.82rem]">
                 <thead>
                   <tr>
                     {headers.map((h, i) => (
                       <th
                         key={h}
                         scope="col"
-                        className={`sticky top-0 border-b border-marine/20 bg-porcelain/95 pb-2.5 pt-1 font-mono text-[0.66rem] uppercase tracking-[0.08em] text-marine/80 ${
-                          i === 0 ? 'text-left' : 'text-right'
+                        className={`border-b border-marine/20 pb-2.5 pt-1 font-mono text-[0.66rem] uppercase tracking-[0.08em] text-marine/80 ${
+                          i === 0
+                            ? `${FIGEE} z-[2] top-0 pr-3 text-left`
+                            : 'sticky top-0 bg-[#fbf9f5] pl-3 text-right sm:pl-4'
                         }`}
                       >
                         {h}
@@ -54,12 +83,14 @@ export default function DataTable({ headers, rows, foot, sansMarge }) {
                 </thead>
                 <tbody>
                   {rows.map((r) => (
-                    <tr key={String(r[0])} className="transition-colors hover:bg-marine/[0.035]">
+                    <tr key={String(r[0])} className="group/ligne transition-colors hover:bg-marine/[0.035]">
                       {r.map((c, i) => (
                         <td
                           key={i}
                           className={`whitespace-nowrap border-b border-marine/[0.07] py-2.5 ${
-                            i === 0 ? 'pr-4 font-medium text-marine' : 'pl-4 text-right text-slate'
+                            i === 0
+                              ? `${FIGEE} z-[1] pr-3 font-medium text-marine transition-colors group-hover/ligne:bg-[#f3f2f0] sm:pr-4`
+                              : 'pl-3 text-right text-slate sm:pl-4'
                           }`}
                         >
                           {c}
@@ -75,7 +106,7 @@ export default function DataTable({ headers, rows, foot, sansMarge }) {
                         <td
                           key={i}
                           className={`whitespace-nowrap border-t border-marine/25 py-2.5 font-semibold text-marine ${
-                            i === 0 ? 'pr-4' : 'pl-4 text-right'
+                            i === 0 ? `${FIGEE} z-[1] pr-3 sm:pr-4` : 'pl-3 text-right sm:pl-4'
                           }`}
                         >
                           {c}

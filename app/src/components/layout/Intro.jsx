@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { EASE, useIsDesktop, useReducedMotion } from '../../lib/motion.js';
-import { INTRO_A_JOUER, LEVER, dureeScene, introTerminee, marquerVue } from '../../lib/intro.js';
+import { INTRO_A_JOUER, LEVER, dureeScene, marquerVue } from '../../lib/intro.js';
 import { obtenirLenis } from '../../lib/scroll.js';
 
 const BASE = import.meta.env.BASE_URL;
@@ -44,7 +44,6 @@ export default function Intro() {
       setVisible(false);
       racine.classList.remove('intro-bloque');
       obtenirLenis()?.start();
-      introTerminee();
     }, dureeScene() * 1000);
 
     return () => {
@@ -84,7 +83,7 @@ export default function Intro() {
                     className="absolute h-[70vmin] w-[70vmin] rounded-full border border-ciel/40"
                     initial={{ scale: 0.25, opacity: 0 }}
                     animate={{ scale: [0.25, 1.35], opacity: [0, 0.55, 0] }}
-                    transition={{ duration: 1.7, delay: 0.25 + i * 0.32, ease: 'easeOut' }}
+                    transition={{ duration: 0.85, delay: 0.1 + i * 0.16, ease: 'easeOut' }}
                   />
                 ))}
               </div>
@@ -100,9 +99,9 @@ export default function Intro() {
                 initial={anime ? { rotate: 62, opacity: 0, x: 26 * trajet } : false}
                 animate={anime ? { rotate: [62, 0, -24, 8, -16, 0], opacity: 1, x: 0 } : undefined}
                 transition={{
-                  rotate: { duration: 1.25, delay: 0.32, times: [0, 0.3, 0.48, 0.66, 0.84, 1], ease: 'easeInOut' },
-                  x: { duration: 0.5, delay: 0.32, ease: EASE },
-                  opacity: { duration: 0.2, delay: 0.32 },
+                  rotate: { duration: 0.65, delay: 0.12, times: [0, 0.3, 0.48, 0.66, 0.84, 1], ease: 'easeInOut' },
+                  x: { duration: 0.28, delay: 0.12, ease: EASE },
+                  opacity: { duration: 0.12, delay: 0.12 },
                 }}
               />
               <motion.img
@@ -114,9 +113,9 @@ export default function Intro() {
                 initial={anime ? { rotate: -62, opacity: 0, x: -26 * trajet } : false}
                 animate={anime ? { rotate: [-62, 0, 24, -8, 16, 0], opacity: 1, x: 0 } : undefined}
                 transition={{
-                  rotate: { duration: 1.25, delay: 0.32, times: [0, 0.3, 0.48, 0.66, 0.84, 1], ease: 'easeInOut' },
-                  x: { duration: 0.5, delay: 0.32, ease: EASE },
-                  opacity: { duration: 0.2, delay: 0.32 },
+                  rotate: { duration: 0.65, delay: 0.12, times: [0, 0.3, 0.48, 0.66, 0.84, 1], ease: 'easeInOut' },
+                  x: { duration: 0.28, delay: 0.12, ease: EASE },
+                  opacity: { duration: 0.12, delay: 0.12 },
                 }}
               />
               <motion.img
@@ -127,9 +126,9 @@ export default function Intro() {
                 initial={anime ? { y: 150 * trajet, scale: 0.45, opacity: 0 } : false}
                 animate={anime ? { y: [150 * trajet, -10, 4, -6, 0], scale: 1, opacity: 1 } : undefined}
                 transition={{
-                  y: { duration: 1.5, times: [0, 0.34, 0.56, 0.78, 1], ease: 'easeOut' },
-                  scale: { duration: 0.6, ease: EASE },
-                  opacity: { duration: 0.2 },
+                  y: { duration: 0.75, times: [0, 0.34, 0.56, 0.78, 1], ease: 'easeOut' },
+                  scale: { duration: 0.32, ease: EASE },
+                  opacity: { duration: 0.12 },
                 }}
               />
             </div>
@@ -141,7 +140,7 @@ export default function Intro() {
                   className={EST_BEST(i) ? 'text-signal-light' : ''}
                   initial={anime ? { y: (i % 2 ? 1 : -1) * 30 * trajet, opacity: 0, rotate: (i % 2 ? 1 : -1) * 12 } : false}
                   animate={anime ? { y: 0, opacity: 1, rotate: 0 } : undefined}
-                  transition={{ duration: 0.75, delay: 0.72 + i * 0.055, ease: EASE }}
+                  transition={{ duration: 0.36, delay: 0.34 + i * 0.03, ease: EASE }}
                 >
                   {lettre}
                 </motion.span>

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { EASE, SPRING } from '../../lib/motion.js';
-import { d } from '../../lib/intro.js';
 import { allerEnHaut, useSectionActive } from '../../lib/scroll.js';
 import { SOMMAIRE } from '../../data/contenuArticle.js';
 
@@ -64,10 +63,7 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.header
-        initial={surDashboard ? { y: -80 } : false}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: EASE, delay: d(0.1) }}
+      <header
         className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ease-soft ${
           ouvert ? 'border-b border-marine/10 bg-porcelain' : clair ? 'border-b border-marine/10 bg-porcelain/95 backdrop-blur-xl' : 'border-b border-transparent'
         }`}
@@ -147,7 +143,7 @@ export default function Navbar() {
             ))}
           </button>
         </div>
-      </motion.header>
+      </header>
 
       <AnimatePresence>
         {ouvert && (
