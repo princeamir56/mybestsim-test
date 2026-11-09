@@ -152,7 +152,7 @@ const ROUTES = [
     description:
       "Le pipeline GitHub Actions du catalogue eSIM, en schéma interactif : déclencheurs, agrégation, " +
       'contrôles, publication, et ce qui se passe quand une donnée est fausse.',
-    robots: 'noindex, follow', // pas encore relié au reste du site
+    robots: 'noindex, follow', // comme le tableau de bord : seul l'article doit ranker
     schema: { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Automatisation du catalogue eSIM' },
   },
   {

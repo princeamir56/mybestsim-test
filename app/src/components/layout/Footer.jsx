@@ -69,6 +69,15 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link
+                    to="/automation"
+                    className="group inline-flex items-center gap-2 py-1 text-porcelain/70 transition-colors hover:text-signal-light"
+                  >
+                    Voir le workflow automatisé
+                    <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </Link>
+                </li>
+                <li>
                   <LienSection id="decisions">Les {mot(data.decisions.length)} arbitrages</LienSection>
                 </li>
                 <li>

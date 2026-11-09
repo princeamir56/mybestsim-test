@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Mot } from '../../lib/format.js';
 import { AnimatePresence, motion } from 'framer-motion';
 import Reveal from '../ui/Reveal.jsx';
@@ -73,6 +74,15 @@ export default function Decisions({ ouverte, setOuverte, demande }) {
               </span>
               .
             </p>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <Link
+              to="/automation"
+              className="btn mt-7 border border-porcelain/25 text-porcelain hover:border-porcelain/60 hover:bg-porcelain/10"
+            >
+              Voir le workflow automatisé
+              <span aria-hidden="true">→</span>
+            </Link>
           </Reveal>
         </header>
 

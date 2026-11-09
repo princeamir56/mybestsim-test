@@ -830,5 +830,6 @@ référence à un fichier de données, le schéma nomme le dossier sans jamais �
 | Page `/automation` et schéma animé | moi | moi |
 | Scénarios jouables, paquet, journal, détail au clic | l'agent | validé en commitant |
 | Encadré « ce qu'elle ne fait pas encore » | l'agent | validé en commitant |
-| Page en `noindex` tant qu'elle n'est pas reliée | l'agent | validé en commitant |
+| Page en `noindex`, comme le tableau de bord | l'agent | validé en commitant |
+| Bouton près des décisions et lien dans le pied de page | l'agent | moi |
 

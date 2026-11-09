@@ -89,7 +89,8 @@ interactif : quatre scénarios (nouveau fichier, contrôle de 5 h, fichier corro
 un paquet qui change de nature à chaque étape, un journal d'exécution, et le détail de chaque
 brique au clic. Le contenu décrit [`pipeline.yml`](.github/workflows/pipeline.yml) tel qu'il est
 ([`automatisation.js`](app/src/data/automatisation.js)) : le vérificateur recoupe les totaux
-annoncés avec le code. La page est en `noindex` tant qu'elle n'est pas reliée au reste du site.
+annoncés avec le code. Un bouton du panneau « Décisions » et le pied de page y mènent. Elle reste en
+`noindex`, comme le tableau de bord : seul l'article a vocation à ranker.
 
 ### Un seul point d'entrée pour les données
 
