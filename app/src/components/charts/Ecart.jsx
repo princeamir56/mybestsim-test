@@ -24,6 +24,8 @@ export default function Ecart({ points, legende }) {
   const X = (j) => GAUCHE + ((j - minJ) / (maxJ - minJ)) * (largeur - GAUCHE - DROITE);
   const Y = (v) => HAUT + (1 - v / max) * (hauteur - HAUT - BAS);
   const ticks = graduations(0, max, 4);
+  // À l'échelle réelle, 7 et 15 jours sont voisins : sur écran étroit, l'unité s'abrège.
+  const abrege = X(points[1].jours) - X(points[0].jours) < 76;
   const ligne = (cle) => points.map((p, i) => `${i ? 'L' : 'M'}${X(p.jours)} ${Y(p[cle])}`).join(' ');
   const bande = `${ligne('haut')} ${[...points].reverse().map((p) => `L${X(p.jours)} ${Y(p.bas)}`).join(' ')} Z`;
 
@@ -67,6 +69,10 @@ export default function Ecart({ points, legende }) {
         {points.map((p, i) => {
           const ancre = i === 0 ? 'start' : i === points.length - 1 ? 'end' : 'middle';
           const delai = anime ? 0.5 + i * 0.25 : 0;
+          // Les durées sont à l'échelle réelle : sur un écran étroit, deux prix bas
+          // voisins se chevauchent. Le second descend alors d'une ligne.
+          const prec = points[i - 1];
+          const decale = i === 1 && X(p.jours) - X(prec.jours) < 76 && Math.abs(Y(p.bas) - Y(prec.bas)) < 18 ? 15 : 0;
           return (
             <motion.g
               key={p.jours}
@@ -76,14 +82,14 @@ export default function Ecart({ points, legende }) {
             >
               <circle cx={X(p.jours)} cy={Y(p.haut)} r="5" fill={COULEUR.signal} stroke="#fbf9f5" strokeWidth="2" />
               <circle cx={X(p.jours)} cy={Y(p.bas)} r="5" fill={COULEUR.azur} stroke="#fbf9f5" strokeWidth="2" />
-              <text x={X(p.jours)} y={Y(p.haut) - 12} textAnchor={ancre} className="fill-marine text-[12px] font-semibold">{eur(p.haut)}</text>
-              <text x={X(p.jours)} y={Y(p.bas) + 21} textAnchor={ancre} className="fill-marine text-[12px] font-semibold">{eur(p.bas)}</text>
+              <text x={X(p.jours)} y={Y(p.haut) - 12} textAnchor={ancre} className="etiquette fill-marine text-[12px] font-semibold">{eur(p.haut)}</text>
+              <text x={X(p.jours)} y={Y(p.bas) + 21 + decale} textAnchor={ancre} className="etiquette fill-marine text-[12px] font-semibold">{eur(p.bas)}</text>
               {Y(p.bas) - Y(p.haut) > 40 ? (
                 <text x={X(p.jours) + (i === 0 ? 10 : i === points.length - 1 ? -10 : 0)} y={(Y(p.haut) + Y(p.bas)) / 2 + 6} textAnchor={ancre} className="fill-marine font-display text-[17px]">
                   ×{n2(p.ratio)}
                 </text>
               ) : null}
-              <text x={X(p.jours)} y={hauteur - 8} textAnchor={ancre} className="fill-slate text-[11.5px]">{p.jours} jours</text>
+              <text x={X(p.jours)} y={hauteur - 8} textAnchor={ancre} className="fill-slate text-[11.5px]">{p.jours} {abrege ? 'j' : 'jours'}</text>
             </motion.g>
           );
         })}

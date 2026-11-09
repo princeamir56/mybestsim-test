@@ -198,6 +198,15 @@ html.lenis body {
     @apply border border-marine/10 bg-gradient-to-b from-white/75 to-white/45;
   }
 
+  /* Une valeur posée sur un graphique : un liseré couleur papier la détache des
+     tracés et des points qui passent dessous. */
+  .etiquette {
+    paint-order: stroke;
+    stroke: #fbf9f5;
+    stroke-width: 3.5px;
+    stroke-linejoin: round;
+  }
+
   /* Le chiffre héros d'une tuile : c'est lui qu'on lit en premier. */
   .figure {
     @apply font-display text-[clamp(2.1rem,5.6vw,2.9rem)] font-normal leading-none tracking-[-0.03em] text-marine tabular;

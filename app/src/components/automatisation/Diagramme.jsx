@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useParcours } from './parcours.js';
 import { BUREAU, NOEUDS, SCENARIOS, TELEPHONE } from '../../data/automatisation.js';
 
@@ -205,6 +206,8 @@ export default function Diagramme() {
   const paquetBureau = useRef(null);
   const paquetTel = useRef(null);
   const journal = useRef(null);
+  // La barre flottante ne double pas les commandes quand elles sont déjà à l'écran.
+  const { ref: refCommandes, inView: commandesVisibles } = useInView({ initialInView: true });
 
   const {
     refVue, reduit, scenario, scenarioId, etapes, courante, etape, derniere, enLecture, cle,
@@ -231,7 +234,7 @@ export default function Diagramme() {
 
   return (
     <div ref={refVue}>
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div ref={refCommandes} className="flex flex-wrap items-center justify-between gap-4">
         <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap" role="group" aria-label="Choisir un scénario">
           {SCENARIOS.map((s) => {
             const actif = s.id === scenarioId;
@@ -298,7 +301,7 @@ export default function Diagramme() {
       </div>
 
       {/* Sur téléphone, la scène dépasse l'écran : l'étape en cours reste lisible. */}
-      <div className="sticky bottom-3 z-30 mt-5 flex items-center gap-3 rounded-full border border-ciel/30 bg-[#0a1c38]/95 py-2 pl-4 pr-2 backdrop-blur md:hidden">
+      <div className={`sticky bottom-3 z-30 mt-5 flex items-center gap-3 rounded-full border border-ciel/30 bg-[#0a1c38]/95 py-2 pl-4 pr-2 backdrop-blur transition-opacity duration-200 md:hidden ${commandesVisibles ? 'invisible opacity-0' : ''}`}>
         <span className="min-w-0 flex-1 truncate text-[0.82rem] text-porcelain">
           <span className="font-mono text-[0.7rem] text-ciel">{etape + 1}/{etapes.length}</span> {NOEUDS[courante.noeud].titre}
         </span>

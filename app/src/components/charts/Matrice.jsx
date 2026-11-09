@@ -16,6 +16,10 @@ const CLASSES = [
   { max: Infinity, fond: '#b9542a', texte: '#ffffff', libelle: '+10 % et plus' },
 ];
 
+// Sur téléphone, sept colonnes ne laissent pas la place d'écrire « 50 Go » : l'unité
+// passe dans le coin du tableau, et l'illimité devient ∞, expliqué sous la grille.
+const compact = (c) => (/^illimit/i.test(c) ? '∞' : c.replace(/\s*Go$/, ''));
+
 const classe = (v) => CLASSES.find((c) => v < c.max) ?? CLASSES[CLASSES.length - 1];
 const signe = (v) => {
   const a = Math.round(v);
@@ -50,19 +54,24 @@ export default function Matrice({ colonnes, marche, lignes }) {
         <div
           role="table"
           aria-label="Écart de prix de chaque fournisseur à la médiane du marché, par palier de volume, en pourcentage."
-          className="grid gap-[2px]"
-          style={{ gridTemplateColumns: `minmax(74px, 128px) repeat(${colonnes.length}, minmax(0, 1fr))` }}
+          className="grid gap-[2px] [grid-template-columns:max-content_repeat(var(--colonnes),minmax(0,1fr))] sm:[grid-template-columns:minmax(74px,128px)_repeat(var(--colonnes),minmax(0,1fr))]"
+          style={{ '--colonnes': colonnes.length }}
         >
           <div role="row" className="contents">
             <span role="columnheader" className="sr-only">Fournisseur</span>
-            <span aria-hidden="true" />
+            <span aria-hidden="true" className="self-end pb-1.5 pr-1.5 text-[0.66rem] leading-tight text-marine/80 sm:hidden">
+              Palier (Go)
+            </span>
+            <span aria-hidden="true" className="hidden sm:block" />
             {colonnes.map((c, j) => (
               <span
                 key={c}
                 role="columnheader"
+                aria-label={c}
                 className={`pb-1.5 text-center text-[0.68rem] leading-tight transition-colors sm:text-[0.76rem] ${survol?.j === j ? 'font-semibold text-marine' : 'text-slate'}`}
               >
-                {c}
+                <span aria-hidden="true" className="tabular sm:hidden">{compact(c)}</span>
+                <span aria-hidden="true" className="hidden sm:inline">{c}</span>
               </span>
             ))}
           </div>
@@ -95,7 +104,7 @@ export default function Matrice({ colonnes, marche, lignes }) {
                   <motion.span
                     role="cell"
                     key={colonnes[j]}
-                    className={`flex h-[30px] cursor-default items-center justify-center rounded-[4px] text-[0.7rem] font-medium tabular sm:h-[34px] sm:text-[0.78rem] ${actif ? 'ring-2 ring-marine ring-offset-1 ring-offset-[#fbf9f5]' : ''}`}
+                    className={`flex h-[30px] cursor-default items-center justify-center rounded-[4px] text-[0.64rem] font-medium tabular min-[360px]:text-[0.7rem] sm:h-[34px] sm:text-[0.78rem] ${actif ? 'ring-2 ring-marine ring-offset-1 ring-offset-[#fbf9f5]' : ''}`}
                     style={{ background: k.fond, color: k.texte }}
                     initial={anime ? { opacity: 0, scale: 0.6 } : false}
                     animate={vu ? { opacity: 1, scale: 1 } : undefined}
@@ -124,6 +133,7 @@ export default function Matrice({ colonnes, marche, lignes }) {
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[0.74rem] text-slate">
+        <span className="w-full sm:hidden">∞ : forfait illimité</span>
         {CLASSES.map((c) => (
           <span key={c.libelle} className="flex items-center gap-1.5">
             <i aria-hidden="true" className="h-[10px] w-[16px] rounded-[2px]" style={{ background: c.fond }} />

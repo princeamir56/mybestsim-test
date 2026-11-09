@@ -31,8 +31,10 @@ export default function Hero() {
       <FondHero />
 
       {/* Sous `lg`, le bas du hero reste libre : la scène de l'image s'y affiche
-          sans passer derrière le texte. */}
-      <motion.div style={{ y }} className="shell relative z-10 pb-[60vw] pt-[116px] sm:pb-[34vw] lg:pb-20 lg:pt-[150px]">
+          sous les chiffres. La marge est calée sur le haut du téléphone dans chaque
+          image, et la parallaxe y est coupée : elle faisait glisser les chiffres
+          sur le téléphone pendant le défilement. */}
+      <motion.div style={{ y }} className="shell relative z-10 pb-[63vw] pt-[116px] max-lg:![transform:none] sm:pb-[38vw] lg:pb-20 lg:pt-[150px]">
         {/* Aucune entrée animée : le visiteur vient lire ces chiffres, ils sont là
             dès l'ouverture de la page. */}
         <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-signal">

@@ -17,11 +17,13 @@ const PAR_VOLUME = [...data.fournisseurs].sort((a, b) => b.produits - a.produits
  * Chaque tuile dont le chiffre dépend d'un arbitrage porte son repère (D1…D4),
  * cliquable, qui ouvre la décision correspondante. C'est ce qui distingue un
  * chiffre d'un chiffre *assumé* : le lecteur peut remonter à la raison en un
- * clic, sans quitter la page.
+ * clic, sans quitter la page. Sur téléphone et tablette, les tuiles repérées
+ * passent d'abord, dans l'ordre D1, D2, D3 ; sur grand écran, l'ordre du brief.
  */
 const TUILES = [
   {
     cle: 'Nombre total de cartes eSIM',
+    ordre: 'order-1',
     valeur: k.total,
     format: n,
     drapeau: 'D1',
@@ -31,10 +33,10 @@ const TUILES = [
         {n(k.total)} SKU sont uniques.
       </>
     ),
-    large: true,
   },
   {
     cle: 'Produits à plus de 100 €',
+    ordre: 'order-3',
     valeur: k.plus_100,
     format: n,
     drapeau: 'D3',
@@ -58,6 +60,7 @@ const TUILES = [
   },
   {
     cle: 'Fourchette de prix',
+    ordre: 'order-4',
     valeur: k.prix_max,
     format: eur,
     prefixe: `${n2(k.prix_min)} € →`,
@@ -73,6 +76,7 @@ const TUILES = [
   },
   {
     cle: 'Moyenne de data par carte',
+    ordre: 'order-2',
     valeur: k.go_moyen,
     format: (v) => `${n2(v)} Go`,
     drapeau: 'D2',
@@ -86,6 +90,7 @@ const TUILES = [
   },
   {
     cle: 'Prix moyen global',
+    ordre: 'order-5',
     valeur: k.prix_moyen,
     format: eur,
     note: (
@@ -95,7 +100,7 @@ const TUILES = [
       </>
     ),
   },
-  { cle: 'Répartition par fournisseur', repartition: true },
+  { cle: 'Répartition par fournisseur', ordre: 'order-6', repartition: true },
 ];
 
 export default function Kpis({ onOuvrirDecision }) {
@@ -178,7 +183,7 @@ function Tuile({ tuile, index, onOuvrir }) {
       initial={reduced ? false : { opacity: 0, y: 18 }}
       animate={inView || reduced ? { opacity: 1, y: 0 } : undefined}
       transition={{ duration: 0.25, delay: Math.min(index, 6) * 0.025, ease: EASE }}
-      className={tuile.large ? 'sm:col-span-2 lg:col-span-1' : ''}
+      className={`${tuile.ordre} lg:order-none`}
     >
         <div className="card-surface group relative flex h-full flex-col overflow-hidden rounded-[1.4rem] p-6 shadow-halo transition-shadow duration-500 ease-soft hover:shadow-halo-lg sm:p-7">
           {/* Le filet d'accent qui se trace au survol : la carte réagit sans

@@ -6,7 +6,8 @@
  *   - scène d'ouverture : elle se joue, se retire, ne bloque plus les clics, et
  *     ne se rejoue pas dans la même session ;
  *   - à 4 largeurs : erreurs console, requêtes en échec, débordement horizontal,
- *     contraste calculé du texte, texte coupé, cibles tactiles trop petites.
+ *     contraste calculé du texte, texte coupé, texte posé sur un autre texte,
+ *     cibles tactiles trop petites.
  *
  *   node scripts/audit.mjs [baseUrl]
  *
@@ -147,6 +148,33 @@ const mesurer = (page) =>
       }
     }
 
+    // Deux textes qui se recouvrent : la mesure que « rien ne dépasse » ne voit pas.
+    const blocs = [];
+    const lecteur = document.createTreeWalker(document.querySelector('#root'), NodeFilter.SHOW_TEXT);
+    for (let n = lecteur.nextNode(); n; n = lecteur.nextNode()) {
+      const txt = n.nodeValue.trim();
+      const el = n.parentElement;
+      if (!txt || !el || el.closest('.sr-only,.lien-evitement')) continue;
+      const s = getComputedStyle(el);
+      if (s.visibility === 'hidden' || s.display === 'none') continue;
+      const portee = document.createRange();
+      portee.selectNodeContents(n);
+      for (const q of portee.getClientRects()) {
+        if (q.width >= 1 && q.height >= 1) blocs.push({ txt: txt.slice(0, 24), el, q });
+      }
+    }
+    const collisions = [];
+    blocs.forEach((a, i) => {
+      for (let j = i + 1; j < blocs.length; j += 1) {
+        const b = blocs[j];
+        if (a.el === b.el) continue;
+        const ox = Math.min(a.q.right, b.q.right) - Math.max(a.q.left, b.q.left);
+        const oy = Math.min(a.q.bottom, b.q.bottom) - Math.max(a.q.top, b.q.top);
+        // Les boîtes de ligne sont plus hautes que les lettres : on ignore les frôlements.
+        if (ox > 1.5 && oy > Math.min(a.q.height, b.q.height) * 0.35) collisions.push(`${a.txt} / ${b.txt}`);
+      }
+    });
+
     const petites = [];
     document.querySelectorAll('a,button').forEach((a) => {
       const r = a.getBoundingClientRect();
@@ -182,6 +210,7 @@ const mesurer = (page) =>
       hauteur: document.documentElement.scrollHeight,
       contrastes: [...contrastes.keys()].slice(0, 30),
       coupes: [...new Set(coupes)].slice(0, 8),
+      collisions: [...new Set(collisions)].slice(0, 8),
       petites: [...new Set(petites)].slice(0, 8),
       depasse: [...new Set(depasse)].slice(0, 6),
     };
@@ -343,6 +372,7 @@ for (const [nomVp, vp] of Object.entries(LARGEURS)) {
     ok('les compteurs affichent la vraie valeur', m.compteurs.length === 0, m.compteurs.join(' | '));
     ok('contraste du texte', m.contrastes.length === 0, m.contrastes.join(' | '));
     ok('aucun texte coupé', m.coupes.length === 0, m.coupes.join(' | '));
+    ok('aucun texte posé sur un autre', m.collisions.length === 0, m.collisions.join(' | '));
     ok('cibles tactiles ≥ 24 px', m.petites.length === 0, m.petites.join(' | '));
     await page.screenshot({ path: `${OUT}/${nomVp}-${nomPage}.png`, fullPage: true });
     console.log(`  hauteur ${m.hauteur}px`);

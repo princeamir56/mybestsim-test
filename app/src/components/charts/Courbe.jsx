@@ -61,6 +61,8 @@ export default function Courbe({ points, format, hauteur = 250 }) {
           />
           {points.map((p, i) => {
             const bord = i === 0 || i === points.length - 1;
+            // Sur écran étroit, l'étiquette de fin s'étend jusqu'au point voisin : elle passe au-dessus.
+            const yValeur = (i > 0 && pas < 72 ? Math.min(Y(p.value), Y(points[i - 1].value)) : Y(p.value)) - 11;
             return (
               <g key={p.label}>
                 <motion.circle
@@ -78,14 +80,14 @@ export default function Courbe({ points, format, hauteur = 250 }) {
                 {bord ? (
                   <text
                     x={X(i) + (i === 0 ? 10 : 0)}
-                    y={Y(p.value) - 11}
+                    y={yValeur}
                     textAnchor={i === 0 ? 'start' : 'end'}
-                    className="fill-marine text-[12px] font-semibold"
+                    className="etiquette fill-marine text-[12px] font-semibold"
                   >
                     {format(p.value)}
                   </text>
                 ) : null}
-                <text x={X(i)} y={hauteur - 8} textAnchor={i === 0 ? 'start' : i === points.length - 1 ? 'end' : 'middle'} className="fill-slate text-[11.5px]">{p.label}</text>
+                <text x={X(i)} y={hauteur - 8} textAnchor="middle" className="fill-slate text-[11.5px]">{p.label}</text>
                 <rect
                   x={X(i) - pas / 2}
                   y={0}

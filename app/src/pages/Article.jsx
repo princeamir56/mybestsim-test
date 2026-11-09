@@ -1,4 +1,4 @@
-import { Children } from 'react';
+import { Children, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Faq from '../components/ui/Faq.jsx';
 import Magnetic from '../components/ui/Magnetic.jsx';
@@ -369,7 +369,7 @@ export default function Article() {
                       {it.verdict}
                     </span>
                   </div>
-                  <p className="mt-3 text-[0.95rem] leading-relaxed text-slate">{it.texte}</p>
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-slate">{typo(it.texte)}</p>
                   <Selection itineraire={it.nom} comparateur={it.comparateur} />
                 </div>
               </Reveal>
@@ -670,7 +670,25 @@ function Liste({ items, ordonnee }) {
   );
 }
 
+// Tant qu'il reste des colonnes à droite, le bord s'estompe : c'est ce qui dit au
+// lecteur qu'il peut faire défiler le tableau, comme dans ceux du tableau de bord.
+const FONDU_TABLEAU = 'linear-gradient(to right, #000 calc(100% - 36px), transparent)';
+
 function Tableau({ entetes, lignes, legende }) {
+  const defilant = useRef(null);
+  const [suite, setSuite] = useState(false);
+  const mesurer = () => {
+    const el = defilant.current;
+    if (el) setSuite(el.scrollWidth - el.clientWidth - el.scrollLeft > 4);
+  };
+  useEffect(() => {
+    if (!defilant.current) return undefined;
+    mesurer();
+    const ro = new ResizeObserver(mesurer);
+    ro.observe(defilant.current);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <Reveal>
       {/* Le tableau reste dans la colonne de lecture. Ce qui le faisait
@@ -679,7 +697,13 @@ function Tableau({ entetes, lignes, legende }) {
           large que la colonne qu'il titre. Ici l'interlettrage est réduit et
           l'en-tête peut passer à la ligne. Sous `sm`, le défilement
           horizontal reprend : c'est le bon geste au doigt. */}
-      <div className="my-7 -mx-5 overflow-x-auto px-5 sm:mx-0 sm:overflow-visible sm:px-0" data-lenis-prevent>
+      <div
+        ref={defilant}
+        onScroll={mesurer}
+        className="my-7 -mx-5 overflow-x-auto overscroll-x-contain px-5 sm:mx-0 sm:overflow-visible sm:px-0"
+        style={suite ? { maskImage: FONDU_TABLEAU, WebkitMaskImage: FONDU_TABLEAU } : undefined}
+        data-lenis-prevent
+      >
         <table className="w-full min-w-[440px] table-auto border-collapse text-[0.88rem] sm:min-w-0">
           <thead>
             <tr>
@@ -688,7 +712,7 @@ function Tableau({ entetes, lignes, legende }) {
                   key={e}
                   scope="col"
                   className={`border-b border-marine/20 pb-3 font-mono text-[0.68rem] uppercase leading-tight tracking-[0.08em] text-marine/80 ${
-                    i === 0 ? 'pr-3 text-left' : 'pl-3 text-right'
+                    i === 0 ? 'sticky left-0 z-[1] bg-porcelain pr-3 text-left sm:static' : 'pl-3 text-right'
                   }`}
                 >
                   {e}
@@ -704,7 +728,7 @@ function Tableau({ entetes, lignes, legende }) {
                     key={ci}
                     className={`border-b border-marine/[0.08] py-3 ${
                       ci === 0
-                        ? 'pr-3 font-medium leading-snug text-marine'
+                        ? 'sticky left-0 z-[1] bg-porcelain pr-3 font-medium leading-snug text-marine sm:static'
                         : 'whitespace-nowrap pl-3 text-right text-slate'
                     }`}
                   >

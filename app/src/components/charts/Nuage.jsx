@@ -82,7 +82,7 @@ export default function Nuage({ points, libelleX, libelleY, formatY, moyenne }) 
 
           <motion.g initial={anime ? { opacity: 0 } : false} animate={vu ? { opacity: 1 } : undefined} transition={{ duration: 0.6, delay: anime ? 0.5 : 0 }}>
             <line x1={GAUCHE} x2={largeur - DROITE} y1={Y(moyenne.valeur)} y2={Y(moyenne.valeur)} stroke={COULEUR.encre} strokeWidth="1.25" strokeDasharray="3 3" />
-            <text x={largeur - DROITE} y={Y(moyenne.valeur) - 6} textAnchor="end" className="fill-marine text-[11.5px]">{moyenne.libelle}</text>
+            <text x={largeur - DROITE} y={Y(moyenne.valeur) - 6} textAnchor="end" className="etiquette fill-marine text-[11.5px]">{moyenne.libelle}</text>
           </motion.g>
 
           {actif && (() => {

@@ -982,3 +982,67 @@ suggestions d'images, compagnies et source officielle.
 | Nommer MSC et Costa sans rien affirmer, faute de source lue | l'agent | validé en commitant |
 | Exclure les notes pour l'éditeur du compte de mots | l'agent | validé en commitant |
 
+---
+
+## Corrections d'interface sur téléphone
+
+### Ce que j'ai demandé
+
+En testant le site sur téléphone, j'ai envoyé des captures de trois défauts : le téléphone de l'image
+du hero caché par le bandeau de chiffres, les six statistiques présentées dans le désordre (D1, D3,
+puis D2), et les libellés « 1 Go, 3 Go… » de la matrice écrits les uns sur les autres. J'ai demandé
+de les corriger, de chercher les défauts du même type dans tout le projet, et de documenter le tout.
+Je commite et je pousse moi-même.
+
+### Les trois défauts et leur vraie cause
+
+- **L'image n'était pas en cause.** Page immobile, l'espace réservé suffisait. C'est la parallaxe qui
+  faisait glisser les chiffres sur le téléphone pendant le défilement, y compris sur les captures que
+  j'avais envoyées. Elle est coupée sous 1024 px, et la marge calée sur le haut du téléphone dans
+  chaque image. Les fichiers n'ont pas été touchés : ils pèsent déjà de 52 à 111 Ko.
+- **L'ordre des statistiques** suit D1, D2, D3 sur téléphone et tablette. Sur grand écran, il reste
+  celui du brief.
+- **La matrice** donnait 128 px à la colonne des noms et ne laissait que 15 à 30 px aux paliers. La
+  première colonne prend maintenant la largeur des noms. L'unité passe dans le coin du tableau, et
+  l'illimité devient ∞, expliqué sous la grille.
+
+### Ce que la recherche a trouvé en plus
+
+Ces défauts échappaient à tous les contrôles : l'audit vérifiait que rien ne sortait de l'écran, pas
+qu'un texte ne se posait sur un autre. L'agent a écrit un détecteur, l'a passé sur les quatre pages à
+dix largeurs, puis a regardé chaque page au format téléphone.
+
+| Où | Défaut | Correction |
+|---|---|---|
+| Courbe du prix du Go | « 20 Go » et « 50 Go » collés, dernière valeur sous un point | Libellés centrés, valeur placée au-dessus |
+| Graphique de la prime | « 16,28 € » sur « 17,86 € », et « 7 jours15 jours » à 320 px | Second prix descendu d'une ligne, unité abrégée |
+| Trois graphiques | Le tracé traversait les valeurs | Liseré couleur papier autour du texte |
+| Treemap | Compte coupé dans la plus petite case | Case plus haute, marge resserrée |
+| Tuiles sur tablette | Une case vide en fin de grille | Six tuiles sur trois rangées égales |
+| Page d'automatisation | La barre flottante couvrait les boutons qu'elle doublait | Masquée tant que les boutons sont à l'écran |
+| Tableaux de l'article | Coupés à droite, sans signe qu'on peut défiler | Colonne figée et bord estompé, comme ceux du tableau de bord |
+| Cartes de l'article | Des « : » seuls en début de ligne | Espaces insécables |
+
+Un défaut de plus reste à signaler : ces captures et cette recherche ont été nécessaires parce que
+j'avais d'abord validé ces pages sur des mesures vertes. **Une mesure ne couvre que ce qu'elle
+mesure.**
+
+### Ce qui l'empêche de revenir
+
+L'audit Chrome contrôle désormais qu'aucun texte n'est posé sur un autre, à chaque largeur et sur
+chaque page. Vérifié en local : build, 91 contrôles, 14 contrôles de prose, audit Chrome à 5 largeurs
+(164 mesures), détecteur à 320, 360, 390, 430 et 768 px sans aucune collision. Lighthouse n'a pas été
+remesuré.
+
+### Décisions : qui a tranché quoi
+
+| Sujet | Proposé par | Tranché par |
+|---|---|---|
+| Corriger les trois défauts de mes captures | moi | moi |
+| Présenter D1, D2, D3 dans l'ordre sur téléphone | moi | moi |
+| Chercher les défauts semblables dans tout le projet | moi | moi |
+| Couper la parallaxe plutôt que changer l'image | l'agent | validé en commitant |
+| Matrice compacte avec unité dans le coin et ∞ | l'agent | validé en commitant |
+| Garder l'ordre du brief sur grand écran | l'agent | validé en commitant |
+| Contrôle permanent des textes superposés | l'agent | validé en commitant |
+

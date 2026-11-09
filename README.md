@@ -53,7 +53,7 @@ rejoue tout cela à chaque CSV déposé, chaque matin à 5 h, ou à la demande.
 | `npm run build` | Chaîne complète : agrégation, bundle Vite, prérendu |
 | `npm run verifier` | Contrôle que le HTML servi est cohérent avec les données, sans navigateur |
 | `npm run test-import` | Ajoute un 19ᵉ fournisseur hostile et vérifie que les **phrases** suivent |
-| `npm run audit` | Pilote un vrai Chrome à 5 largeurs : parcours, contraste, débordements, compteurs (site servi sur le port 4173) |
+| `npm run audit` | Pilote un vrai Chrome à 5 largeurs : parcours, contraste, débordements, textes superposés, compteurs (site servi sur le port 4173) |
 | `npm run captures` | Pilote un vrai Chrome : captures + détection de débordement |
 | `npm run profilage` · `npm run statistiques` | Les chiffres en texte brut |
 
@@ -277,6 +277,9 @@ Le texte ne dépend jamais de l'image pour rester lisible : les chiffres sont po
 bandeau opaque à 70 % et flouté. L'image est décorative (`alt` vide), précharge par largeur
 d'écran, et pèse de 50 à 108 Ko selon la taille servie.
 
+Sous 1024 px, la parallaxe du hero est coupée : elle faisait glisser les chiffres sur le téléphone de
+l'image pendant le défilement.
+
 **Le schéma de couverture de l'article est une animation en boucle de 5 s** : un navire quitte
 le port, perd le réseau terrestre, puis passe sur le satellite du bord. Elle est écrite en SVG et
 en CSS, pas en fichier vidéo : le schéma reste dans le HTML servi, net à toute taille, sans son,
@@ -360,6 +363,7 @@ seul commit à la publication du dépôt ; le déroulé est consigné dans
 | — | Schéma interactif de l'automatisation (`/automation`) | ✅ |
 | — | Relecture critique avant l'envoi : quatre défauts corrigés et documentés | ✅ |
 | — | Article renforcé : offres nommées par itinéraire, liens MyBestSim, suggestions d'images | ✅ |
+| — | Corrections d'interface sur téléphone, et contrôle permanent des textes superposés | ✅ |
 
 L'ordre n'est pas décoratif : **aucun travail de mise en forme n'a été engagé avant que
 les chiffres soient validés.** Un tableau de bord soigné construit sur des chiffres faux

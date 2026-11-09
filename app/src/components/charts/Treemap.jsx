@@ -67,7 +67,7 @@ function squarifier(items, x0, y0, w0, h0) {
 export default function Treemap({ items }) {
   const { ref, largeur, anime, vu } = useGraphique({ largeurDefaut: 1100, seuil: 0.2 });
   const { conteneur, bulle, montrer, cacher } = useInfobulle();
-  const hauteur = largeur < 520 ? 620 : largeur < 800 ? 520 : 470;
+  const hauteur = largeur < 520 ? 700 : largeur < 800 ? 520 : 470;
 
   const cases = squarifier(items, 0, 0, largeur, hauteur);
 
@@ -78,10 +78,12 @@ export default function Treemap({ items }) {
           const rang = Math.min(TONS.length - 1, Math.floor((i / items.length) * TONS.length));
           const [fond, texte] = TONS[rang];
           const grand = c.w > 104 && c.h > 100;
+          // Les plus petites cases resserrent leur marge : le compte reste entier.
+          const serre = !grand && (c.w < 76 || c.h < 66);
           return (
             <motion.div
               key={c.nom}
-              className="absolute overflow-hidden rounded-[7px] p-2 sm:p-2.5"
+              className={`absolute overflow-hidden rounded-[7px] ${c.w < 60 ? 'p-1' : serre ? 'p-1.5' : 'p-2 sm:p-2.5'}`}
               style={{
                 left: c.x + 1,
                 top: c.y + 1,
@@ -98,8 +100,8 @@ export default function Treemap({ items }) {
               onPointerEnter={(e) => montrer(e, c.bulle, { x: c.x + c.w / 2, y: c.y + 10 })}
               onClick={(e) => montrer(e, c.bulle, { x: c.x + c.w / 2, y: c.y + 10 })}
             >
-              <p className={`font-semibold leading-tight ${grand ? 'text-[0.95rem]' : 'text-[0.76rem]'}`}>{c.nom}</p>
-              <p className={`tabular leading-tight ${grand ? 'mt-1 text-[1.5rem] font-display' : 'mt-0.5 text-[0.76rem]'}`}>{c.affiche}</p>
+              <p className={`font-semibold leading-tight ${grand ? 'text-[0.95rem]' : serre ? 'text-[0.7rem]' : 'text-[0.76rem]'}`}>{c.nom}</p>
+              <p className={`tabular leading-tight ${grand ? 'mt-1 text-[1.5rem] font-display' : serre ? 'text-[0.7rem]' : 'mt-0.5 text-[0.76rem]'}`}>{c.affiche}</p>
               {grand ? <p className="mt-0.5 text-[0.76rem] opacity-90">{c.part}</p> : null}
             </motion.div>
           );
