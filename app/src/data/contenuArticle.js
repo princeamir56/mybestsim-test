@@ -5,6 +5,18 @@
 // seule fois, elle ne peut pas promettre à Google une question absente de la
 // page — l'erreur classique du balisage saisi à part.
 
+import art from './article.json';
+import { mot } from '../lib/format.js';
+
+// Le seuil local / régional est calculé par scripts/donnees_article.py. Toutes
+// les phrases qui le citent lisent ces formulations : elles ne peuvent donc pas
+// se contredire entre elles, ni contredire les prix.
+export const SEUIL = art.multi_pays.seuil;
+const majuscule = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+const des = `dès ${mot(SEUIL)} pays`;
+const avant = SEUIL === 2 ? 'dans un seul pays' : `en dessous de ${mot(SEUIL)} pays`;
+export const SEUIL_TXT = { des, Des: majuscule(des), avant, Avant: majuscule(avant) };
+
 const FAQ_BRUTE = [
   {
     question: 'Est-ce qu\'une eSIM fonctionne sur un bateau de croisière ?',
@@ -58,9 +70,9 @@ const FAQ_BRUTE = [
   {
     question: 'Faut-il une eSIM par pays ou une seule pour toute la croisière ?',
     reponse:
-      'Cela dépend du nombre de pays touchés. Pour une ou deux destinations, des eSIM ' +
-      'locales reviennent moins cher. À partir de trois pays, une eSIM régionale devient ' +
-      "plus avantageuse, et vous n'avez qu'une installation à gérer avant le départ.",
+      `Cela dépend du nombre de pays touchés. ${SEUIL_TXT.Avant}, une eSIM locale revient ` +
+      `moins cher. ${SEUIL_TXT.Des}, une eSIM régionale devient plus avantageuse à volume ` +
+      "égal, et vous n'avez qu'une installation à gérer avant le départ.",
   },
   {
     question: 'Quand faut-il acheter et activer son eSIM ?',

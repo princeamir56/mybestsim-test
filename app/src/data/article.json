@@ -309,5 +309,37 @@
     "moins_cher_produit": "eSIM Amérique du Nord Illimité 15 jours"
    }
   }
- ]
+ ],
+ "multi_pays": {
+  "seuil": 2,
+  "paliers": [
+   {
+    "go": 5,
+    "jours": 7,
+    "prix_local_min": 11.11,
+    "prix_regional_min": 15.82,
+    "seuil": 2
+   },
+   {
+    "go": 10,
+    "jours": 15,
+    "prix_local_min": 18.18,
+    "prix_regional_min": 25.63,
+    "seuil": 2
+   },
+   {
+    "go": 20,
+    "jours": 30,
+    "prix_local_min": 32.76,
+    "prix_regional_min": 48.16,
+    "seuil": 2
+   }
+  ],
+  "petit_forfait": {
+   "go": 1,
+   "jours": 7,
+   "prix_local_min": 5.36,
+   "cout_au_seuil": 10.72
+  }
+ }
 }

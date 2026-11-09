@@ -5,6 +5,24 @@ Amir Kerkeni — test de recrutement MyBestSim, Stagiaire Développeur IA & Auto
 Le brief encourage explicitement l'agent IA. Je ne le cache donc pas : je le documente,
 y compris ses erreurs et les miennes.
 
+## En quelques lignes
+
+J'ai travaillé avec Claude Code (Opus), en étapes que je relisais avant de passer à la suite. J'ai
+posé le cadre : les chiffres validés avant tout style, aucun chiffre non sourcé dans l'article, et
+rien de publié sans mon accord. J'avais profilé les CSV avant de lancer l'agent, et je lui ai demandé
+de vérifier mes conclusions sans me croire : il a corrigé une de mes erreurs (deux « doublons
+exacts » qui n'existaient pas).
+
+L'agent a proposé et exécuté l'essentiel du technique et de la rédaction, et je validais ou je
+renvoyais. Je l'ai utilisé comme un collègue rapide dont il faut contrôler le travail : il a aussi
+inventé une statistique de ventes, qu'il a retirée à la relecture. Les erreurs de ce type sont
+devenues des contrôles automatiques. Avant l'envoi, je lui ai fait relire tout le projet de façon
+critique, ce qui a fait ressortir quatre défauts, corrigés à la fin de ce fichier.
+
+Le détail suit : qui a proposé quoi, qui a tranché, et ce qui a raté.
+
+---
+
 > **Ce fichier a été corrigé après coup.** Rédigé par l'agent au fil du travail, il m'attribuait
 > plusieurs corrections que je n'ai pas faites : l'agent s'était repris seul, et le texte disait
 > « je l'ai arrêté ». Elles ont été rétablies en le comparant au journal complet des sessions. Les
@@ -852,4 +870,68 @@ fois la lecture, les étapes et le déplacement du paquet.
 | Section n8n, interactive et au style de l'éditeur | moi | moi |
 | n8n en amont et en aval, GitHub Actions conservé | l'agent | validé en commitant |
 | Mention « simulation, non déployé » | l'agent | validé en commitant |
+
+---
+
+## Relecture critique avant l'envoi
+
+### Ce que j'ai demandé
+
+J'ai demandé à l'agent de relire tout le projet face au brief, sans rien modifier, et de le noter
+comme le ferait un recruteur. Il a refait les six statistiques depuis les CSV avec un script
+indépendant : toutes concordent. Il a aussi relevé des défauts que nos 81 contrôles ne voyaient pas.
+J'ai choisi d'en corriger quatre en priorité, et demandé que tout soit documenté ici. Git reste à
+moi : l'agent n'a ni commité ni poussé.
+
+### Les quatre défauts et leur vraie cause
+
+- **Le conseil local ou régional contredisait nos propres prix.** L'article disait que deux eSIM
+  locales revenaient moins cher qu'une régionale, alors que 5 Go sur 7 jours coûtent 25,26 € pour
+  l'Espagne et l'Italie, contre 15,82 € en régionale Europe. Trois seuils différents coexistaient
+  dans la page, et l'étape 4 en donnait un quatrième formulé autrement. **La cause :** cette étape
+  disait que le seuil « se calcule », mais personne ne l'avait calculé. C'était une phrase écrite à
+  la main, exactement le risque que `faits()` traite pour le tableau de bord, mais l'article
+  n'était pas couvert. `donnees_article.py` calcule désormais le seuil, palier par palier, dans le
+  cas le plus favorable aux eSIM locales. Toutes les phrases lisent ce résultat : « dès deux pays »,
+  à volume égal. L'article dit aussi la seule exception : de très petits forfaits, donc moins de
+  data au total.
+- **L'article se contredisait sur l'activation.** Un encadré disait d'installer *et d'activer*
+  l'eSIM à la maison, tandis que la section d'installation et la FAQ disaient d'activer à la première
+  escale, ce qui est le bon conseil puisque la plupart des forfaits démarrent à la première connexion.
+- **La section « Les six statistiques demandées » n'en montrait que cinq.** La sixième tuile était
+  un bonus (la part d'illimités), et la répartition par fournisseur n'arrivait que plus bas. La
+  tuile liste maintenant les 18 fournisseurs et leur nombre de cartes. Les 12,9 % d'illimités sont
+  repris dans la tuile sur la moyenne de data.
+- **Deux rapports signés de moi s'adressaient à moi.** Les étapes 1 et 4 portaient mon nom, mais
+  disaient « tes trois pièges » ou « ton angle » : l'agent me parlait. Ces rapports indiquent
+  maintenant qui les a rédigés, et leur texte est neutre. Le fond, les chiffres et les désaccords de
+  l'agent avec mon angle de départ n'ont pas été retirés.
+
+### Une erreur de l'agent pendant le correctif
+
+La FAQ dépendant désormais d'un JSON, le prérendu, qui la chargeait directement dans Node, a planté
+au build. Le site est resté à moitié généré le temps de corriger, sans rien de publié, puisque rien
+n'avait été commité. La FAQ passe maintenant par le bundle serveur, et la page comme le balisage
+Google lisent toujours la même source.
+
+### Ce qui l'empêche de revenir
+
+Quatre contrôles de plus, 85 au total : le seuil calculé est repris par les quatre conseils, aucune
+phrase n'annonce un autre seuil, l'article ne demande pas d'activer avant le départ, et les 18
+fournisseurs figurent bien dans la section des six statistiques.
+
+Vérifié en local : build, 85 contrôles, 14 contrôles de prose, audit Chrome, et la tuile regardée
+à 1440, 768, 390 et 320 px. Lighthouse n'a pas été remesuré.
+
+### Décisions : qui a tranché quoi
+
+| Sujet | Proposé par | Tranché par |
+|---|---|---|
+| Relecture critique de tout le projet avant l'envoi | moi | moi |
+| Corriger ces quatre défauts en priorité | l'agent | moi |
+| Calculer le seuil au lieu de corriger seulement la phrase | l'agent | validé en commitant |
+| Citer l'exception des très petits forfaits | l'agent | validé en commitant |
+| Lister les 18 fournisseurs dans la sixième tuile | l'agent | validé en commitant |
+| Dire qui a rédigé les rapports, plutôt que les réécrire à mon nom | l'agent | validé en commitant |
+| Quatre contrôles supplémentaires | l'agent | validé en commitant |
 

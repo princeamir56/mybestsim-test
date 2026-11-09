@@ -1,7 +1,9 @@
 # Étape 1 — Lecture du brief et profilage des données
 
 Projet : test de recrutement MyBestSim — Stagiaire Développeur IA & Automatisation.
-Auteur : Amir Kerkeni. Date : 4 novembre 2026.
+Amir Kerkeni, 4 novembre 2026. Rapport rédigé par l'agent IA à partir de mon pré-profilage,
+puis relu et validé par moi (voir [`AI-USAGE.md`](../AI-USAGE.md)). « L'analyse » désigne
+ici le travail de l'agent.
 
 Ce document est le constat brut. **Aucune décision n'est prise ici** : les arbitrages
 sont tranchés à l'étape 2 et affichés dans le dashboard (panneau « Décisions & qualité
@@ -49,14 +51,14 @@ data_display, validity_days, price, currency, network, top_up`.
 
 Volumes par fournisseur : Airalo 722, Ubigi 562, eSIMX 432, Saily 382, GigSky 342,
 Nomad 312, Instabridge 282, aloSIM 262, Holafly 242, Yesim 222, Jetpac 212,
-Truphone 202, JamboSIM 182, Yatelo 162, Maya Mobile 152, Roamic 122, 4S eSIM 92.
+Truphone 202, JamboSIM 182, Flexiroam 172, Yatelo 162, Maya Mobile 152, Roamic 122, 4S eSIM 92.
 
 Domaines fermés constatés : `validity_days` ∈ {7, 15, 30} · `data_gb` ∈ {1, 3, 5, 10,
 20, 50} ou vide · `network` ∈ {4G, 5G} · `top_up` ∈ {oui, non} · 54 `country_code`.
 
 ---
 
-## 3. Verdict sur tes trois pièges
+## 3. Verdict sur les trois pièges du pré-profilage
 
 ### Piège 1 — `country_code` « NA » : **CONFIRMÉ, tel que décrit**
 
@@ -68,11 +70,11 @@ Domaines fermés constatés : `validity_days` ∈ {7, 15, 30} · `data_gb` ∈ {
   supprimerait 3,8 % des lignes d'une répartition géographique.
 - Décision technique appliquée partout : `keep_default_na=False` + lecture en `str`.
 
-### Piège 2 — 653 `data_gb` vides = « Illimité » : **CONFIRMÉ, tes chiffres sont exacts**
+### Piège 2 — 653 `data_gb` vides = « Illimité » : **CONFIRMÉ, chiffres exacts**
 
-J'ai retrouvé tes quatre nombres à la décimale près :
+Les chiffres du pré-profilage sont retrouvés à la décimale près :
 
-| | Ton chiffre | Recalculé |
+| | Pré-profilage | Recalculé |
 |---|---|---|
 | Lignes concernées | 653 (12,9 %) | **653 — 12,92 %** |
 | Moyenne Go en excluant | 14,49 | **14,4915** |
@@ -89,20 +91,20 @@ Trois précisions que l'analyse ajoute :
 - Le prix médian est encore plus parlant que la moyenne : **51,28 € contre 17,57 €**
   pour les forfaits limités.
 
-### Piège 3 — doublons : **CONFIRMÉ sur les 618, mais ta mention de « 2 doublons exacts » est fausse**
+### Piège 3 — doublons : **CONFIRMÉ sur les 618, mais la mention de « 2 doublons exacts » est fausse**
 
 - Les **618 couples (fournisseur, nom de produit) portant plusieurs prix** : confirmés.
   Ils représentent **1 347 lignes**.
-- En revanche : **il n'existe aucun doublon exact dans ce jeu de données.** J'ai testé
-  deux fois — sur toutes les colonnes, puis **sur toutes les colonnes en ignorant le
+- En revanche : **il n'existe aucun doublon exact dans ce jeu de données.** Le test a été
+  fait deux fois — sur toutes les colonnes, puis **sur toutes les colonnes en ignorant le
   SKU**. Résultat : **0 ligne** dans les deux cas.
-- Ce que tu as probablement vu : **2 couples (fournisseur, nom) répétés avec le *même*
+- Ce que le pré-profilage a probablement pris pour des doublons : **2 couples (fournisseur, nom) répétés avec le *même*
   prix** — `Airalo / eSIM Pologne 10 Go 30 jours` à 24,77 € et `Yatelo / eSIM
   États-Unis 3 Go 15 jours` à 9,77 €. Ce ne sont pas des doublons : dans les deux cas
   les lignes **diffèrent sur `network` et `top_up`** (4G/oui vs 5G/non). Ce sont des
   variantes qui se trouvent être au même tarif.
 
-J'ai creusé plus loin, parce que « variante ou saleté ? » ne se tranche pas au niveau du
+L'analyse va plus loin, parce que « variante ou saleté ? » ne se tranche pas au niveau du
 nom. Sur les 618 groupes multi-prix, en regardant si `country_code`, `data_gb`,
 `validity_days`, `network` ou `top_up` varient à l'intérieur du groupe :
 
@@ -119,13 +121,13 @@ Mesure de l'écart intra-groupe (max−min, en % du min) : **médiane 6,8 %**, m
 
 **Lecture :** un écart médian de 6,8 % n'est pas une erreur de saisie, c'est une
 amplitude de pricing normale (dates d'import différentes, promo, canal de vente). La
-conclusion que je défendrai à l'étape 2 : **ce sont des offres réelles, pas de la
+conclusion retenue pour l'étape 2 : **ce sont des offres réelles, pas de la
 saleté — on ne déduplique pas.** Mais le panneau du dashboard affichera le chiffre
 alternatif, parce que la question est légitime.
 
 ---
 
-## 4. Pièges que tu n'avais pas listés
+## 4. Pièges absents du pré-profilage
 
 ### A. Les 56 produits à plus de 100 € sont **tous** des forfaits illimités
 
@@ -133,7 +135,7 @@ alternatif, parce que la question est légitime.
 mondiaux (Europe 16, Asie 16, Amérique du Nord 13, Monde 11). Aucun forfait à volume
 limité n'atteint 100 € dans tout le catalogue.
 
-**Pourquoi ça compte :** le KPI n°2 du brief et ton piège n°2 portent sur la **même
+**Pourquoi ça compte :** le KPI n°2 du brief et le piège n°2 portent sur la **même
 population**. Un candidat qui « nettoie » en excluant les lignes sans `data_gb` obtient
 mécaniquement **« 0 produit à plus de 100 € »** — une réponse fausse à une question
 imposée, sans jamais voir le lien. C'est le piège le plus coûteux du jeu de données, et
@@ -145,7 +147,7 @@ l'intervalle vide qui sépare les forfaits limités des illimités. Ce n'est pas
 hasard de données, c'est la structure du marché — et c'est ce qui rend l'erreur
 silencieuse.
 
-Confirmation de ton point : **aucun produit ne coûte exactement 100,00 €** (vérifié),
+Confirmation du pré-profilage : **aucun produit ne coûte exactement 100,00 €** (vérifié),
 donc « plus de » et « au moins » donnent le même 56.
 
 ### B. « Nombre total de produits » n'a pas une réponse, il en a quatre
@@ -185,9 +187,9 @@ volume et la validité (0 exception sur 5 056). Conséquence pratique : **aucun 
 texte libre n'est nécessaire** — tout est déjà dans les colonnes typées. C'est une bonne
 nouvelle, mais il fallait le prouver avant de s'appuyer dessus.
 
-### F. Fausse piste que j'ai levée : l'encodage
+### F. Fausse piste levée : l'encodage
 
-Mon premier passage affichait `Am?rique du Nord` et j'ai cru à un problème d'encodage
+Le premier passage de l'agent affichait `Am?rique du Nord` et il a cru à un problème d'encodage
 des fichiers. **C'était faux.** Les octets bruts sont `Am\xc3\xa9rique`, soit de l'UTF-8
 valide, et les 18 fichiers se décodent en UTF-8 sans la moindre erreur. Le charabia
 venait de la **console Windows en cp1252**, pas des données. Consigné dans [`../AI-USAGE.md`](../AI-USAGE.md)

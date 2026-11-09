@@ -19,6 +19,7 @@ ci-dessous et rappelé dans l'article.
 from __future__ import annotations
 
 import json
+import math
 import os
 
 import pandas as pd
@@ -55,6 +56,49 @@ def bloc(sel: pd.DataFrame) -> dict | None:
         "prix_max": round(float(sel["prix"].max()), 2),
         "moins_cher_fournisseur": moins_cher["provider"],
         "moins_cher_produit": moins_cher["product_name"],
+    }
+
+
+def multi_pays(df: pd.DataFrame) -> dict:
+    """
+    À partir de combien de pays une eSIM régionale Europe bat-elle les locales ?
+
+    Cette réponse pilote plusieurs phrases de l'article : elle est donc calculée,
+    pas écrite à la main. La comparaison est volontairement la plus favorable aux
+    eSIM locales : le prix local retenu est le moins cher de tout le catalogue.
+    À chaque palier, le seuil est le plus petit nombre de pays N tel que
+    N forfaits locaux coûtent plus qu'un seul forfait régional, à volume égal
+    dans chaque pays. Le seuil publié est le plus prudent des paliers.
+    """
+    mono = df[~df["zone"]]
+    europe = df[df["country_name"] == "Europe"]
+    paliers = []
+    for go, jours, _ in PROFILS:
+        filtre = lambda d: d[(d["go"] == go) & (d["jours"] == jours)]["prix"]
+        local, regional = filtre(mono), filtre(europe)
+        if local.empty or regional.empty:
+            continue
+        prix_local, prix_regional = float(local.min()), float(regional.min())
+        paliers.append({
+            "go": go,
+            "jours": jours,
+            "prix_local_min": round(prix_local, 2),
+            "prix_regional_min": round(prix_regional, 2),
+            "seuil": max(2, math.floor(prix_regional / prix_local) + 1),
+        })
+    seuil = max(p["seuil"] for p in paliers)
+
+    # L'exception : des forfaits locaux bien plus petits, donc moins de data au total.
+    petits = mono[(mono["go"] == 1) & (mono["jours"] == 7)]["prix"]
+    return {
+        "seuil": seuil,
+        "paliers": paliers,
+        "petit_forfait": {
+            "go": 1,
+            "jours": 7,
+            "prix_local_min": round(float(petits.min()), 2),
+            "cout_au_seuil": round(float(petits.min()) * seuil, 2),
+        },
     }
 
 
@@ -113,6 +157,9 @@ def main() -> None:
             entree["illimite_15j"] = illim
         donnees["zones"].append(entree)
 
+    # --- Local ou régional : le seuil que les phrases de l'article reprennent -
+    donnees["multi_pays"] = multi_pays(df)
+
     os.makedirs(DOSSIER_DONNEES, exist_ok=True)
     chemin = os.path.join(DOSSIER_DONNEES, "article.json")
     with open(chemin, "w", encoding="utf-8") as fh:
@@ -155,6 +202,12 @@ def main() -> None:
                 print(f"    {k:<14} de {v['prix_min']:.2f} € à {v['prix_max']:.2f} € "
                       f"(médiane {v['prix_median']:.2f} €) — le moins cher : "
                       f"{v['moins_cher_fournisseur']}", file=out)
+
+    print("\n--- Local ou régional Europe : à partir de combien de pays ? ---", file=out)
+    for p in donnees["multi_pays"]["paliers"]:
+        print(f"  {p['go']} Go / {p['jours']} j : local dès {p['prix_local_min']:.2f} €, "
+              f"régional dès {p['prix_regional_min']:.2f} €, seuil {p['seuil']} pays", file=out)
+    print(f"  Seuil publié dans l'article : {donnees['multi_pays']['seuil']} pays", file=out)
 
     print(f"\n[écrit] {chemin}", file=out)
     out.flush()

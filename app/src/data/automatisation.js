@@ -6,7 +6,7 @@
 import catalogue from './catalogue.json';
 import { n } from '../lib/format.js';
 
-export const CONTROLES = { verifier: 81, prose: 14, assertions: 7 };
+export const CONTROLES = { verifier: 85, prose: 14, assertions: 7 };
 
 const lignes = n(catalogue.meta.lignes);
 const fichiers = catalogue.meta.fichiers;

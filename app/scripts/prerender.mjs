@@ -50,8 +50,7 @@ const ORIGINE = (
 // est sans effet sur les autres systèmes.
 const importer = (rel) => import(pathToFileURL(path.join(RACINE, rel)).href);
 
-const { render } = await importer('.ssr/entry-server.js');
-const { FAQ } = await importer('src/data/contenuArticle.js');
+const { render, FAQ } = await importer('.ssr/entry-server.js');
 const catalogue = JSON.parse(
   fs.readFileSync(path.join(RACINE, 'src/data/catalogue.json'), 'utf8')
 );

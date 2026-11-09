@@ -39,7 +39,7 @@ pip install -r requirements.txt      # pandas
 npm install && npm --prefix app install
 
 npm run build                        # CSV → JSON → site statique dans site/
-npm run verifier                     # 81 contrôles sur le HTML réellement servi
+npm run verifier                     # 85 contrôles sur le HTML réellement servi
 npm run test-import                  # simule un 19ᵉ fournisseur et contrôle la prose
 npm run preview                      # http://localhost:4173
 ```
@@ -151,6 +151,11 @@ donc une référence vendable distincte » : il dirait que sa prémisse est tomb
 démentir chaque affirmation du dashboard. 14 contrôles, code de sortie non nul en cas
 d'échec.
 
+La même règle vaut pour les conseils de l'article. À partir de combien de pays une eSIM régionale
+bat-elle les eSIM locales ? `multi_pays()`, dans
+[`donnees_article.py`](scripts/donnees_article.py), le calcule depuis les prix, et chaque phrase
+lit ce résultat. Il était auparavant écrit à la main, et il était faux.
+
 ### Le vérificateur ne connaît aucune valeur attendue
 
 Même raisonnement un cran plus loin. [`verifier_site.js`](scripts/verifier_site.js)
@@ -166,10 +171,12 @@ entre les données et la page — un invariant qui reste vrai quel que soit l'im
   mot pour mot dans le HTML servi : c'est ce qui prouve qu'un changement de données
   traverse toute la chaîne jusqu'à la page ;
 - les pièges, les limites, les prix de l'article, le nom de chaque fournisseur ;
+- les conseils de l'article : le seuil local / régional calculé est repris partout, et aucune
+  phrase n'en annonce un autre ;
 - la **date de génération** du JSON, présente dans le pied de page — sans quoi un site
   construit depuis un JSON périmé passerait tous les autres tests sans broncher.
 
-81 contrôles, aucune valeur attendue écrite en dur.
+85 contrôles, aucune valeur attendue écrite en dur.
 
 ### La preuve de bout en bout
 
@@ -311,7 +318,7 @@ scripts/
   statistiques.py       étape 2 : applique les décisions, produit les chiffres
   build_site.py         agrège le catalogue vers app/src/data/
   donnees_article.py    prix de l'article, extraits du même catalogue
-  verifier_site.js      81 contrôles : cohérence données ↔ HTML, liens internes, SEO
+  verifier_site.js      85 contrôles : cohérence données ↔ HTML, liens internes, SEO
   test_nouveau_fournisseur.py  simule un 19e fournisseur : la prose suit-elle ?
 app/
   src/components/       ui/ · charts/ (10 formes en SVG natif) · sections/ · layout/ · automatisation/
@@ -351,6 +358,7 @@ seul commit à la publication du dépôt ; le déroulé est consigné dans
 | 6 | Mise en ligne des deux livrables | ✅ |
 | — | Retouches après test manuel : mobile, ouverture immédiate, image de fond du hero | ✅ |
 | — | Schéma interactif de l'automatisation (`/automation`) | ✅ |
+| — | Relecture critique avant l'envoi : quatre défauts corrigés et documentés | ✅ |
 
 L'ordre n'est pas décoratif : **aucun travail de mise en forme n'a été engagé avant que
 les chiffres soient validés.** Un tableau de bord soigné construit sur des chiffres faux

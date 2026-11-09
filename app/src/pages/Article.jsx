@@ -2,10 +2,10 @@ import { Children } from 'react';
 import { Link } from 'react-router-dom';
 import Faq from '../components/ui/Faq.jsx';
 import Magnetic from '../components/ui/Magnetic.jsx';
-import { n, n1, eur, dateFr } from '../lib/format.js';
+import { n, n1, eur, dateFr, mot, Mot } from '../lib/format.js';
 import art from '../data/article.json';
 import cat from '../data/catalogue.json';
-import { FAQ, ITINERAIRES_EDITO, SOMMAIRE, typo } from '../data/contenuArticle.js';
+import { FAQ, ITINERAIRES_EDITO, SEUIL, SEUIL_TXT, SOMMAIRE, typo } from '../data/contenuArticle.js';
 import { useSectionActive } from '../lib/scroll.js';
 
 // Une page de lecture ne rejoue aucune entrée : le texte est là tout de suite,
@@ -20,6 +20,7 @@ const prof5 = art.profils.find((p) => p.go === 5);
 const prof10 = art.profils.find((p) => p.go === 10);
 const europe = art.zones.find((z) => z.nom === 'Europe');
 const ecartRegional = Math.round((europe['5go_7j'].prix_min / prof5.prix_min - 1) * 100);
+const petitForfait = art.multi_pays.petit_forfait;
 
 /** Le gabarit éditorial : une colonne étroite, du papier, rien qui distraie. */
 export default function Article() {
@@ -173,7 +174,7 @@ export default function Article() {
                 ['Désactivez les données en itinérance', "sur votre ligne habituelle. C'est le geste qui vous protège, et il est gratuit."],
                 ['Désactivez aussi les appels et SMS en itinérance', 'si vous ne comptez pas les utiliser : la facturation maritime les concerne également.'],
                 ['Coupez la synchronisation automatique', "des photos et sauvegardes cloud : c'est le premier poste de consommation involontaire."],
-                ['Installez et activez votre eSIM depuis chez vous', "avant le départ : l'installation réclame une connexion Internet."],
+                ['Installez votre eSIM depuis chez vous', "avant le départ, sans l'activer : l'installation réclame une connexion Internet, et le forfait ne doit démarrer qu'à la première escale."],
               ].map(([t, s], i) => (
                 <li key={t} className="flex gap-3.5 text-[0.95rem] leading-relaxed text-slate">
                   <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-signal/15 font-mono text-[0.68rem] font-semibold text-marine">
@@ -257,14 +258,25 @@ export default function Article() {
                 '—',
               ],
             ]}
-            legende="Prix d'entrée relevés au catalogue. Une eSIM régionale coûte plus cher qu'une seule eSIM locale, mais moins cher que deux ou trois cumulées."
+            legende={`Prix d'entrée relevés au catalogue. Une eSIM régionale coûte plus cher qu'une seule eSIM locale, mais moins cher que ${mot(SEUIL)} cumulées, à volume égal dans chaque pays.`}
           />
 
           <ARetenir>
-            En dessous de deux pays visités, prenez des eSIM locales.{' '}
-            <B>À partir de trois escales dans trois pays différents, l'eSIM régionale
-            devient moins chère</B>, et vous n'avez qu'une seule installation à gérer.
+            {SEUIL_TXT.Avant}, prenez une eSIM locale.{' '}
+            <B>{SEUIL_TXT.Des} différents, l'eSIM régionale revient moins cher</B> à
+            volume égal, et vous n'avez qu'une seule installation à gérer. Vérifiez
+            simplement que chaque pays de votre itinéraire figure dans sa couverture.
           </ARetenir>
+
+          {petitForfait.cout_au_seuil < europe['5go_7j'].prix_min ? (
+            <P>
+              Seule exception : les très petits volumes. {Mot(SEUIL)} forfaits locaux
+              de {petitForfait.go} Go sur {petitForfait.jours} jours reviennent à partir
+              de <B>{eur(petitForfait.cout_au_seuil)}</B>, moins qu'une régionale de 5 Go
+              à {eur(europe['5go_7j'].prix_min)}, mais vous n'aurez
+              que {SEUIL * petitForfait.go} Go au total.
+            </P>
+          ) : null}
 
           <Methodologie />
         </Section>
@@ -321,8 +333,8 @@ export default function Article() {
 
         <Section id="itineraires" titre="Quelle eSIM selon votre itinéraire ?">
           <P>
-            Le principe est partout le même : <B>comptez les pays touchés</B>, et
-            choisissez local en dessous de deux, régional au-delà.
+            Le principe est partout le même : <B>comptez les pays touchés</B>. Choisissez
+            une eSIM locale {SEUIL_TXT.avant}, et une eSIM régionale {SEUIL_TXT.des}.
           </P>
           <div className="mt-8 grid gap-4">
             {ITINERAIRES_EDITO.map((it, i) => (
@@ -370,7 +382,7 @@ export default function Article() {
               ['En pleine mer, aucune eSIM de voyage ne capte.', "Il n'y a que le Wi-Fi du bord, ou une offre maritime dédiée."],
               ['En escale, l\'eSIM est imbattable', `: à partir de ${eur(prof5.prix_min)} les 5 Go sur 7 jours, contre un forfait de bord facturé à la journée et par appareil.`],
               ['Coupez les données en itinérance dès l\'embarquement.', 'Le réseau du navire n\'est pas couvert par la réglementation européenne, donc sans plafond de prix.'],
-              ['Trois pays ou plus : prenez une eSIM régionale.', 'En dessous, des eSIM locales reviennent moins cher.'],
+              [`${SEUIL_TXT.Des} : prenez une eSIM régionale.`, `${SEUIL_TXT.Avant}, une eSIM locale revient moins cher.`],
               ['Installez-la avant de partir', ', activez-la à la première escale.'],
             ]}
           />

@@ -1,6 +1,10 @@
 # Étape 4 — Analyse concurrentielle et plan de l'article
 
 Sujet imposé : **« Internet en croisière : quelle eSIM choisir ? »**
+
+Rapport rédigé par l'agent IA à partir de mon angle de départ et de mes règles de sources,
+puis relu et validé par moi (voir [`AI-USAGE.md`](../AI-USAGE.md)).
+
 Aucun nombre de mots donné — volontairement. Le raisonnement sur la longueur fait
 partie de la note.
 
@@ -28,9 +32,9 @@ eSIM vs forfait du bord → installation → alternatives → astuces d'économi
 
 ---
 
-## 2. Où je ne suis pas d'accord avec ton angle
+## 2. Où l'analyse corrige l'angle de départ
 
-Ton angle de départ : *« l'eSIM ne fonctionne pas en pleine mer, la plupart des
+Angle de départ : *« l'eSIM ne fonctionne pas en pleine mer, la plupart des
 articles concurrents esquivent le sujet, il faut mener avec ça. »*
 
 **Le fond est juste. Deux détails sont faux, et l'un des deux compte.**
@@ -58,7 +62,7 @@ offres maritimes revendues sous d'autres marques. Ce sont des produits différen
 eSIM de voyage classiques, et nettement plus chers au gigaoctet.
 
 Les passer sous silence serait le même procédé que celui qu'on reproche aux autres.
-Ils auront leur paragraphe — court, factuel, sans prix, parce que je n'ai pas de
+Ils auront leur paragraphe — court, factuel, sans prix, faute de
 source tarifaire fiable et vérifiable pour eux.
 
 > Note : **GigSky est présent dans notre jeu de données**, mais le catalogue importé
@@ -96,27 +100,27 @@ données. Ce garde-fou existe bien : l'ARCEP fixe un **plafond par défaut de 60
 
 **Mais c'est une protection du régime d'itinérance — celui dont la page européenne dit
 précisément qu'il ne s'applique plus en satellite.** La fiche ARCEP consultée ne traite
-ni du maritime ni du satellite. Je n'affirmerai donc **ni** que le plafond protège en
-mer, **ni** qu'il ne protège pas : l'article dira que la protection n'est pas garantie
+ni du maritime ni du satellite. L'article n'affirmera donc **ni** que le plafond protège en
+mer, **ni** qu'il ne protège pas : il dira que la protection n'est pas garantie
 dans ce cas et qu'il ne faut pas compter dessus. C'est l'information honnête, et c'est
 plus utile qu'une fausse certitude dans les deux sens.
 
 Le mécanisme de la mauvaise surprise, lui, est documenté : le téléphone **quitte seul
 l'antenne terrestre pour s'accrocher au réseau du navire**, sans action de
 l'utilisateur ([UFC-Que Choisir](https://www.quechoisir.org/actualite-telephoner-en-zone-maritime-avis-de-tempete-sur-les-factures-n10537/)).
-⚠️ Cet article a une douzaine d'années : **je reprends le mécanisme, jamais ses
-tarifs**, et je n'inventerai aucun témoignage.
+⚠️ Cet article a une douzaine d'années : **seul le mécanisme est repris, jamais ses
+tarifs**, et aucun témoignage n'est inventé.
 
 ---
 
-## 4. Ce que je refuse d'écrire
+## 4. Ce que l'article refuse d'écrire
 
-Tu as demandé que chaque affirmation sur la couverture maritime soit vérifiable. Trois
-choses sautent, et il faut que tu le saches avant de lire le plan.
+La règle posée : chaque affirmation sur la couverture maritime doit être vérifiable. Trois
+choses sautent donc du plan.
 
 **Pas de qualité de signal par itinéraire.** « On capte bien en Méditerranée, mal en
 Alaska » est invérifiable : ça dépend du navire, de la distance à la côte, de l'heure
-et de l'opérateur. Aucune source sérieuse ne publie ça. **Je remplace par un critère
+et de l'opérateur. Aucune source sérieuse ne publie ça. **Il est remplacé par un critère
 réellement décisif et vérifiable sur n'importe quel programme de croisière : le nombre
 de jours d'escale contre le nombre de jours en mer.** C'est ce qui détermine ce que
 vaut une eSIM, et le lecteur peut le vérifier lui-même sur son itinéraire.
@@ -124,12 +128,12 @@ vaut une eSIM, et le lecteur peut le vérifier lui-même sur son itinéraire.
 **Pas de tarif de Wi-Fi de bord.** Les sources consultées se contredisent (de 12 € à
 39,99 €/jour selon les articles, pour les mêmes compagnies) et ces prix changent selon
 le navire, la durée et le moment d'achat. Donner une fourchette inventée dans un
-article de marque est exactement le risque que tu veux éviter. L'article expliquera
+article de marque est exactement le risque à éviter. L'article expliquera
 **comment lire une grille tarifaire de compagnie** et renverra le lecteur au site de
 la sienne.
 
-**Pas de distance en milles nautiques.** Le chiffre « 12 milles » circule, mais je ne
-l'ai trouvé que sur des pages commerciales, sans source réglementaire.
+**Pas de distance en milles nautiques.** Le chiffre « 12 milles » circule, mais il n'a été
+trouvé que sur des pages commerciales, sans source réglementaire.
 
 ---
 
@@ -143,9 +147,9 @@ Le raisonnement, puisqu'il est noté :
   recherche n'est pas couverte ; Google traite ce sujet comme une question à facettes
   (fonctionnement en mer, prix, escales, alternatives, risques).
 - Au-delà de ~3 000 mots, on dilue. Les articles longs du top sont longs **parce
-  qu'ils listent les grilles tarifaires de cinq compagnies** — du contenu que je ne
-  peux pas sourcer honnêtement, donc du volume que je ne chercherai pas à égaler.
-- Je compense le volume non écrit par **deux blocs que personne n'a** : le tableau de
+  qu'ils listent les grilles tarifaires de cinq compagnies** — du contenu impossible
+  à sourcer honnêtement, donc du volume qu'il ne faut pas chercher à égaler.
+- Le volume non écrit est compensé par **deux blocs que personne n'a** : le tableau de
   prix issu de 5 056 offres réelles, et le point réglementaire sourcé.
 
 **Dépasser le concurrent de 20 à 40 % avec de la matière unique, plutôt que de 100 %
@@ -203,7 +207,7 @@ nombre de pays touchés, avec les prix réels.
 
 **H2 — Comment installer votre eSIM avant de partir**
 Court, 4 étapes, insistance sur **« avant d'embarquer »** — point pratique réel :
-l'activation demande une connexion.
+l'installation demande une connexion, alors que l'activation se fait à la première escale.
 
 **H2 — Questions fréquentes** *(balisage FAQPage)*
 8 questions tirées des « autres questions posées ».
@@ -224,11 +228,15 @@ publier :
 C'est précisément l'arbitrage d'un croisiériste en Méditerranée, dont le navire touche
 l'Espagne, l'Italie et la Grèce dans la même semaine. **Une seule eSIM régionale, ou
 trois eSIM mono-pays ?** L'article peut répondre avec des prix réels, et le seuil de
-bascule se calcule : au-delà de deux pays visités, le régional devient gagnant.
+bascule se calcule : dès deux pays visités, à volume égal, le régional devient gagnant.
+
+> *Corrigé après coup : ce document disait « au-delà de deux pays », et l'article « à partir de
+> trois ». Le seuil est désormais calculé par `scripts/donnees_article.py` (`multi_pays` dans
+> `app/src/data/article.json`).*
 
 Aucun concurrent ne dispose de la donnée pour poser la question dans ces termes.
 
-Chiffres produits par `scripts/donnees_article.py` → `site/donnees-article.json`.
+Chiffres produits par `scripts/donnees_article.py` → `app/src/data/article.json`.
 
 ---
 

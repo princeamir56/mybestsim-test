@@ -106,6 +106,15 @@ const absents = fournisseurs.filter((f) => !dash.texte.includes(f));
 verifier(`les ${fournisseurs.length} fournisseurs du catalogue sont listés`,
   absents.length === 0, absents.join(', '));
 
+// La section s'intitule « Les six statistiques demandées » : la sixième, le
+// nombre de cartes de chaque fournisseur, doit donc s'y trouver elle aussi.
+const sectionChiffres = norm(dash.doc.getElementById('chiffres').textContent);
+const repartitionAbsente = CAT.fournisseurs
+  .filter((f) => !sectionChiffres.includes(norm(`${f.nom}${nb(f.produits)}`)))
+  .map((f) => f.nom);
+verifier('la répartition par fournisseur figure parmi les six statistiques',
+  repartitionAbsente.length === 0, repartitionAbsente.join(', '));
+
 // Cohérence temporelle : la page servie doit porter la date du JSON qui l'a
 // produite. Sans ce contrôle, un site construit à partir d'un JSON périmé
 // passerait tous les autres tests sans broncher.
@@ -227,6 +236,19 @@ verifier('les eSIM maritimes sont mentionnées', art.texte.includes('Cellular at
 verifier("suggestion d'image fournie", art.texte.includes("Suggestion d'image"));
 verifier('liens externes en nofollow',
   [...art.doc.querySelectorAll('a[href^="http"]')].every((a) => a.rel.includes('nofollow')));
+
+// Les conseils doivent rester d'accord avec les prix et entre eux.
+const MOTS = ['zéro', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix'];
+const motSeuil = MOTS[ART.multi_pays.seuil];
+const citations = art.texte.match(new RegExp(`dès ${motSeuil} pays`, 'gi')) || [];
+verifier('le seuil local / régional calculé est repris par les 4 conseils',
+  citations.length >= 4, `${citations.length} citation(s) de « dès ${motSeuil} pays »`);
+const seuilsCites = art.texte.match(/(?:à partir de|dès|au-delà de|en dessous de) (?:deux|trois|quatre|cinq) (?:pays|escales)/gi) || [];
+const seuilsContraires = seuilsCites.filter((s) => !s.toLowerCase().includes(` ${motSeuil} `));
+verifier("aucune phrase n'annonce un autre seuil",
+  seuilsContraires.length === 0, seuilsContraires.join(' | '));
+verifier("l'article ne demande pas d'activer l'eSIM avant le départ",
+  !/installez et activez/i.test(art.texte) && art.texte.includes('Activez-la à la première escale'));
 
 /* ======================= HÉBERGEMENT STATIQUE ======================= */
 

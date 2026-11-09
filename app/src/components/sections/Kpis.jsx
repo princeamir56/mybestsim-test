@@ -9,6 +9,7 @@ import { n, n1, n2, eur } from '../../lib/format.js';
 import data from '../../data/catalogue.json';
 
 const k = data.kpi;
+const PAR_VOLUME = [...data.fournisseurs].sort((a, b) => b.produits - a.produits);
 
 /**
  * Les six statistiques imposées par le brief.
@@ -78,8 +79,8 @@ const TUILES = [
     note: (
       <>
         Sur les <b>{n(k.go_base)} forfaits à volume limité</b>. Médiane {k.go_median} Go.
-        Les {k.illimites} illimités sont exclus : leur volume n'est pas zéro, il est
-        indéfini.
+        Les {n(k.illimites)} illimités ({n1(k.part_illimites)}&nbsp;% du catalogue) sont
+        exclus : leur volume n'est pas zéro, il est indéfini.
       </>
     ),
   },
@@ -94,27 +95,7 @@ const TUILES = [
       </>
     ),
   },
-  {
-    cle: 'Part de forfaits illimités',
-    valeur: k.part_illimites,
-    format: (v) => `${n1(v)} %`,
-    note: (
-      <>
-        <b>{n(k.illimites)} offres</b> sans volume chiffré. C'est la population qui
-        fausse le plus de calculs :{' '}
-        {k.plus_100_tous_illimites ? (
-          <>
-            elle porte à elle seule les {n(k.plus_100)} produits à plus de 100&nbsp;€.
-          </>
-        ) : (
-          <>
-            elle porte {n(k.plus_100_illimites)} des {n(k.plus_100)} produits à plus de
-            100 €.
-          </>
-        )}
-      </>
-    ),
-  },
+  { cle: 'Répartition par fournisseur', repartition: true },
 ];
 
 export default function Kpis({ onOuvrirDecision }) {
@@ -162,6 +143,31 @@ export default function Kpis({ onOuvrirDecision }) {
   );
 }
 
+/** La sixième statistique : le nombre de cartes de chaque fournisseur, sans exception. */
+function Repartition() {
+  return (
+    <>
+      <ol
+        className="mt-5 grid grid-flow-col gap-x-5 gap-y-1 text-[0.8rem] leading-snug"
+        style={{ gridTemplateRows: `repeat(${Math.ceil(PAR_VOLUME.length / 2)}, auto)` }}
+      >
+        {PAR_VOLUME.map((f) => (
+          <li key={f.nom} className="flex items-baseline justify-between gap-2">
+            <span className="truncate text-slate">{f.nom}</span>
+            <span className="font-mono font-semibold text-marine">{n(f.produits)}</span>
+          </li>
+        ))}
+      </ol>
+      <a
+        href="#fournisseurs"
+        className="mt-3 inline-block self-start py-1 text-[0.8rem] font-medium text-marine underline underline-offset-4 transition-colors hover:text-signal-fonce"
+      >
+        Parts et prix par fournisseur
+      </a>
+    </>
+  );
+}
+
 function Tuile({ tuile, index, onOuvrir }) {
   const reduced = useReducedMotion();
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
@@ -197,14 +203,20 @@ function Tuile({ tuile, index, onOuvrir }) {
             ) : null}
           </div>
 
-          <p className="figure mt-5">
-            {tuile.prefixe ? (
-              <span className="mr-1 text-[0.62em] text-marine/80">{tuile.prefixe}</span>
-            ) : null}
-            <CountUp value={tuile.valeur} format={tuile.format} />
-          </p>
+          {tuile.repartition ? (
+            <Repartition />
+          ) : (
+            <>
+              <p className="figure mt-5">
+                {tuile.prefixe ? (
+                  <span className="mr-1 text-[0.62em] text-marine/80">{tuile.prefixe}</span>
+                ) : null}
+                <CountUp value={tuile.valeur} format={tuile.format} />
+              </p>
 
-          <p className="mt-4 text-[0.84rem] leading-relaxed text-slate">{tuile.note}</p>
+              <p className="mt-4 text-[0.84rem] leading-relaxed text-slate">{tuile.note}</p>
+            </>
+          )}
         </div>
     </motion.div>
   );

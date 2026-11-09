@@ -2,6 +2,10 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import App from './App.jsx';
 
+// Le balisage FAQPage et la page lisent la même FAQ. Elle passe par ce bundle
+// parce que Vite y résout le JSON dont dépendent ses réponses.
+export { FAQ } from './data/contenuArticle.js';
+
 /**
  * Rendu serveur, utilisé uniquement au prérendu (scripts/prerender.mjs).
  *
