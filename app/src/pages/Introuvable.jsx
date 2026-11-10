@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-/** Une adresse mal tapée mérite une vraie réponse, pas le tableau de bord en silence. */
+/** Une adresse mal tapée mérite une vraie réponse, pas l'accueil en silence. */
 export default function Introuvable() {
   return (
     <section className="shell flex min-h-[72vh] flex-col items-center justify-center pb-20 pt-32 text-center">
@@ -10,7 +10,8 @@ export default function Introuvable() {
         L'adresse demandée n'existe pas, ou plus. Les pages principales du site sont juste ici.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
-        <Link to="/" className="btn-primary">Le tableau de bord</Link>
+        <Link to="/" className="btn-primary">L'accueil</Link>
+        <Link to="/dashboard" className="btn-ghost">Le dashboard</Link>
         <Link to="/internet-en-croisiere" className="btn-ghost">Le guide croisière</Link>
       </div>
     </section>

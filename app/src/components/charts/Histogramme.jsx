@@ -53,7 +53,7 @@ function placerReperes(reperes, x, largeur) {
  * C'est le seul graphique qui rend visible le piège le plus coûteux du jeu de
  * données : à droite de 100 €, il ne reste que la couleur des illimités.
  */
-export default function Histogramme({ classes, reperes }) {
+export default function Histogramme({ classes, reperes, hauteurGrande = 320 }) {
   const { ref, largeur, anime, vu } = useGraphique({ seuil: 0.3 });
   const { conteneur, bulle, montrer, cacher } = useInfobulle();
 
@@ -64,7 +64,7 @@ export default function Histogramme({ classes, reperes }) {
   const places = placerReperes(reperes, x, largeur);
   // La bande des repères grandit si leur rangement l'exige, sans rogner les barres.
   const HAUT = Math.max(HAUT_MIN, Math.max(...places.map((p) => p.rang + p.lignes.length)) * RANG + RANG);
-  const hauteur = (largeur < 520 ? 270 : 320) + HAUT - HAUT_MIN;
+  const hauteur = (largeur < 520 ? 270 : hauteurGrande) + HAUT - HAUT_MIN;
   const utileY = hauteur - HAUT - BAS;
   const total = (c) => c.limites + c.illimites;
   const plafond = Math.max(...classes.map(total));

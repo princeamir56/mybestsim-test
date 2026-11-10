@@ -8,7 +8,8 @@ contient les deux, et surtout **la trace de comment ils ont été construits**.
 
 | Livrable | Lien |
 |---|---|
-| Tableau de bord eSIM | https://mybestsim-test.vercel.app |
+| Dashboard eSIM (indicateurs et graphiques) | https://mybestsim-test.vercel.app/dashboard |
+| Accueil (analyse, arbitrages et limites) | https://mybestsim-test.vercel.app |
 | Article « Internet en croisière : quelle eSIM choisir ? » | https://mybestsim-test.vercel.app/internet-en-croisiere |
 | Schéma interactif de l'automatisation | https://mybestsim-test.vercel.app/automation |
 
@@ -39,7 +40,7 @@ pip install -r requirements.txt      # pandas
 npm install && npm --prefix app install
 
 npm run build                        # CSV → JSON → site statique dans site/
-npm run verifier                     # 91 contrôles sur le HTML réellement servi
+npm run verifier                     # 101 contrôles sur le HTML réellement servi
 npm run test-import                  # simule un 19ᵉ fournisseur et contrôle la prose
 npm run preview                      # http://localhost:4173
 ```
@@ -90,13 +91,20 @@ un paquet qui change de nature à chaque étape, un journal d'exécution, et le 
 brique au clic. Le contenu décrit [`pipeline.yml`](.github/workflows/pipeline.yml) tel qu'il est
 ([`automatisation.js`](app/src/data/automatisation.js)) : le vérificateur recoupe les totaux
 annoncés avec le code. Un bouton du panneau « Décisions » et le pied de page y mènent. Elle reste en
-`noindex`, comme le tableau de bord : seul l'article a vocation à ranker.
+`noindex`, comme l'accueil et le dashboard : seul l'article a vocation à ranker.
 
 La même page présente la **suite possible du projet** : un workflow n8n simulé, avec une toile de
 nœuds, trois exécutions (tarifs reçus par mail, fichier invalide, pipeline en échec), et les
 paramètres et la sortie de chaque nœud. Il prendrait en charge ce que le pipeline ne fait pas encore
 (aller chercher les fichiers, écarter les mauvais, confirmer la publication). **Il n'est pas déployé** :
 GitHub Actions resterait le seul à produire les chiffres, et la section le dit explicitement.
+
+### `/dashboard` : les chiffres, sans commentaire
+
+[`/dashboard`](app/src/pages/Dashboard.jsx) réunit huit indicateurs et dix graphiques, sans aucun
+paragraphe. Il réutilise les composants de graphiques de l'accueil et lit le même `catalogue.json` :
+les deux pages ne peuvent pas diverger. Le vérificateur contrôle qu'aucun paragraphe explicatif ne
+s'y glisse. L'accueil reste à `/`, avec l'analyse, les arbitrages et les limites.
 
 ### Un seul point d'entrée pour les données
 
@@ -176,7 +184,7 @@ entre les données et la page — un invariant qui reste vrai quel que soit l'im
 - la **date de génération** du JSON, présente dans le pied de page — sans quoi un site
   construit depuis un JSON périmé passerait tous les autres tests sans broncher.
 
-91 contrôles, aucune valeur attendue écrite en dur.
+101 contrôles, aucune valeur attendue écrite en dur.
 
 ### La preuve de bout en bout
 
@@ -306,8 +314,8 @@ résolue dans cet ordre :
    pour un déploiement nominal** ;
 3. un repli, pour que le build local ne casse pas.
 
-> Le dashboard est volontairement en `noindex` : c'est un outil interne, pas une page
-> à faire ranker. Le sitemap ne liste donc que l'article. Le contrôle « le sitemap ne
+> L'accueil et le dashboard sont volontairement en `noindex` : ce sont des outils internes,
+> pas des pages à faire ranker. Le sitemap ne liste donc que l'article. Le contrôle « le sitemap ne
 > liste que les pages indexables » verrouille ce choix.
 
 ## Organisation du dépôt
@@ -321,7 +329,7 @@ scripts/
   statistiques.py       étape 2 : applique les décisions, produit les chiffres
   build_site.py         agrège le catalogue vers app/src/data/
   donnees_article.py    prix de l'article, extraits du même catalogue
-  verifier_site.js      91 contrôles : cohérence données ↔ HTML, liens internes, SEO
+  verifier_site.js      101 contrôles : cohérence données ↔ HTML, liens internes, SEO
   test_nouveau_fournisseur.py  simule un 19e fournisseur : la prose suit-elle ?
 app/
   src/components/       ui/ · charts/ (10 formes en SVG natif) · sections/ · layout/ · automatisation/
@@ -364,6 +372,7 @@ seul commit à la publication du dépôt ; le déroulé est consigné dans
 | — | Relecture critique avant l'envoi : quatre défauts corrigés et documentés | ✅ |
 | — | Article renforcé : offres nommées par itinéraire, liens MyBestSim, suggestions d'images | ✅ |
 | — | Corrections d'interface sur téléphone, et contrôle permanent des textes superposés | ✅ |
+| — | Page `/dashboard` (indicateurs et graphiques seuls), navigation par pages | ✅ |
 
 L'ordre n'est pas décoratif : **aucun travail de mise en forme n'a été engagé avant que
 les chiffres soient validés.** Un tableau de bord soigné construit sur des chiffres faux

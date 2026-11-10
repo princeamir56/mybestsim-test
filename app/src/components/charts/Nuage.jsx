@@ -17,12 +17,12 @@ const DROITE = 14;
  * qu'il est bon marché. Seuls les extrêmes sont étiquetés ; les autres se lisent
  * au survol ou au tap, sur le point le plus proche.
  */
-export default function Nuage({ points, libelleX, libelleY, formatY, moyenne }) {
+export default function Nuage({ points, libelleX, libelleY, formatY, moyenne, hauteurGrande = 540 }) {
   const { ref, largeur, anime, vu } = useGraphique({ largeurDefaut: 620, seuil: 0.25 });
   const { conteneur, bulle, montrer, cacher } = useInfobulle();
   const [actif, setActif] = useState(null);
 
-  const hauteur = largeur < 420 ? 340 : 540;
+  const hauteur = largeur < 420 ? 340 : hauteurGrande;
   const maxX = Math.max(...points.map((p) => p.x)) * 1.06;
   const minX = Math.min(...points.map((p) => p.x)) * 0.7;
   const maxY = Math.max(...points.map((p) => p.y)) * 1.1;

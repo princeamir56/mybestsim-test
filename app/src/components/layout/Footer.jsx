@@ -3,7 +3,7 @@ import Reveal from '../ui/Reveal.jsx';
 import { n, dateFr, mot } from '../../lib/format.js';
 import data from '../../data/catalogue.json';
 
-/** Une ancre du tableau de bord, valide depuis n'importe quelle page du site. */
+/** Une ancre de l'accueil, valide depuis n'importe quelle page du site. */
 function LienSection({ id, children }) {
   const { pathname } = useLocation();
   const classes = 'inline-block py-1 text-porcelain/70 transition-colors hover:text-signal-light';
@@ -15,19 +15,24 @@ function LienSection({ id, children }) {
 }
 
 export default function Footer() {
+  // Le dashboard ne porte aucun texte : son pied de page se réduit à sa dernière ligne.
+  const { pathname } = useLocation();
+  const reduit = pathname.replace(/\/$/, '') === '/dashboard';
+
   return (
-    <footer className="relative overflow-hidden bg-abysse pb-14 pt-20 text-porcelain">
+    <footer className={`relative overflow-hidden bg-abysse text-porcelain ${reduit ? 'py-6' : 'pb-14 pt-20'}`}>
       <span
         aria-hidden="true"
         className="pointer-events-none absolute -right-[10%] -top-[30%] h-[460px] w-[460px] rounded-full bg-azur/10 blur-[120px]"
       />
       <div className="shell relative">
+        {reduit ? null : (
         <Reveal>
           <div className="grid gap-10 border-b border-porcelain/12 pb-12 lg:grid-cols-[1.4fr_1fr_1fr]">
             <div>
               <img src={`${import.meta.env.BASE_URL}marque/oiseau-96.webp`} alt="" width="48" height="48" loading="lazy" className="mb-4 h-12 w-12" />
               <p className="font-display text-[1.6rem] font-light leading-snug text-porcelain">
-                Comment ce tableau de bord est construit
+                Comment ce site est construit
               </p>
               <p className="mt-5 max-w-[56ch] text-[0.92rem] leading-relaxed text-porcelain/60">
                 Les {data.meta.fichiers} fichiers CSV sont agrégés en Python au moment
@@ -70,6 +75,15 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
+                    to="/dashboard"
+                    className="group inline-flex items-center gap-2 py-1 text-porcelain/70 transition-colors hover:text-signal-light"
+                  >
+                    Voir le dashboard
+                    <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     to="/automation"
                     className="group inline-flex items-center gap-2 py-1 text-porcelain/70 transition-colors hover:text-signal-light"
                   >
@@ -87,8 +101,9 @@ export default function Footer() {
             </div>
           </div>
         </Reveal>
+        )}
 
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-porcelain/60">
+        <div className={`${reduit ? '' : 'mt-8 '}flex flex-wrap items-center justify-between gap-4 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-porcelain/60`}>
           <span>Test de recrutement MyBestSim · Amir Kerkeni</span>
           <span className="flex items-center gap-2">
             <span className="relative flex h-1.5 w-1.5">

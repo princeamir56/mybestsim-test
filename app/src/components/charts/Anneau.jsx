@@ -12,7 +12,7 @@ const EPAISSEUR = 20;
  * chaque part porte son pourcentage dans la légende : la couleur n'est jamais
  * seule à porter l'information.
  */
-export default function Anneau({ parts, centre, sousCentre }) {
+export default function Anneau({ parts, centre, sousCentre, empile }) {
   const { ref, anime, vu } = useGraphique({ seuil: 0.4 });
   const total = parts.reduce((s, p) => s + p.value, 0);
   const couleurs = [COULEUR.azur, COULEUR.signal];
@@ -20,7 +20,7 @@ export default function Anneau({ parts, centre, sousCentre }) {
   let cumul = 0;
 
   return (
-    <div ref={ref} className="flex flex-col items-center gap-6 sm:flex-row sm:gap-8">
+    <div ref={ref} className={`flex flex-col items-center gap-6 sm:flex-row sm:gap-8 ${empile ? 'lg:flex-col xl:flex-row' : ''}`}>
       <div className="relative h-[190px] w-[190px] shrink-0">
         <svg viewBox="0 0 190 190" className="h-full w-full -rotate-90" role="img" aria-label={parts.map((p) => `${p.label} : ${n1((p.value / total) * 100)} %`).join(', ')}>
           <circle cx="95" cy="95" r={R} fill="none" stroke="rgba(17,58,99,0.06)" strokeWidth={EPAISSEUR} />

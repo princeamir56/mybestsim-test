@@ -1046,3 +1046,53 @@ remesuré.
 | Garder l'ordre du brief sur grand écran | l'agent | validé en commitant |
 | Contrôle permanent des textes superposés | l'agent | validé en commitant |
 
+---
+
+## La page `/dashboard`
+
+### Ce que j'ai demandé
+
+L'ancienne page mélangeait les chiffres et leur explication. J'ai demandé une page `/dashboard` avec
+uniquement les indicateurs et les graphiques, sans aucun paragraphe, parfaite sur téléphone comme sur
+ordinateur, et deux boutons dans la barre de navigation pour le dashboard et l'automatisation.
+L'ancienne page reste l'adresse principale `/`, renommée « Accueil ». Je commite et je pousse moi-même.
+
+### Ce que l'agent en a fait
+
+- **Une bande de huit indicateurs**, puis dix graphiques répartis selon leur forme, sur une grille qui
+  passe d'une à deux colonnes.
+- **Les graphiques existants sont réutilisés**, avec quelques réglages de hauteur. Les deux pages
+  lisent les mêmes données : un chiffre ne peut pas différer de l'une à l'autre.
+- **Aucune explication**, y compris dans le pied de page, réduit à sa dernière ligne sur cette page.
+  Seuls restent les titres, légendes et axes, sans lesquels un graphique ne se lit pas.
+- **La navigation** présente désormais les pages partout, et la page en cours est marquée. Sur
+  l'accueil, entre 1024 et 1279 px, les ancres de section passent dans le menu, faute de place.
+
+### Une limite à connaître
+
+Le graphique du prix du Go n'a pas d'axe partant de zéro. La page d'accueil l'expliquait dans une note,
+retirée ici parce que j'ai demandé qu'il n'y ait aucun texte. L'explication reste sur l'accueil.
+
+### Ce que la vérification a attrapé
+
+- **Sur la première passe** : des cartes à moitié vides, parce que deux graphiques voisins n'avaient
+  pas la même hauteur, et deux libellés assez longs pour décaler leurs chiffres.
+- **Sur la dernière** : à 1024 px, les barres des zones réduites à quelques pixels, par des largeurs
+  de libellé prévues pour une carte plus large. Aucun contrôle automatique ne l'a vu : il a fallu
+  regarder la capture.
+
+Dix contrôles de plus, 101 au total : page prérendue et hors index, statistiques du brief en tête,
+tous les fournisseurs présents, un titre par graphique, aucun paragraphe explicatif, boutons de
+navigation sur chaque page. L'audit Chrome parcourt aussi cette page à ses cinq largeurs.
+
+### Décisions : qui a tranché quoi
+
+| Sujet | Proposé par | Tranché par |
+|---|---|---|
+| Page `/dashboard` sans texte, accueil conservé à `/` | moi | moi |
+| Boutons Dashboard et Automation dans la navigation | moi | moi |
+| Huit indicateurs en bande, dix graphiques en grille | l'agent | validé en commitant |
+| Réutiliser les graphiques existants | l'agent | validé en commitant |
+| Réduire le pied de page sur le dashboard | l'agent | validé en commitant |
+| Page en `noindex`, comme l'accueil | l'agent | validé en commitant |
+

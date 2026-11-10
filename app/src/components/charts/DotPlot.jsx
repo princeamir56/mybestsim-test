@@ -14,7 +14,7 @@ const BAS = 8;
  * écarts sont faibles en valeur absolue, mais ce sont eux la question. Chaque
  * point part de la médiane et rejoint sa place, ce qui montre le sens de l'écart.
  */
-export default function DotPlot({ rows, mediane, libelleMediane, format }) {
+export default function DotPlot({ rows, mediane, libelleMediane, format, sansNote }) {
   const { ref, largeur, anime, vu } = useGraphique({ largeurDefaut: 620, seuil: 0.15 });
   const { conteneur, bulle, montrer, cacher } = useInfobulle();
 
@@ -100,7 +100,7 @@ export default function DotPlot({ rows, mediane, libelleMediane, format }) {
         <Infobulle bulle={bulle} conteneur={conteneur} />
       </div>
       <p className="mt-2 text-[0.76rem] text-marine/80">
-        Trait pointillé : {libelleMediane}. L'axe ne part pas de zéro, pour rendre lisibles des écarts faibles.
+        {sansNote ? libelleMediane : `Trait pointillé : ${libelleMediane}. L'axe ne part pas de zéro, pour rendre lisibles des écarts faibles.`}
       </p>
     </div>
   );

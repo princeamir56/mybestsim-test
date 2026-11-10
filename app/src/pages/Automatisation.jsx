@@ -103,7 +103,7 @@ export default function Automatisation() {
       <PerspectiveN8n />
 
       <div className="shell mt-16 flex flex-wrap gap-3">
-        <Link to="/" className="btn-primary">Voir le tableau de bord</Link>
+        <Link to="/dashboard" className="btn-primary">Voir le dashboard</Link>
         <a href="https://github.com/princeamir56/mybestsim-test/blob/main/.github/workflows/pipeline.yml" target="_blank" rel="noopener noreferrer" className="btn border border-porcelain/25 text-porcelain hover:border-porcelain/60 hover:bg-porcelain/10">
           Lire le workflow sur GitHub
         </a>

@@ -16,6 +16,14 @@ const LIENS = [
 ];
 const IDS = LIENS.map((l) => l.id);
 
+// Les pages du site, présentes dans l'en-tête quelle que soit la page en cours.
+const PAGES = [
+  { to: '/dashboard', label: 'Dashboard' },
+  { to: '/automation', label: 'Automation' },
+  { to: '/internet-en-croisiere', label: 'Guide croisière' },
+];
+const PAGES_MENU = [{ to: '/', label: 'Accueil' }, ...PAGES];
+
 /**
  * En-tête fixe.
  *
@@ -28,9 +36,10 @@ export default function Navbar() {
   const [defile, setDefile] = useState(false);
   const [ouvert, setOuvert] = useState(false);
   const { pathname } = useLocation();
-  const surDashboard = pathname === '/';
-  const surArticle = pathname.startsWith('/internet-en-croisiere');
-  const active = useSectionActive(surDashboard ? IDS : []);
+  const chemin = pathname.replace(/\/$/, '') || '/';
+  const surAccueil = chemin === '/';
+  const surArticle = chemin.startsWith('/internet-en-croisiere');
+  const active = useSectionActive(surAccueil ? IDS : []);
 
   useEffect(() => {
     const onScroll = () => setDefile(window.scrollY > 40);
@@ -51,17 +60,19 @@ export default function Navbar() {
   }, [ouvert]);
 
   // Les deux pages qui s'ouvrent sur un fond sombre gardent un en-tête transparent.
-  const surFondSombre = surDashboard || pathname.startsWith('/automation');
+  const surFondSombre = surAccueil || chemin.startsWith('/automation');
   const clair = defile || !surFondSombre || ouvert;
   const fonce = !clair;
-  const lienCible = surDashboard ? '/internet-en-croisiere' : '/';
-  const lienLibelle = surDashboard ? 'Guide croisière' : 'Le tableau de bord';
 
-  const menuMobile = surDashboard
+  const menuSections = surAccueil
     ? LIENS.map((l) => [`#${l.id}`, l.label])
     : surArticle
       ? SOMMAIRE
       : [];
+
+  // Sur l'accueil, les ancres ne tiennent à côté des pages qu'à partir de `xl` :
+  // entre `lg` et `xl`, elles restent accessibles par le menu.
+  const masqueMenu = surAccueil ? 'xl:hidden' : 'lg:hidden';
 
   return (
     <>
@@ -71,7 +82,7 @@ export default function Navbar() {
         }`}
       >
         <div className="shell flex h-[68px] items-center gap-5">
-          <Link to="/" onClick={() => surDashboard && allerEnHaut()} className="group flex items-center gap-2.5" aria-label="MyBestSim, retour au tableau de bord">
+          <Link to="/" onClick={() => surAccueil && allerEnHaut()} className="group flex items-center gap-2.5" aria-label="MyBestSim, retour à l'accueil">
             <img
               src={`${BASE}marque/oiseau-96.webp`}
               alt=""
@@ -89,38 +100,54 @@ export default function Navbar() {
           </Link>
 
           <nav aria-label="Navigation principale" className="ml-auto hidden items-center gap-7 lg:flex">
-            {surDashboard &&
-              LIENS.map((l) => {
-                const courant = active === l.id;
+            {surAccueil ? (
+              <div className="hidden items-center gap-7 xl:flex">
+                {LIENS.map((l) => {
+                  const courant = active === l.id;
+                  return (
+                    <a
+                      key={l.id}
+                      href={`#${l.id}`}
+                      aria-current={courant ? 'true' : undefined}
+                      className={`relative py-2 font-mono text-[0.72rem] uppercase tracking-[0.12em] transition-colors duration-300 after:absolute after:bottom-0.5 after:left-0 after:h-px after:bg-signal after:transition-all after:duration-300 hover:after:w-full ${
+                        courant ? 'after:w-full' : 'after:w-0'
+                      } ${
+                        fonce
+                          ? 'text-porcelain/80 hover:text-porcelain'
+                          : courant
+                            ? 'text-marine'
+                            : 'text-marine/80 hover:text-marine'
+                      }`}
+                    >
+                      {l.label}
+                    </a>
+                  );
+                })}
+              </div>
+            ) : null}
+
+            <div className="flex items-center gap-2">
+              {PAGES.map((p) => {
+                const courante = chemin === p.to;
+                const teinte = courante
+                  ? fonce
+                    ? 'border-porcelain bg-porcelain text-marine'
+                    : 'border-marine bg-marine text-porcelain'
+                  : fonce
+                    ? 'border-porcelain/30 text-porcelain hover:border-porcelain/70 hover:bg-porcelain/10'
+                    : 'border-marine/25 text-marine hover:border-signal hover:text-signal-fonce';
                 return (
-                  <a
-                    key={l.id}
-                    href={`#${l.id}`}
-                    aria-current={courant ? 'true' : undefined}
-                    className={`relative py-2 font-mono text-[0.72rem] uppercase tracking-[0.12em] transition-colors duration-300 after:absolute after:bottom-0.5 after:left-0 after:h-px after:bg-signal after:transition-all after:duration-300 hover:after:w-full ${
-                      courant ? 'after:w-full' : 'after:w-0'
-                    } ${
-                      fonce
-                        ? 'text-porcelain/80 hover:text-porcelain'
-                        : courant
-                          ? 'text-marine'
-                          : 'text-marine/80 hover:text-marine'
-                    }`}
+                  <Link
+                    key={p.to}
+                    to={p.to}
+                    aria-current={courante ? 'page' : undefined}
+                    className={`whitespace-nowrap rounded-full border px-4 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.12em] transition-all duration-300 ${teinte}`}
                   >
-                    {l.label}
-                  </a>
+                    {p.label}
+                  </Link>
                 );
               })}
-            <Link
-              to={lienCible}
-              className={`rounded-full border px-5 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.12em] transition-all duration-300 ${
-                fonce
-                  ? 'border-porcelain/30 text-porcelain hover:border-porcelain/70 hover:bg-porcelain/10'
-                  : 'border-marine/25 text-marine hover:border-signal hover:text-signal-fonce'
-              }`}
-            >
-              {lienLibelle}
-            </Link>
+            </div>
           </nav>
 
           <button
@@ -129,7 +156,7 @@ export default function Navbar() {
             aria-label={ouvert ? 'Fermer le menu' : 'Ouvrir le menu'}
             aria-expanded={ouvert}
             aria-controls="menu-mobile"
-            className={`ml-auto flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-full border transition-colors duration-300 lg:hidden ${
+            className={`ml-auto flex h-11 w-11 shrink-0 flex-col items-center justify-center gap-[5px] rounded-full border transition-colors duration-300 lg:ml-0 ${masqueMenu} ${
               fonce ? 'border-porcelain/30' : 'border-marine/20'
             }`}
           >
@@ -160,7 +187,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 top-[68px] z-30 bg-abysse/40 lg:hidden"
+              className={`fixed inset-0 top-[68px] z-30 bg-abysse/40 ${masqueMenu}`}
             />
             <motion.div
               id="menu-mobile"
@@ -168,27 +195,44 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.3, ease: EASE }}
-              className="fixed inset-x-0 top-[68px] z-40 max-h-[calc(100dvh-68px)] overflow-y-auto border-b border-marine/10 bg-porcelain lg:hidden"
+              className={`fixed inset-x-0 top-[68px] z-40 max-h-[calc(100dvh-68px)] overflow-y-auto border-b border-marine/10 bg-porcelain ${masqueMenu}`}
               data-lenis-prevent
             >
-              <nav aria-label="Navigation mobile" className="shell flex flex-col py-3">
-                {menuMobile.map(([href, label], i) => (
-                  <motion.a
-                    key={href}
-                    href={href}
-                    onClick={() => setOuvert(false)}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.03 * i, duration: 0.3 }}
-                    className="flex min-h-[48px] items-center border-b border-marine/[0.08] text-[0.95rem] text-marine"
-                  >
-                    {label}
-                  </motion.a>
-                ))}
-                <Link to={lienCible} onClick={() => setOuvert(false)} className="btn-primary mb-2 mt-4">
-                  {lienLibelle}
-                </Link>
+              <nav aria-label="Navigation mobile" className="shell grid grid-cols-2 gap-2 pb-2 pt-4">
+                {PAGES_MENU.map((p) => {
+                  const courante = chemin === p.to;
+                  return (
+                    <Link
+                      key={p.to}
+                      to={p.to}
+                      aria-current={courante ? 'page' : undefined}
+                      onClick={() => setOuvert(false)}
+                      className={`flex min-h-[48px] items-center justify-center rounded-full border px-3 text-center font-mono text-[0.7rem] uppercase tracking-[0.1em] transition-colors duration-200 ${
+                        courante ? 'border-marine bg-marine text-porcelain' : 'border-marine/25 text-marine'
+                      }`}
+                    >
+                      {p.label}
+                    </Link>
+                  );
+                })}
               </nav>
+              {menuSections.length ? (
+                <nav aria-label="Sections de la page" className="shell flex flex-col pb-3">
+                  {menuSections.map(([href, label], i) => (
+                    <motion.a
+                      key={href}
+                      href={href}
+                      onClick={() => setOuvert(false)}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.03 * i, duration: 0.3 }}
+                      className="flex min-h-[48px] items-center border-b border-marine/[0.08] text-[0.95rem] text-marine last:border-b-0"
+                    >
+                      {label}
+                    </motion.a>
+                  ))}
+                </nav>
+              ) : null}
             </motion.div>
           </>
         )}

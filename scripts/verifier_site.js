@@ -309,6 +309,21 @@ const nf404 = charger('404.html');
 verifier('404.html est une vraie page, pas le tableau de bord', nf404.texte.includes("s'est envolée") && !nf404.texte.includes('Décisions & qualité'));
 verifier('404.html est hors index', (nf404.doc.querySelector('meta[name=robots]') || {}).content?.includes('noindex'));
 
+titre('Dashboard');
+const tb = charger('dashboard/index.html');
+verifier('la page est prérendue', tb.texte.length > 1500, `${tb.texte.length} caractères`);
+verifier('elle reste hors index', (tb.doc.querySelector('meta[name=robots]') || {}).content?.includes('noindex'));
+verifier('un seul H1', tb.doc.querySelectorAll('h1').length === 1);
+const kpisDash = [nb(K.total), nb(K.plus_100), eur(K.prix_min), eur(K.prix_max), `${nf2.format(K.go_moyen)} Go`, eur(K.prix_moyen)].map(norm);
+verifier('les statistiques du brief sont en tête de page',
+  kpisDash.every((v) => norm(tb.doc.querySelector('main dl').textContent).includes(v)));
+const sansFournisseur = CAT.fournisseurs.filter((f) => !tb.texte.includes(f.nom)).map((f) => f.nom);
+verifier('tous les fournisseurs sont dans le dashboard', sansFournisseur.length === 0, sansFournisseur.join(', '));
+verifier('chaque graphique a son titre', tb.doc.querySelectorAll('main h2').length >= 10, `${tb.doc.querySelectorAll('main h2').length}`);
+const longs = [...tb.doc.querySelectorAll('main p')].filter((p) => norm(p.textContent).split(' ').length > 8);
+verifier('aucun paragraphe explicatif dans le dashboard', longs.length === 0, longs.map((p) => norm(p.textContent).slice(0, 40)).join(' | '));
+verifier('aucun texte de présentation dans son pied de page', !tb.texte.includes('Comment ce site est construit'));
+
 titre('Page d\'automatisation');
 const auto = charger('automation/index.html');
 verifier('la page est prérendue, avec ses scénarios', auto.texte.includes('Nouveau fichier') && auto.texte.includes('Fichier corrompu'));
@@ -319,7 +334,7 @@ const assertions = (fs.readFileSync(path.join(__dirname, 'mbs_catalogue.py'), 'u
 verifier('le nombre d\'assertions annoncé est exact', auto.texte.includes(`${assertions} assertions`), `${assertions}`);
 
 titre('Liens internes');
-const routesValides = new Set(['/', '/internet-en-croisiere', '/automation']);
+const routesValides = new Set(['/', '/dashboard', '/internet-en-croisiere', '/automation']);
 const verifierLiens = (page, nom) => {
   const morts = [];
   page.doc.querySelectorAll('a[href]').forEach((a) => {
@@ -341,6 +356,9 @@ verifierLiens(dash, 'le tableau de bord');
 verifierLiens(art, "l'article");
 verifierLiens(nf404, 'la page introuvable');
 verifierLiens(auto, "la page d'automatisation");
+verifierLiens(tb, 'le dashboard');
+verifier("l'en-tête mène au dashboard et à l'automatisation",
+  [dash, art, auto, tb].every((p) => p.doc.querySelector('header a[href="/dashboard"]') && p.doc.querySelector('header a[href="/automation"]')));
 
 // Dernier contrôle, compté lui-même : la page annonce le total réel de ce script.
 verifier('le nombre de contrôles annoncé est exact', auto.texte.includes(`${totalControles + 1} contrôles`), `${totalControles + 1}`);

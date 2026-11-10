@@ -449,7 +449,7 @@ function Entete() {
       <Reveal>
         <nav aria-label="Fil d'Ariane" className="font-mono text-[0.7rem] uppercase tracking-[0.1em] text-marine/80">
           <ol className="flex flex-wrap items-center gap-x-2">
-            <li><Link to="/" className="inline-block py-1 underline-offset-4 transition-colors hover:text-signal-fonce hover:underline">Tableau de bord</Link></li>
+            <li><Link to="/" className="inline-block py-1 underline-offset-4 transition-colors hover:text-signal-fonce hover:underline">Accueil</Link></li>
             <li aria-hidden="true">/</li>
             <li aria-current="page" className="text-marine">Guide croisière</li>
           </ol>

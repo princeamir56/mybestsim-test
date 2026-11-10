@@ -127,7 +127,7 @@ const ROUTES = [
         {
           '@type': 'BreadcrumbList',
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Tableau de bord', item: `${ORIGINE}${BASE}` },
+            { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${ORIGINE}${BASE}` },
             { '@type': 'ListItem', position: 2, name: 'Guide croisière', item: `${ORIGINE}${BASE}internet-en-croisiere` },
           ],
         },
@@ -145,6 +145,16 @@ const ROUTES = [
     },
   },
   {
+    url: '/dashboard',
+    fichier: 'dashboard/index.html',
+    title: 'Dashboard | Catalogue eSIM MyBestSim',
+    description:
+      `Les indicateurs et les graphiques du catalogue eSIM : ${lignesFr} offres de ${catalogue.meta.fichiers} fournisseurs, ` +
+      'prix, volumes de data et couverture.',
+    robots: 'noindex, follow', // outil de lecture : seul l'article doit ranker
+    schema: { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Dashboard du catalogue eSIM' },
+  },
+  {
     url: '/automation',
     fichier: 'automation/index.html',
     title: "Comment le catalogue se met à jour tout seul | MyBestSim",
@@ -160,7 +170,7 @@ const ROUTES = [
     url: '/404',
     fichier: '404.html',
     title: 'Page introuvable | MyBestSim',
-    description: "Cette adresse n'existe pas. Retrouvez le tableau de bord et le guide croisière.",
+    description: "Cette adresse n'existe pas. Retrouvez l'accueil, le dashboard et le guide croisière.",
     robots: 'noindex, follow',
     schema: { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Page introuvable' },
   },

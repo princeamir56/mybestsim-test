@@ -139,7 +139,7 @@ export default function Decisions({ ouverte, setOuverte, demande }) {
         <Reveal delay={0.1}>
           <div className="mt-14 rounded-[1.2rem] border border-signal/25 bg-signal/[0.06] p-6 sm:p-8">
             <h3 className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-signal-light">
-              Ce que ce tableau de bord ne peut pas dire
+              Ce que ces chiffres ne peuvent pas dire
             </h3>
             <ul className="mt-5 space-y-3.5">
               {data.limites.map((l) => (

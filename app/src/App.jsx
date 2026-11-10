@@ -5,6 +5,7 @@ import Footer from './components/layout/Footer.jsx';
 import Intro from './components/layout/Intro.jsx';
 import SmoothScroll from './components/ui/SmoothScroll.jsx';
 import ScrollProgress from './components/ui/ScrollProgress.jsx';
+import Accueil from './pages/Accueil.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Article from './pages/Article.jsx';
 import Automatisation from './pages/Automatisation.jsx';
@@ -46,7 +47,8 @@ export default function App() {
       <Navbar />
       <main id="contenu">
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Accueil />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/internet-en-croisiere" element={<Article />} />
           <Route path="/automation" element={<Automatisation />} />
           <Route path="*" element={<Introuvable />} />

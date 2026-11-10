@@ -64,10 +64,10 @@ function squarifier(items, x0, y0, w0, h0) {
  * son compte en toutes lettres : aucune lecture n'exige le survol, et le
  * classement exact reste disponible dans la table de données juste en dessous.
  */
-export default function Treemap({ items }) {
+export default function Treemap({ items, hauteurPour }) {
   const { ref, largeur, anime, vu } = useGraphique({ largeurDefaut: 1100, seuil: 0.2 });
   const { conteneur, bulle, montrer, cacher } = useInfobulle();
-  const hauteur = largeur < 520 ? 700 : largeur < 800 ? 520 : 470;
+  const hauteur = hauteurPour ? hauteurPour(largeur) : largeur < 520 ? 700 : largeur < 800 ? 520 : 470;
 
   const cases = squarifier(items, 0, 0, largeur, hauteur);
 

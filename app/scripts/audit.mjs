@@ -29,7 +29,7 @@ const LARGEURS = {
   portable: { width: 1280, height: 720, deviceScaleFactor: 1 },
   bureau: { width: 1680, height: 1000, deviceScaleFactor: 1 },
 };
-const PAGES = [['dashboard', '/'], ['article', '/internet-en-croisiere'], ['automation', '/automation'], ['404', '/nimporte-quoi']];
+const PAGES = [['accueil', '/'], ['dashboard', '/dashboard'], ['article', '/internet-en-croisiere'], ['automation', '/automation'], ['404', '/nimporte-quoi']];
 
 const echecs = [];
 const pause = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -363,7 +363,7 @@ for (const [nomVp, vp] of Object.entries(LARGEURS)) {
     console.log(`\n— ${nomVp} · ${nomPage} —`);
     const { page, fermer } = await nouvellePage(vp, `${nomVp}/${nomPage}`);
     await page.goto(BASE + chemin, { waitUntil: 'networkidle2', timeout: 45000 });
-    await pause(nomPage === 'dashboard' ? 3600 : 600);
+    await pause(nomPage === 'accueil' ? 3600 : 600);
     await parcourir(page);
     await pause(2200); // les compteurs finissent de tourner
     const m = await mesurer(page);
