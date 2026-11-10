@@ -2,9 +2,8 @@ import { Children, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Faq from '../components/ui/Faq.jsx';
 import Magnetic from '../components/ui/Magnetic.jsx';
-import { n, n1, eur, dateFr, mot, Mot } from '../lib/format.js';
+import { n, n1, eur, mot, Mot } from '../lib/format.js';
 import art from '../data/article.json';
-import cat from '../data/catalogue.json';
 import { FAQ, ITINERAIRES_EDITO, SEUIL, SEUIL_TXT, SOMMAIRE, typo } from '../data/contenuArticle.js';
 import { useSectionActive } from '../lib/scroll.js';
 
@@ -472,8 +471,6 @@ function Entete() {
 
       <Reveal delay={0.28}>
         <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-b border-marine/10 pb-7 text-[0.84rem] text-marine/80">
-          <span>Mis à jour le <time dateTime={cat.meta.genere_le}>{dateFr(cat.meta.genere_le)}</time></span>
-          <span aria-hidden="true">·</span>
           <span>9&nbsp;min de lecture</span>
           <span aria-hidden="true">·</span>
           <span>Prix issus d'un catalogue de {n(art.source.lignes)} offres</span>
@@ -780,8 +777,8 @@ const Methodologie = () => (
     <div className="my-7 rounded-[1.1rem] bg-shell/70 p-6">
       <p className="label-muted mb-3">Méthodologie et limites</p>
       <p className="text-[0.88rem] leading-relaxed text-marine/80">
-        Prix relevés dans le catalogue fournisseurs importé par MyBestSim, à la date de
-        mise à jour indiquée en haut de cet article. Ce sont des <b>prix de catalogue</b>,
+        Prix relevés dans le catalogue fournisseurs importé par MyBestSim. Ce sont des
+        <b>prix de catalogue</b>,
         hors promotions et codes de réduction, susceptibles d'évoluer : vérifiez toujours
         le tarif affiché avant d'acheter. Les médianes sont calculées sur l'ensemble des
         offres correspondant au couple volume / durée indiqué. Les forfaits illimités sont
@@ -921,7 +918,7 @@ function Sources() {
             <span className="font-mono text-[0.7rem] text-marine/80">[{SOURCES.length + 1}]</span>
             <span>
               Prix : catalogue fournisseurs MyBestSim, {n(art.source.lignes)} offres de{' '}
-              {art.source.fournisseurs} fournisseurs, extrait le {dateFr(cat.meta.genere_le)}.
+              {art.source.fournisseurs} fournisseurs.
             </span>
           </li>
         </ol>

@@ -14,9 +14,6 @@ export const eur = (v) => `${nf2.format(v)}\u00a0€`;
 export const eur0 = (v) => `${nf.format(Math.round(v))}\u00a0€`;
 export const pct = (v) => `${nf1.format(v)}\u00a0%`;
 
-export const dateFr = (iso) =>
-  new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
-
 // Les petits nombres s'écrivent en toutes lettres dans une phrase, en chiffres
 // dans un tableau. Ce helper existe parce que les comptes du site sont
 // désormais DÉRIVÉS des données : sans lui, « quatre ambiguïtés » deviendrait

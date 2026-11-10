@@ -180,9 +180,7 @@ entre les données et la page — un invariant qui reste vrai quel que soit l'im
   traverse toute la chaîne jusqu'à la page ;
 - les pièges, les limites, les prix de l'article, le nom de chaque fournisseur ;
 - les conseils de l'article : le seuil local / régional calculé est repris partout, et aucune
-  phrase n'en annonce un autre ;
-- la **date de génération** du JSON, présente dans le pied de page — sans quoi un site
-  construit depuis un JSON périmé passerait tous les autres tests sans broncher.
+  phrase n'en annonce un autre.
 
 101 contrôles, aucune valeur attendue écrite en dur.
 

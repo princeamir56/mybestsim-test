@@ -9,7 +9,7 @@ import Courbe from '../components/charts/Courbe.jsx';
 import Ecart from '../components/charts/Ecart.jsx';
 import Anneau from '../components/charts/Anneau.jsx';
 import BarList from '../components/charts/BarList.jsx';
-import { dateFr, eur, n, n1, n2, n3 } from '../lib/format.js';
+import { eur, n, n1, n2, n3 } from '../lib/format.js';
 import data from '../data/catalogue.json';
 
 const K = data.kpi;
@@ -67,9 +67,6 @@ export default function Dashboard() {
         <h1 className="font-display text-[1.9rem] font-light leading-none tracking-[-0.02em] text-marine sm:text-[2.25rem]">
           Dashboard
         </h1>
-        <p className="font-mono text-[0.72rem] text-marine/80">
-          <time dateTime={data.meta.genere_le}>{dateFr(data.meta.genere_le)}</time>
-        </p>
       </header>
 
       <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-porcelain/[0.14] shadow-halo sm:grid-cols-4 xl:grid-cols-8" style={{ backgroundColor: '#2b3845' }}>

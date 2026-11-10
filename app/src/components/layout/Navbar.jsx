@@ -127,7 +127,7 @@ export default function Navbar() {
             ) : null}
 
             <div className="flex items-center gap-2">
-              {PAGES.map((p) => {
+              {(surAccueil ? PAGES : PAGES_MENU).map((p) => {
                 const courante = chemin === p.to;
                 const teinte = courante
                   ? fonce

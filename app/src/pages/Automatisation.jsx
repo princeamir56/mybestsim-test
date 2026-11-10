@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Diagramme from '../components/automatisation/Diagramme.jsx';
 import PerspectiveN8n from '../components/automatisation/PerspectiveN8n.jsx';
 import { CONTROLES, NOEUDS, SCENARIOS } from '../data/automatisation.js';
-import { n, dateFr } from '../lib/format.js';
+import { n } from '../lib/format.js';
 import data from '../data/catalogue.json';
 
 const CHIFFRES = [
@@ -95,7 +95,7 @@ export default function Automatisation() {
             suit fonctionne déjà. L'audit dans un vrai navigateur, lui, se lance à la main.
           </p>
           <p className="mt-4 font-mono text-[0.72rem] text-porcelain/75">
-            Dernières données : {dateFr(data.meta.genere_le)} · {n(data.meta.lignes)} offres
+            Dernières données : {n(data.meta.lignes)} offres
           </p>
         </aside>
       </section>

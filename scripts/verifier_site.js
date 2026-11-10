@@ -115,13 +115,8 @@ const repartitionAbsente = CAT.fournisseurs
 verifier('la répartition par fournisseur figure parmi les six statistiques',
   repartitionAbsente.length === 0, repartitionAbsente.join(', '));
 
-// Cohérence temporelle : la page servie doit porter la date du JSON qui l'a
-// produite. Sans ce contrôle, un site construit à partir d'un JSON périmé
-// passerait tous les autres tests sans broncher.
 const dateFr = new Date(CAT.meta.genere_le)
   .toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
-verifier('la page porte la date de génération du JSON',
-  dash.texte.includes(dateFr), dateFr);
 
 titre('Panneau « Décisions & qualité des données »');
 const idsDecisions = CAT.decisions.map((d) => d.id);
@@ -357,6 +352,8 @@ verifierLiens(art, "l'article");
 verifierLiens(nf404, 'la page introuvable');
 verifierLiens(auto, "la page d'automatisation");
 verifierLiens(tb, 'le dashboard');
+verifier("aucune date de génération n'est affichée",
+  [dash, art, auto, tb, nf404].every((p) => !p.texte.includes(dateFr)), dateFr);
 verifier("l'en-tête mène au dashboard et à l'automatisation",
   [dash, art, auto, tb].every((p) => p.doc.querySelector('header a[href="/dashboard"]') && p.doc.querySelector('header a[href="/automation"]')));
 

@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import Reveal from '../ui/Reveal.jsx';
-import { n, dateFr, mot } from '../../lib/format.js';
+import { n, mot } from '../../lib/format.js';
 import data from '../../data/catalogue.json';
 
 /** Une ancre de l'accueil, valide depuis n'importe quelle page du site. */
@@ -105,13 +105,6 @@ export default function Footer() {
 
         <div className={`${reduit ? '' : 'mt-8 '}flex flex-wrap items-center justify-between gap-4 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-porcelain/60`}>
           <span>Test de recrutement MyBestSim · Amir Kerkeni</span>
-          <span className="flex items-center gap-2">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-signal opacity-75 motion-safe:animate-pulse-ring" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
-            </span>
-            Généré le {dateFr(data.meta.genere_le)}
-          </span>
         </div>
       </div>
     </footer>
